@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
-import ShoppingBagButton from '../components/shoppingBagButton'
+import BasketButton from '../components/basketButton'
 
 // ServerSide
 import { urlFor } from '../sanity';
@@ -11,6 +11,7 @@ export default function MealScreen() {
   const route = useRoute()
   const navigation = useNavigation()
   const { title, description, price, mealimage } = route.params
+
   return (
     <>
       {/* GoBack Button */}
@@ -33,7 +34,7 @@ export default function MealScreen() {
           </View>
         </View>
       </View>
-      <ShoppingBagButton />
+      <BasketButton />
     </>
   )
 }

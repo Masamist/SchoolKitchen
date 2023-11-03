@@ -2,57 +2,60 @@ import { StyleSheet, Text, TouchableOpacity, ScrollView, View } from 'react-nati
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-
 // Component
 import Categories from '../components/categories'
 import MealRow from '../components/mealRow'
-import ShoppingBagButton from '../components/shoppingBagButton'
+import BasketIcon from '../components/basketIcon'
+import BasketButton from '../components/basketButton'
+//import BagIcon from '../components/bagIcon'
 
-// ServerSide
-import { getAllMeals } from '../api'
+// // ServerSide
+// import { getAllMeals } from '../api'
 
 export default function MealListScreen() {
- 
-  const route = useRoute()
-  const [allMeals, setAllMeals ] = useState([])
+  //const navigation = useNavigation()
+  //const route = useRoute()
   const [categorizedMeals, setCategorizedMeal] = useState([])
-
+  //const [Meals, setMeals] = useState()
+  const { params: {
+    selectedCategory, 
+    allMeals
+  }} = useRoute()
+  
+  /////////////////Error!!!!!!!!!!!!!!!!!!!!!!!!!!
   useEffect(() => {
-    getAllMeals().then(data => {
-      setAllMeals(data)
-    })
+    const categorized = allMeals.filter(meal => meal.category._ref == selectedCategory)
+    setCategorizedMeal(categorized)
+    //setMeals(allMeals)
+    //console.log("categorized",categorized)
   }, [])
-
-  const selectedCategory = route.params;
-  const categorized = allMeals.filter(meal => meal._id == selectedCategory)
-  setCategorizedMeal(categorized)
+  // const categorized = allMeals.filter(meal => meal._id == selectedCategory)
+  // setCategorizedMeal(categorized)
+  //console.log("allMeals",allMeals)
   //console.log("selectedCategory",selectedCategory)
-  console.log("categorizedMeals",categorizedMeals)
+  //console.log("categorizedMeals",categorizedMeals)
 
   return (
   <>
+    <BasketIcon />
     <ScrollView >
+      {/* <BagIcon /> */}
       <Categories />
       {
         categorizedMeals?.map(meal=>{
-          console.log(meal.mealimage)
           return (
-            <>
             <MealRow 
-                key={meal.id}
-                id={meal.id}
-                title={meal.name}
-                description={meal.description}
-                price={meal.price}
-                mealimage={meal.mealimage}
-              />
-            </>
-              
-              
+              key={meal._id}
+              id={meal._id}
+              title={meal.name}
+              description={meal.description}
+              price={meal.price}
+              mealimage={meal.mealimage}
+            />     
           )
         })
       }
-      <ShoppingBagButton />
+      {/* <BasketButton /> */}
     </ScrollView>
   </>
   )

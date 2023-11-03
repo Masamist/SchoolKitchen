@@ -20,8 +20,8 @@ export default function MealCard({ id, title, price, description, mealimage }) {
           
             <Text className="text-lg font-bold pt-2">{title}</Text>
             <View className="flex-row items-center space-x-1">
-                <Text className="text-xs">
-                    <Text className="text-gray-500">{price}</Text>
+                <Text className="text-s">
+                    <Text className="text-gray-500">$ {price}</Text>
                     
                 </Text>
             </View>

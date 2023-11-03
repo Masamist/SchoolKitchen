@@ -1,26 +1,21 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MealCard from '../components/mealCard'
 
-// ServerSide
-import { getAllMeals } from '../api'
 
-
-export default function FeaturedRow() {
-  const [meals, setMeals] = useState([])
-
-  const newMeals = meals.slice(0, 7)
-  //console.log('newMeal:', newMeals)
-  
-  useEffect(() => {
-    getAllMeals().then(data => {
-      setMeals(data)
-    })
-  }, [])
-  //console.log('Meal:', meals)
-
+export default function FeaturedRow({title, meals}) {
   return (
     <View>
+      <View className="flex-col justify-between items-center px-4">
+        <View>
+          <Text className="font-bold text-lg">{title}</Text>
+        </View>
+        
+        <TouchableOpacity>
+          <Text style={{color: 'orange'}} className="font-semibold">See All</Text>
+        </TouchableOpacity>
+      </View>
+
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -30,22 +25,21 @@ export default function FeaturedRow() {
         className="overflow-visible py-5"
        >
         {
-            newMeals?.map(meal => {
-            console.log(meal)
-            return (
-                <MealCard    
-                  id={meal._id}
-                  key={meal._id}
-                  title={meal.name}
-                  price={meal.price}
-                  description={meal.description}
-                  mealimage={meal.mealimage}
-
+          meals?.map(meal => {
+          // /console.log(meal)
+          return (
+              <MealCard    
+                id={meal._id}
+                key={meal._id}
+                title={meal.name}
+                price={meal.price}
+                description={meal.description}
+                mealimage={meal.mealimage}
               />    
-            )
+              )
           })
-        }           
-       </ScrollView>
+        }   
+      </ScrollView>    
     </View>
   )
 }
