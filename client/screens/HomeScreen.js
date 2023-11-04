@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import { View, SafeAreaView, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import React, { useEffect, useState } from 'react'
 //import { useNavigation } from '@react-navigation/native'
 
 // Component
@@ -9,6 +9,7 @@ import FeaturedRow from '../components/featuredRow'
 
 // ServerSide
 import { getAllMeals } from '../api'
+import { FIREBASE_AUTH } from '../firebaseConfig'
 
 export default function HomeScreen() {
   const [allMeals, setAllMeals ] = useState([])
@@ -32,7 +33,11 @@ export default function HomeScreen() {
             paddingBottom: 50
         }}
       > 
+        <TouchableOpacity onPress={()=> FIREBASE_AUTH.signOut()}>
+          <Text className="font-semibold text-yellow-500"> Sign Out</Text>
+        </TouchableOpacity>
         {/* Shopping Basket */}
+        
         <BasketIcon />
         {/* categories */}
         <Categories allMeals={allMeals} />
