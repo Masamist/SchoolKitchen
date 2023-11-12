@@ -1,6 +1,6 @@
-import { View, SafeAreaView, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import { View, SafeAreaView, Text, Pressable, ScrollView, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
-//import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 // Component
 import BasketIcon from '../components/basketIcon'
@@ -10,11 +10,12 @@ import FeaturedRow from '../components/featuredRow'
 // ServerSide
 import { getAllMeals } from '../api'
 import { FIREBASE_AUTH } from '../firebaseConfig'
+import { Navigation } from 'react-native-feather'
 
 export default function HomeScreen() {
+  const navigation = useNavigation()
   const [allMeals, setAllMeals ] = useState([])
 
-  
   useEffect(() => {
     getAllMeals().then(data => {
       setAllMeals(data)
@@ -33,9 +34,12 @@ export default function HomeScreen() {
             paddingBottom: 50
         }}
       > 
-        <TouchableOpacity onPress={()=> FIREBASE_AUTH.signOut()}>
+        <Pressable onPress={()=> FIREBASE_AUTH.signOut()}>
           <Text className="font-semibold text-yellow-500"> Sign Out</Text>
-        </TouchableOpacity>
+        </Pressable>
+        <Pressable onPress={()=> navigation.navigate('Dashboard')}>
+          <Text className="font-semibold text-yellow-500">  / Food Provider Page /</Text>
+        </Pressable>
         {/* Shopping Basket */}
         
         <BasketIcon />

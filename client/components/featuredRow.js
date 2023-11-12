@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MealCard from '../components/mealCard'
 
@@ -11,9 +11,9 @@ export default function FeaturedRow({title, meals}) {
           <Text className="font-bold text-lg">{title}</Text>
         </View>
         
-        <TouchableOpacity>
+        <Pressable>
           <Text style={{color: 'orange'}} className="font-semibold">See All</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <ScrollView

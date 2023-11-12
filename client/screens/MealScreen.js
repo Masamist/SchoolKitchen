@@ -2,7 +2,8 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
-import BasketButton from '../components/basketButton'
+import ProceedButton from '../components/proceedButton'
+//import { themeColors } from '../theme'
 
 // ServerSide
 import { urlFor } from '../sanity';
@@ -34,7 +35,7 @@ export default function MealScreen() {
           </View>
         </View>
       </View>
-      <BasketButton />
+      <ProceedButton props={"Go to Shopping Basket"} />
     </>
   )
 }

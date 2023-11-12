@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ScrollView, Pressable, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 //import { categories } from '../constants';
 
@@ -36,7 +36,7 @@ export default function Categories({allMeals}) {
             let textClass = isActive? ' font-semibold text-gray-700': ' text-gray-500'
             return(
               <View key={category._id} className="flex justify-center items-center mr-6">
-                <TouchableOpacity
+                <Pressable
                   onPress={()=> {
                     setActiveCategory(category._id),
                     navigation.navigate('MealList', {
@@ -50,7 +50,7 @@ export default function Categories({allMeals}) {
                     style={{width: 50, height: 50}} 
                     source={{ uri: urlFor(category.image).url() }} 
                   />
-                </TouchableOpacity>
+                </Pressable>
                 <Text className={"pt-1 text-sm "+ textClass}>{category.name}</Text>
               </View> 
             )

@@ -57,7 +57,8 @@ export default function SignUpScreen() {
       try{
         const response = await createUserWithEmailAndPassword(auth, email, password)
         console.log(response)
-        alert('Check your emails!')
+        alert('Success!')
+        navigation.navigate('Home')
       } catch (error) {
         console.log(error)
         alert('Registration failed:' + error.message)
@@ -95,6 +96,7 @@ export default function SignUpScreen() {
                 value={fullName}
                 onChangeText={(text) => setFullName(text)}
                 placeholder='Enter Name'
+                autoCorrect={false}
             />
             <Text className="text-gray-700 ml-4">Email Address</Text>
             <TextInput
@@ -102,7 +104,7 @@ export default function SignUpScreen() {
                 placeholder="Email"
                 autoCapitalize='none'
                 onChangeText={(text) => setEmail(text)}
-                value={email.toString()} 
+                value={email.toString()}
             />
             <Text className="text-gray-700 ml-4">Password</Text>
             <TextInput
@@ -110,6 +112,7 @@ export default function SignUpScreen() {
                 secureTextEntry={true}
                 placeholder="Password"
                 autoCapitalize='none'
+                autoCorrect={false}
                 onChangeText={(text) => setPassword(text)}
                 value={password.toString()} 
             />
