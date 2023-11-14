@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FavoritesContextProvider from './store/context/favorites-context';
 
 // Auth
 import { User, onAuthStateChanged } from 'firebase/auth'
@@ -63,15 +64,17 @@ export default function Navigation() {
       {/* <Stack.Navigator initialRouteName='Login'> */}
         {user ? (
           //<Stack.Screen name="Parent" component={ParentLayout} options={{ headerShown: false }} />
-          <ParentStack.Navigator initialRouteName='Home'>
-            <ParentStack.Screen name="Home" component={HomeScreen} />
-            <ParentStack.Screen name="MealList" component={MealListScreen} />
-            <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
-            <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
-            <ParentStack.Screen name="Dashboard" component={DashboardScreen} />
-            <ParentStack.Screen name="MenuList" component={MenuListScreen} />
-            <ParentStack.Screen name="MealForm" component={MealFormScreen} />
-          </ParentStack.Navigator>        
+          //<FavoritesContextProvider>
+            <ParentStack.Navigator initialRouteName='Home'>
+              <ParentStack.Screen name="Home" component={HomeScreen} />
+              <ParentStack.Screen name="MealList" component={MealListScreen} />
+              <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
+              <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
+              <ParentStack.Screen name="Dashboard" component={DashboardScreen} />
+              <ParentStack.Screen name="MenuList" component={MenuListScreen} />
+              <ParentStack.Screen name="MealForm" component={MealFormScreen} />
+            </ParentStack.Navigator>
+          //</FavoritesContextProvider>        
         ) : (
           <AuthStack.Navigator initialRouteName='Login'>
             <AuthStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />    

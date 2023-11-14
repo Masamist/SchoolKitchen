@@ -6,10 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { ArrowLeftIcon } from 'react-native-heroicons/solid'
 import { themeColors } from '../theme'
 
-
+// Auth
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FIREBASE_AUTH } from '../firebaseConfig'
-
+import authenticateSanity from '../authenticateSanity'
 
 export default function LoginScreen() {
 
@@ -37,6 +37,9 @@ export default function LoginScreen() {
     try{
       const response = await signInWithEmailAndPassword(auth, email, password)
       console.log(response)
+      const user = response.user;
+      const token = await user.getIdToken()
+      authenticateSanity(token)
     } catch (error) {
       console.log(error)
       alert('Signin failed:' + error.message)

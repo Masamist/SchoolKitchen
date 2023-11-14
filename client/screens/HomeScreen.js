@@ -1,6 +1,6 @@
 import { View, SafeAreaView, Text, Pressable, ScrollView, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 // Component
 import BasketIcon from '../components/basketIcon'
@@ -8,7 +8,7 @@ import Categories from '../components/categories'
 import FeaturedRow from '../components/featuredRow'
 
 // ServerSide
-import { getAllMeals } from '../api'
+import { getAllMeals } from '../api/mealApi'
 import { FIREBASE_AUTH } from '../firebaseConfig'
 import { Navigation } from 'react-native-feather'
 

@@ -4,6 +4,7 @@ import { Minus, Plus } from "react-native-feather"
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToBasket, removeFromBasket, selectBasketItemsById } from '../slices/basketSlice';
+import { themeColors } from '../theme';
 
 // ServerSide
 import { urlFor } from '../sanity'

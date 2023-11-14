@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 //import { categories } from '../constants';
 
 // Sanity & Redux
-import { getCategories } from '../api'
+import { getCategories } from '../api/mealApi'
 import { urlFor } from '../sanity'
 
 export default function Categories({allMeals}) {

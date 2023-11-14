@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
 import ProceedButton from '../components/proceedButton'
+import Icon from '../assets/icon.png'
 //import { themeColors } from '../theme'
 
 // ServerSide
@@ -17,7 +18,10 @@ export default function MealScreen() {
     <>
       {/* GoBack Button */}
       <View className="relative">
-        <Image className="w-full h-72" source={{ uri: urlFor(mealimage).url() }} />
+        {/* Need to fix here */}
+        {mealimage ? <Image className="w-full h-72" source={{ uri: urlFor(mealimage).url() }} /> 
+        : <Image source={{Icon}}  />}
+        
         <TouchableOpacity 
             onPress={()=> navigation.goBack()} 
             className="absolute top-14 left-4 bg-gray-50 p-2 rounded-full shadow">
