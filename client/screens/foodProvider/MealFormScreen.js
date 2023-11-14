@@ -1,4 +1,5 @@
 import { SafeAreaView,ScrollView } from 'react-native'
+import uuid from 'react-native-uuid';
 import React from 'react'
 import MealInputGroup from '../../components/FoodProvider/mealInputGroup'
 import client from '../../sanity'
@@ -14,28 +15,23 @@ export default function MealForm() {
     } else {
       //otherwise send the todo to our api
 			// (we'll make this next!)
-      await fetch("http://101.188.67.134:3333/", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-type':'application/json'
-      },
-        body: JSON.stringify({
-          title: formData.title,
-          price: formData.price,
-          discription: formData.discription,
-          allergies: formData.allergies,
-          image: formData.image,
-          category: {
-            _type: "category",
-            _ref: formData.category,
-          }          
-        })
-      })
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Network request failed:', error)
-      })
+      const data = {
+        _id: uuid.v4(),
+        _type: "meal",
+        name: formData.title,
+        price: +formData.price,
+        description: formData.description,
+        allergis: formData.allergies ? formData.allergies.split("\n") : undefined,
+        mealImage: formData.image || undefined,
+        category: formData.category ? {
+          _type: "category",
+          name: "ID",
+          to: [formData.category],
+        } : undefined,
+      };
+
+      await client.create(data);
+
       // await fetchTodos(); //(we'll add this later)
       // Clear all inputs after the todo is sent to Sanity
       // setUserInput("");

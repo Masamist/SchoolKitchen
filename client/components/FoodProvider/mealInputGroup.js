@@ -12,7 +12,7 @@ export default function mealInputGroup({ onSubmit }) {
   const [inputValue, setInputValue] = useState({
     title:'',
     price:'',
-    discription:'',
+    description:'',
     allergies:'',
     image:'',
     category:''
@@ -76,7 +76,7 @@ export default function mealInputGroup({ onSubmit }) {
 
   return (
     <View>
-      <Input lable="Meal Name" textInputConfig={{
+      <Input label="Meal Name" textInputConfig={{
         autoCapitalize: 'words',
         onChangeText: inputChangeHandler.bind(this, 'title'),
         value: inputValue.title,
@@ -87,15 +87,19 @@ export default function mealInputGroup({ onSubmit }) {
         onChangeText: inputChangeHandler.bind(this, 'price'),
         value: inputValue.price
       }} />
-      <Input label="Discription" textInputConfig={{
+      <Input label="Description" textInputConfig={{
         multiline: true,
         // autoCorrect: false, default is true
-        onChangeText: inputChangeHandler.bind(this, 'discription'),
-        value: inputValue.discription,
+        onChangeText: inputChangeHandler.bind(this, 'description'),
+        value: inputValue.description,
       }} />
-      <Input label="Allergies" />
+      <Input label="Allergies" textInputConfig={{
+        multiline: true,
+        onChangeText: inputChangeHandler.bind(this, 'allergies'),
+        value: inputValue.allergies,
+      }} />
       <Input label="Order Limit" textInputConfig={{
-        onChangeText: inputChangeHandler.bind(this, 'allegies'),
+        onChangeText: inputChangeHandler.bind(this, 'allergies'),
       }} />
       <Input label="Meal Image" textInputConfig={{
         onChangeText: inputChangeHandler.bind(this, 'image'),
