@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app"
-import { initializeAuth, getAuth, getReactNativePersistence } from "firebase/auth"
+import { initializeApp } from 'firebase/app'
+import { initializeAuth, getReactNativePersistence } from "firebase/auth"
 //import { initializeAuth, getAuth,  getReactNativePersistence } from 'firebase/auth'
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, collection } from "firebase/firestore"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Your web app's Firebase configuration
@@ -25,7 +25,18 @@ const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
   })
 
 const FIREBASE_DB = getFirestore(FIREBASE_APP)
-export { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB }
-//export { FIREBASE_APP, FIREBASE_AUTH, getApp, getAuth, FIREBASE_DB}
+
+const tripRef = collection(FIREBASE_DB, 'trips')
+
+// async function getCities(FIREBASE_DB) {
+//   const citiesCol = collection(FIREBASE_DB, 'cities');
+//   const citySnapshot = await getDocs(citiesCol);
+//   const cityList = citySnapshot.docs.map(doc => doc.data());
+//   return cityList;
+// }
+
+
+export { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB, tripRef }
+
 // // timestamp
 // export const timestamp = firebase.firestore.Timestamp

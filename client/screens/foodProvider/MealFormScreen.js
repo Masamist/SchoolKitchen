@@ -32,40 +32,9 @@ export default function MealForm() {
 
       await client.create(data);
 
-      // await fetchTodos(); //(we'll add this later)
-      // Clear all inputs after the todo is sent to Sanity
-      // setUserInput("");
-      // setErrMessage("");
-      // setDueDate("");
     }
   }
 
-  // const handleFormSubmit = async(formData) => {
-
-  //   try{
-  //     const response = await client
-  //       .create({
-  //         _type: "meal",
-  //         title: formData.title,
-  //         price: formData.price,
-  //         discription: formData.discription,
-  //         allergies: formData.allergies,
-  //         image: formData.image,
-  //         category: {
-  //           _type: "category",
-  //           _ref: formData.category,
-  //         }          
-  //       })
-  //       .then((res) => {
-  //         // console.log(`Meal wasa created, document ID is ${res._id}`)
-  //         console.log(`Meal wasa created`)
-  //       })
-  //     .commit()
-  //     console.log('Document updated:', response)
-  //   } catch(error){
-  //   console.log('Error updating document:', error)
-  //   }
-  // }
   return (
     <SafeAreaView>
       <ScrollView>

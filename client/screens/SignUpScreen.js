@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native'
 
 // Firebase
 import { FIREBASE_AUTH } from '../firebaseConfig'
+import { doc, setDoc } from "firebase/firebase-firestore"
+
 //import auth from '@react-native-firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -15,7 +17,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 export default function SignUpScreen() {
   const navigation = useNavigation()
 
-  const [fullName, setFullName] = useState('')
+  const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword]=useState('')
   const [loading, setLoading] = useState(false)
@@ -24,38 +26,17 @@ export default function SignUpScreen() {
 
   const signUp = async() => {
     setLoading(true)
-
-    // await createUserWithEmailAndPassword(auth, fullName, email, password)
-    // .then((userCredential) => {
-    //   // Signed up 
-    //   const user = userCredential.user;
-    //   console.log(user)
-    //   // ...
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // ..
-    // })
-    // .finally(()=> setLoading(false))
-
-      // createUserWithEmailAndPassword(auth, email, password)
-      // .then((userCredential) => {
-      //   // Signed up 
-      //   const user = userCredential.user;
-      //   console.log(user)
-      //   // ...
-        
-      // })
-      
-      // .catch((error) => {
-      //   const errorCode = error.code;
-      //   const errorMessage = error.message;
-      //   // ..
-      // })
-      // .finally(()=> setLoading(false))
       try{
         const response = await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user
+          setDoc(doc(db, "users", user.uid), {
+            Name: userName,
+            Email: email,
+            SignUpDate: new Date().toUTCString,
+          })
+          .then(() => alert("Data uploaded succeccfully!!"))
+        })
         console.log(response)
         alert('Success!')
         navigation.navigate('Home')
@@ -93,8 +74,8 @@ export default function SignUpScreen() {
             <Text className="text-gray-700 ml-4">Full Name</Text>
             <TextInput
                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                value={fullName}
-                onChangeText={(text) => setFullName(text)}
+                value={userName}
+                onChangeText={(text) => setUserName(text)}
                 placeholder='Enter Name'
                 autoCorrect={false}
             />
