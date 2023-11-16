@@ -48,8 +48,6 @@ export default function LoginScreen() {
     }
   }
 
-
-
   return (
     <View className="flex-1 bg-white" style={{backgroundColor: themeColors.bg}}>
       <SafeAreaView  className="flex ">

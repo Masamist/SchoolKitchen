@@ -14,18 +14,10 @@ export default function mealInputGroup({ onSubmit }) {
     price:'',
     description:'',
     allergies:'',
+    limit:'',
     image:'',
     category:''
   })
-
-  function inputChangeHandler(inputIdentifier, enteredValue){
-    setInputValue((curInputValues) => {
-      return {
-        ...curInputValues,
-        [inputIdentifier] : enteredValue
-      }
-    })
-  }
 
   const [categories, setCategories] = useState([])
 
@@ -35,20 +27,20 @@ export default function mealInputGroup({ onSubmit }) {
     })
   }, [])
 
+  const inputChangeHandler = (inputIdentifier, enteredValue) =>{
+    setInputValue((curInputValues) => {
+      return {
+        ...curInputValues,
+        [inputIdentifier] : enteredValue
+      }
+    })
+  }
+
   const handleSubmit = () => {
     onSubmit(inputValue)
   }
 
-  // const data = [
-  //   { label: 'Item 1', value: '1' },
-  //   { label: 'Item 2', value: '2' },
-  //   { label: 'Item 3', value: '3' },
-  //   { label: 'Item 4', value: '4' },
-  //   { label: 'Item 5', value: '5' },
-  //   { label: 'Item 6', value: '6' },
-  //   { label: 'Item 7', value: '7' },
-  //   { label: 'Item 8', value: '8' },
-  // ];
+  
   const data = categories.map((cat) => {
     return {
       label: cat.name,
@@ -56,23 +48,24 @@ export default function mealInputGroup({ onSubmit }) {
     }
   })
 
+  // For category dropdown
   const [value, setValue] = useState(null);
 
-    const renderItem = item => {
-      return (
-        <View style={styles.item}>
-          <Text style={styles.textItem}>{item.label}</Text>
-          {item.value === value && (
-            <AntDesign
-              style={styles.icon}
-              color="black"
-              name="Safety"
-              size={20}
-            />
-          )}
-        </View>
-      );
-    };
+  const renderItem = item => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+        {item.value === value && (
+          <AntDesign
+            style={styles.icon}
+            color="black"
+            name="Safety"
+            size={20}
+          />
+        )}
+      </View>
+    )
+  }
 
   return (
     <View>
@@ -99,7 +92,7 @@ export default function mealInputGroup({ onSubmit }) {
         value: inputValue.allergies,
       }} />
       <Input label="Order Limit" textInputConfig={{
-        onChangeText: inputChangeHandler.bind(this, 'allergies'),
+        onChangeText: inputChangeHandler.bind(this, 'limit'),
       }} />
       <Input label="Meal Image" textInputConfig={{
         onChangeText: inputChangeHandler.bind(this, 'image'),
@@ -124,8 +117,8 @@ export default function mealInputGroup({ onSubmit }) {
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
-          setValue(item.value);
-          inputChangeHandler.bind(item.label, item.value)
+          //setValue(item.value);
+          inputChangeHandler.bind(item.value, item.label)
         }}
         renderLeftIcon={() => (
           <AntDesign style={styles.icon} color="black" name="Safety" size={20} />

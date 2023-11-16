@@ -1,5 +1,6 @@
 import sanityClient from '../sanity';
-import client from '../sanity';
+import { writeClient } from '../sanity';
+import uuid from 'react-native-uuid';
 let sanityQuery = (query, params)=> sanityClient.fetch(query, params);
 
 export const getAllMeals = ()=>{
@@ -23,32 +24,33 @@ export const getCategories = ()=>{
   `);
 }
 
-export async function handler(req, res){
-  switch (req.method){
-    case "POST" :
-    //this JSON arrives as a string,
-    //so we turn it into a JS object with JSON.parse()
-    const createMeal = await JSON.parse(req.body)
-
-    try{
-      await client
-        .create({
-          _type: "meal",
-          title: formData.title,
-          price: formData.price,
-          discription: formData.discription,
-          allergies: formData.allergies,
-          image: formData.image,
-          category: {
-            _type: "category",
-            _ref: formData.category,
-          }          
-        })
-        .then((res) => {
-          console.log(`Meal wasa created, document ID is ${res._id}`)
-        })
-    }catch(error){
-      console.log(error)
+export const createMeal = async(formData) => {
+  try{
+    if (formData.length == 0) {
+      setErrMessage("Todo text and due date must be filled out.");
+    } else {
+      //otherwise send the todo to our api
+      // (we'll make this next!)
+      const data = {
+        _id: uuid.v4(),
+        _type: "meal",
+        name: formData.title,
+        price: +formData.price,
+        description: formData.description,
+        allergis: formData.allergies ? formData.allergies.split("\n") : undefined,
+        mealImage: formData.image || undefined,
+        category: formData.category ? {
+          _type: "reference",
+          name: "ID",
+          to: [formData.category],
+        } : undefined,
+      }
+      console.log("mealAPI.js category", formData.category)
+      await writeClient.create(data)
     }
+
+  } catch(err) {
+    console.log("Error creating doc", err)
   }
+  
 }
