@@ -32,7 +32,7 @@ export default defineType({
       //validation: rule=> rule.required(),
     },
     {
-      name: 'limit',
+      name: 'limit',  
       type: 'number',
       title: 'Order Limit',
       //validation: rule=>rule.required().min(1).max(5).error('Please enter a value between 1 to 5')

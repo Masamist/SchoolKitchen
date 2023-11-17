@@ -19,6 +19,9 @@ export default function mealInputGroup({ onSubmit }) {
     category:''
   })
 
+  // For Dropdown componet
+  const [value, setValue] =useState(null)
+
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -36,20 +39,32 @@ export default function mealInputGroup({ onSubmit }) {
     })
   }
 
+  const setCategoryValueHandler = () =>{
+    setInputValue((curInputValues) => {
+      console.log("here")
+      console.log("inside function:", value, value.label, value.value)
+      return {
+        ...curInputValues,
+        [category] : value
+      }
+    })
+  }
+  console.log("Changed?", inputValue.category)
+
   const handleSubmit = () => {
     onSubmit(inputValue)
   }
 
   
   const data = categories.map((cat) => {
-    return {
+    return {        
       label: cat.name,
-      value: cat._id
+      value: cat._id,
     }
   })
 
   // For category dropdown
-  const [value, setValue] = useState(null);
+
 
   const renderItem = item => {
     return (
@@ -92,6 +107,7 @@ export default function mealInputGroup({ onSubmit }) {
         value: inputValue.allergies,
       }} />
       <Input label="Order Limit" textInputConfig={{
+        keyboardType: 'decimal-pad',
         onChangeText: inputChangeHandler.bind(this, 'limit'),
       }} />
       <Input label="Meal Image" textInputConfig={{
@@ -116,10 +132,26 @@ export default function mealInputGroup({ onSubmit }) {
         placeholder="Select a Category"
         searchPlaceholder="Search..."
         value={value}
-        onChange={item => {
-          //setValue(item.value);
-          inputChangeHandler.bind(item.value, item.label)
+        // value={value}
+        onChangeText={item => {
+          console.log("Set1", value)
+          inputChangeHandler.bind(this,item.value,'category')
+          
         }}
+        onChange={item => {
+          setValue(item.value)
+          console.log("Set2", item.value)
+          // setCategoryValueHandler
+          //console.log("No 02",value)// this is old data
+          //inputChangeHandler.bind(this,'category', item.value) ////////input value Fail
+          //inputChangeHandler.bind(this, item.value,'category')//Fail
+          //setCategoryValueHandler.bind(item.value)fail
+          //setCategoryValueHandler.bind(item.value)fail
+          //setCategoryValueHandler.bind(this)fail
+          //setCategoryValueHandler.bind(this, item.value)
+          //console.log("Set2", value)
+        }}
+        
         renderLeftIcon={() => (
           <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
         )}

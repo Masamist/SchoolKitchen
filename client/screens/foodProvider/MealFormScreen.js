@@ -8,7 +8,6 @@ export default function MealForm() {
 	const navigation = useNavigation()
 	//FOR THE Form SUBMIT BUTTON:
   const handleFormSubmit = async (formData) => {
-    console.log("mealForm.js: category", formData.category)
     await createMeal(formData)
     navigation.goBack()
   }
