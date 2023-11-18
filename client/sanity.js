@@ -10,7 +10,7 @@ const client = createClient({
 })
 
 
-export const writeClient = createClient({
+export const fpClient = createClient({
     projectId: SANITY_PROJECT_ID,
     dataset: 'production',
     token: SANITY_AUTH_TOKEN,

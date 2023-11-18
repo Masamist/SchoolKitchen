@@ -1,7 +1,8 @@
-import { View, Text, TouchableOpacity, Button, Picker, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Input from './input'
 import { getCategories } from '../../api/mealApi'
+import FpMealImagePicker from './fpMealImagePicker'
 
 
 // Dropdown
@@ -15,13 +16,25 @@ export default function mealInputGroup({ onSubmit }) {
     description:'',
     allergies:'',
     limit:'',
-    image:'',
-    category:''
+    image:''
   })
 
-  // For Dropdown componet
-  const [value, setValue] =useState(null)
+  // For image
+  const [imageValue, setImageValue] = useState({})
 
+  useEffect(() => {
+    setInputValue((curInputValues) => {
+      console.log('SET',imageValue)
+      return {
+        ...curInputValues,
+          image : imageValue
+      }
+    })
+  }, [imageValue])
+
+
+  // For Category Dropdown componet
+  const [value, setValue] =useState(null)
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -38,21 +51,14 @@ export default function mealInputGroup({ onSubmit }) {
       }
     })
   }
-
-  const setCategoryValueHandler = () =>{
-    setInputValue((curInputValues) => {
-      console.log("here")
-      console.log("inside function:", value, value.label, value.value)
-      return {
-        ...curInputValues,
-        [category] : value
-      }
-    })
-  }
-  console.log("Changed?", inputValue.category)
+  //console.log("Changed?", inputValue.category)
 
   const handleSubmit = () => {
     onSubmit(inputValue)
+  }
+
+  const handleImageValue = (valueFromChild) => {
+    setImageValue(valueFromChild)
   }
 
   
@@ -62,9 +68,6 @@ export default function mealInputGroup({ onSubmit }) {
       value: cat._id,
     }
   })
-
-  // For category dropdown
-
 
   const renderItem = item => {
     return (
@@ -110,15 +113,16 @@ export default function mealInputGroup({ onSubmit }) {
         keyboardType: 'decimal-pad',
         onChangeText: inputChangeHandler.bind(this, 'limit'),
       }} />
-      <Input label="Meal Image" textInputConfig={{
+
+      <Text>Meal Image</Text>
+      <FpMealImagePicker onImageValueChange={handleImageValue} />
+      {/* <Input label="Meal Image" textInputConfig={{
         onChangeText: inputChangeHandler.bind(this, 'image'),
         value: inputValue.image,
-      }} />
-      {/* <Input label="Category" textInputConfig={{
-        onChangeText: inputChangeHandler.bind(this, 'category'),
-        value: inputValue.category,
       }} /> */}
-       <Dropdown
+
+
+      <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
@@ -133,25 +137,14 @@ export default function mealInputGroup({ onSubmit }) {
         searchPlaceholder="Search..."
         value={value}
         // value={value}
-        onChangeText={item => {
-          console.log("Set1", value)
-          inputChangeHandler.bind(this,item.value,'category')
-          
-        }}
+        
         onChange={item => {
           setValue(item.value)
-          console.log("Set2", item.value)
-          // setCategoryValueHandler
-          //console.log("No 02",value)// this is old data
-          //inputChangeHandler.bind(this,'category', item.value) ////////input value Fail
-          //inputChangeHandler.bind(this, item.value,'category')//Fail
-          //setCategoryValueHandler.bind(item.value)fail
-          //setCategoryValueHandler.bind(item.value)fail
-          //setCategoryValueHandler.bind(this)fail
-          //setCategoryValueHandler.bind(this, item.value)
-          //console.log("Set2", value)
+          //console.log("Set", item.value)
         }}
-        
+        onChangeText={
+          inputChangeHandler.bind(this,'category', value)
+        }
         renderLeftIcon={() => (
           <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
         )}
