@@ -16,7 +16,7 @@ export default function mealInputGroup({ onSubmit }) {
     description:'',
     allergies:'',
     limit:'',
-    image:''
+    image:null
   })
 
   // For image
@@ -36,7 +36,7 @@ export default function mealInputGroup({ onSubmit }) {
   // For Category Dropdown componet
   const [value, setValue] =useState(null)
   const [categories, setCategories] = useState([])
-
+  console.log("SetCatValue: ", value)
   useEffect(() => {
     getCategories().then(data => {
       setCategories(data)
@@ -142,6 +142,7 @@ export default function mealInputGroup({ onSubmit }) {
           setValue(item.value)
           //console.log("Set", item.value)
         }}
+        ///////////////////////////////////////////////////////////////Bug In here? Does not update value state
         onChangeText={
           inputChangeHandler.bind(this,'category', value)
         }

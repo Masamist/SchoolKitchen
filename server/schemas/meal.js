@@ -40,7 +40,8 @@ export default defineType({
     {
       name: 'mealimage',
       type: 'image',
-      title: 'Meal Image'
+      title: 'Meal Image',
+      
     },
     {
       name: 'category',
