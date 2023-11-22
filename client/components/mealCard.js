@@ -14,8 +14,11 @@ export default function MealCard({ id, title, price, description, mealimage }) {
       }}>
         <View className="mr-6 bg-white rounded-3xl shadow-lg">
         {/* <View style={{shadowColor: themeColors.bgColor(0.2), shadowRadius: 7}} className="mr-6 bg-white rounded-3xl shadow-lg"> */}
-          <Image  className="h-40 w-40 rounded-md" source={{ uri: urlFor(mealimage).url()}} />
-          
+          {
+            mealimage ? <Image  className="h-40 w-40 rounded-md" source={{ uri: urlFor(mealimage).url()}} />
+              : <Text>No Images</Text>
+          }
+    
           <View className="px-3 pb-4 space-y-2">
           
             <Text className="text-lg font-bold pt-2">{title}</Text>

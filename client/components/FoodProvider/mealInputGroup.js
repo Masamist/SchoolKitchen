@@ -1,7 +1,8 @@
-import { View, Text, TouchableOpacity, Button, Picker, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Button, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import Input from './input'
 import { getCategories } from '../../api/mealApi'
+import FpMealImagePicker from './fpMealImagePicker'
+import Input from './input'
 
 
 // Dropdown
@@ -9,25 +10,34 @@ import { Dropdown } from 'react-native-element-dropdown'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
 export default function mealInputGroup({ onSubmit }) {
+    // For Category Dropdown componet
+  const [value, setValue] =useState(null)
+  const [categories, setCategories] = useState([])
+  console.log("SetCatValue: ", value)
+  
   const [inputValue, setInputValue] = useState({
     title:'',
     price:'',
     description:'',
     allergies:'',
-    image:'',
-    category:''
+    limit:'',
+    image:null
   })
 
-  function inputChangeHandler(inputIdentifier, enteredValue){
+  // For image
+  const [imageValue, setImageValue] = useState({})
+
+  useEffect(() => {
     setInputValue((curInputValues) => {
+      console.log('SET',imageValue)
       return {
         ...curInputValues,
-        [inputIdentifier] : enteredValue
+          image : imageValue
       }
     })
-  }
+  }, [imageValue])
 
-  const [categories, setCategories] = useState([])
+
 
   useEffect(() => {
     getCategories().then(data => {
@@ -35,44 +45,47 @@ export default function mealInputGroup({ onSubmit }) {
     })
   }, [])
 
+  const inputChangeHandler = (inputIdentifier, enteredValue) =>{
+    setInputValue((curInputValues) => {
+      return {
+        ...curInputValues,
+        [inputIdentifier] : enteredValue
+      }
+    })
+  }
+  //console.log("Changed?", inputValue.category)
+
   const handleSubmit = () => {
     onSubmit(inputValue)
   }
 
-  // const data = [
-  //   { label: 'Item 1', value: '1' },
-  //   { label: 'Item 2', value: '2' },
-  //   { label: 'Item 3', value: '3' },
-  //   { label: 'Item 4', value: '4' },
-  //   { label: 'Item 5', value: '5' },
-  //   { label: 'Item 6', value: '6' },
-  //   { label: 'Item 7', value: '7' },
-  //   { label: 'Item 8', value: '8' },
-  // ];
+  const handleImageValue = (valueFromChild) => {
+    setImageValue(valueFromChild)
+  }
+
+  
   const data = categories.map((cat) => {
-    return {
+    return {        
       label: cat.name,
-      value: cat._id
+      value: cat._id,
     }
   })
 
-  const [value, setValue] = useState(null);
-
-    const renderItem = item => {
-      return (
-        <View style={styles.item}>
-          <Text style={styles.textItem}>{item.label}</Text>
-          {item.value === value && (
-            <AntDesign
-              style={styles.icon}
-              color="black"
-              name="Safety"
-              size={20}
-            />
-          )}
-        </View>
-      );
-    };
+  const renderItem = item => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+        {item.value === value && (
+          <AntDesign
+            style={styles.icon}
+            color="black"
+            name="checkcircleo"
+            size={20}
+          />
+        )}
+      </View>
+    )
+  }
 
   return (
     <View>
@@ -99,17 +112,19 @@ export default function mealInputGroup({ onSubmit }) {
         value: inputValue.allergies,
       }} />
       <Input label="Order Limit" textInputConfig={{
-        onChangeText: inputChangeHandler.bind(this, 'allergies'),
+        keyboardType: 'decimal-pad',
+        onChangeText: inputChangeHandler.bind(this, 'limit'),
       }} />
-      <Input label="Meal Image" textInputConfig={{
+
+      <Text>Meal Image</Text>
+      <FpMealImagePicker onImageValueChange={handleImageValue} />
+      {/* <Input label="Meal Image" textInputConfig={{
         onChangeText: inputChangeHandler.bind(this, 'image'),
         value: inputValue.image,
-      }} />
-      {/* <Input label="Category" textInputConfig={{
-        onChangeText: inputChangeHandler.bind(this, 'category'),
-        value: inputValue.category,
       }} /> */}
-       <Dropdown
+
+
+      <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
@@ -123,10 +138,16 @@ export default function mealInputGroup({ onSubmit }) {
         placeholder="Select a Category"
         searchPlaceholder="Search..."
         value={value}
+        // value={value}
+        
         onChange={item => {
-          setValue(item.value);
-          inputChangeHandler.bind(item.label, item.value)
+          setValue(item.value)
+          //console.log("Set", item.value)
         }}
+        ///////////////////////////////////////////////////////////////Bug In here? Does not update value state
+        onChangeText={
+          inputChangeHandler.bind(this,'category', value)
+        }
         renderLeftIcon={() => (
           <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
         )}

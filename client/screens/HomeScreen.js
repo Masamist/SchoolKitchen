@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 // Component
-import BasketIcon from '../components/basketIcon'
-import Categories from '../components/categories'
+import Header from '../components/ui/header'
+import BasketIcon from '../components/ui/basketIcon'
+import Categories from '../components/ui/categories'
 import FeaturedRow from '../components/featuredRow'
 
 // ServerSide
 import { getAllMeals } from '../api/mealApi'
-import { FIREBASE_AUTH } from '../firebaseConfig'
-import { Navigation } from 'react-native-feather'
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -34,12 +33,7 @@ export default function HomeScreen() {
             paddingBottom: 50
         }}
       > 
-        <Pressable onPress={()=> FIREBASE_AUTH.signOut()}>
-          <Text className="font-semibold text-yellow-500"> Sign Out</Text>
-        </Pressable>
-        <Pressable onPress={()=> navigation.navigate('Dashboard')}>
-          <Text className="font-semibold text-yellow-500">  / Food Provider Page /</Text>
-        </Pressable>
+        <Header />
         {/* Shopping Basket */}
         
         <BasketIcon />

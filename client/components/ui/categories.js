@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 //import { categories } from '../constants';
 
 // Sanity & Redux
-import { getCategories } from '../api/mealApi'
-import { urlFor } from '../sanity'
+import { getCategories } from '../../api/mealApi'
+import { urlFor } from '../../sanity'
 
 export default function Categories({allMeals}) {
   const [activeCategory, setActiveCategory] = useState(null);
@@ -20,6 +20,7 @@ export default function Categories({allMeals}) {
   
   return (
     <View className="mt-4 mb-4">
+      <Text className="text-xl pb-3">Meal Categories</Text>
       <ScrollView
         // className="p-4"
         horizontal
@@ -32,7 +33,7 @@ export default function Categories({allMeals}) {
         {
           categories?.map(category => {
             let isActive = category._id==activeCategory
-            let btnClass = isActive? ' bg-gray-400': ' bg-gray-200'
+            let btnClass = isActive? ' bg-amber-200': ' bg-amber-100'
             let textClass = isActive? ' font-semibold text-gray-700': ' text-gray-500'
             return(
               <View key={category._id} className="flex justify-center items-center mr-6">
@@ -41,6 +42,7 @@ export default function Categories({allMeals}) {
                     setActiveCategory(category._id),
                     navigation.navigate('MealList', {
                       selectedCategory: category._id,
+                      selectedCategoryName: category.name,
                       allMeals: allMeals
                     })
                   }}

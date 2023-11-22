@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native'
 import { Edit } from "react-native-feather"
+import AntDesign from '@expo/vector-icons/AntDesign'
+//import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 
 
@@ -16,7 +18,11 @@ export default function FpMealCard({ id, title, price, description, mealimage })
       }}>
         <View className="mr-6 bg-white rounded-3xl shadow-lg">
         {/* <View style={{shadowColor: themeColors.bgColor(0.2), shadowRadius: 7}} className="mr-6 bg-white rounded-3xl shadow-lg"> */}
-          <Image  className="h-20 w-20 rounded-md" source={{ uri: urlFor(mealimage).url()}} />
+          {
+            mealimage ? 
+              <Image  className="h-20 w-20 rounded-md" source={{ uri: urlFor(mealimage).url()}} />
+              : <Text>No Images</Text>
+          }
           
           <View className="px-3 pb-4 space-y-2">
           
@@ -34,7 +40,15 @@ export default function FpMealCard({ id, title, price, description, mealimage })
               >
               <Edit strokeWidth={2} height={20} width={20} stroke="white" />
               <Text>Edit</Text>
-          </TouchableOpacity>   
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={null} 
+              className="p-1 rounded-full bg-green-500" 
+              //style={{backgroundColor: themeColors.bgColor(1)}}
+              >
+              <AntDesign name='delete' strokeWidth={2} height={20} width={20} stroke="white" />
+              <Text>Delete</Text>
+            </TouchableOpacity>   
           </View>
         </View>    
       </TouchableWithoutFeedback>

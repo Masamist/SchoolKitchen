@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
-import ProceedButton from '../components/proceedButton'
+import ProceedButton from '../components/ui/proceedButton'
 import Icon from '../assets/icon.png'
 //import { themeColors } from '../theme'
 
@@ -20,13 +20,13 @@ export default function MealScreen() {
       <View className="relative">
         {/* Need to fix here */}
         {mealimage ? <Image className="w-full h-72" source={{ uri: urlFor(mealimage).url() }} /> 
-        : <Image source={{Icon}}  />}
+        : <Text>No Image</Text>}
         
         <TouchableOpacity 
-            onPress={()=> navigation.goBack()} 
-            className="absolute top-14 left-4 bg-gray-50 p-2 rounded-full shadow">
+          onPress={()=> navigation.goBack()} 
+          className="absolute top-14 left-4 bg-gray-50 p-2 rounded-full shadow">
             {/* <Icon.ArrowLeft strokeWidth={3} stroke={themeColors.bgColor(1)} /> */}
-            <ArrowLeft strokeWidth={3} className='text-gray-400' />
+          <ArrowLeft strokeWidth={3} className='text-gray-400' />
         </TouchableOpacity>
       </View>
 
@@ -34,7 +34,10 @@ export default function MealScreen() {
         <View className="flex-colum">
           <View className="pl-2">
             <Text className="text-xl">{title} </Text>
-            <Text className="text-gray-700">{description}</Text>
+            {
+              description ? <Text className="text-gray-700">{description}</Text>
+                : <Text>No description</Text>
+            }
             <Text className="text-sm text-gray-700">${price}</Text>
           </View>
         </View>

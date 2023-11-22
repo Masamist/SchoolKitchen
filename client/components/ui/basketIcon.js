@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-import { selectBasketItems, selectBasketTotal } from '../slices/basketSlice'
+import { selectBasketItems, selectBasketTotal } from '../../slices/basketSlice'
 //import { selectMeal } from '../slices/mealSlice';
-import { themeColors } from '../theme';
+import { themeColors } from '../../theme';
 
 export default function BasketIcon() {
   const basketItems = useSelector(selectBasketItems);

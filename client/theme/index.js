@@ -1,8 +1,8 @@
 
 const pallete = [
   {   // main green
-      text: '#A8BC3A', 
-      bgColor: opacity=> `rgba(251, 146, 60, ${opacity})`
+      text: '#FFFFFF', 
+      bgColor: opacity=> `rgba(168, 188, 58, ${opacity})`
   },
   {   // dark gray
       text: '#334155', 
