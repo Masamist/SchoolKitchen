@@ -18,6 +18,7 @@ import SignUpScreen from './screens/SignUpScreen'
 import DashboardScreen from './screens/foodProvider/DashboardScreen'
 import MenuListScreen from './screens/foodProvider/MenuListScreen'
 import MealFormScreen from './screens/foodProvider/MealFormScreen'
+import { ImageBackground } from 'react-native';
 
 const ParentStack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -65,14 +66,24 @@ export default function Navigation() {
         {user ? (
           //<Stack.Screen name="Parent" component={ParentLayout} options={{ headerShown: false }} />
           //<FavoritesContextProvider>
-            <ParentStack.Navigator initialRouteName='Home'>
-              <ParentStack.Screen name="Home" component={HomeScreen} />
-              <ParentStack.Screen name="MealList" component={MealListScreen} />
+            <ParentStack.Navigator initialRouteName='Home' screenOptions={{
+              headerStyle: { backgroundColor: '#ffffff'},
+              contentStyle: { backgroundColor: '#ffffff'}
+            }}>
+              <ParentStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+              <ParentStack.Screen name="MealList" 
+              options={({ route }) => {
+                const catName = route.params.selectedCategoryName
+                return {
+                  title: catName + " List",
+                }
+              }} 
+              component={MealListScreen} />
               <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
               <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
-              <ParentStack.Screen name="Dashboard" component={DashboardScreen} />
-              <ParentStack.Screen name="MenuList" component={MenuListScreen} />
-              <ParentStack.Screen name="MealForm" component={MealFormScreen} />
+              <ParentStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
+              <ParentStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
+              <ParentStack.Screen name="MealForm" options={{ title: "Meal Form" }} component={MealFormScreen} />
             </ParentStack.Navigator>
           //</FavoritesContextProvider>        
         ) : (

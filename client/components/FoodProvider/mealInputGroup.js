@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Button, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import Input from './input'
 import { getCategories } from '../../api/mealApi'
 import FpMealImagePicker from './fpMealImagePicker'
+import Input from './input'
 
 
 // Dropdown
@@ -10,6 +10,11 @@ import { Dropdown } from 'react-native-element-dropdown'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
 export default function mealInputGroup({ onSubmit }) {
+    // For Category Dropdown componet
+  const [value, setValue] =useState(null)
+  const [categories, setCategories] = useState([])
+  console.log("SetCatValue: ", value)
+  
   const [inputValue, setInputValue] = useState({
     title:'',
     price:'',
@@ -33,10 +38,7 @@ export default function mealInputGroup({ onSubmit }) {
   }, [imageValue])
 
 
-  // For Category Dropdown componet
-  const [value, setValue] =useState(null)
-  const [categories, setCategories] = useState([])
-  console.log("SetCatValue: ", value)
+
   useEffect(() => {
     getCategories().then(data => {
       setCategories(data)
@@ -77,7 +79,7 @@ export default function mealInputGroup({ onSubmit }) {
           <AntDesign
             style={styles.icon}
             color="black"
-            name="Safety"
+            name="checkcircleo"
             size={20}
           />
         )}

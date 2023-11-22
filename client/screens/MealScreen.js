@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
-import ProceedButton from '../components/proceedButton'
+import ProceedButton from '../components/ui/proceedButton'
 import Icon from '../assets/icon.png'
 //import { themeColors } from '../theme'
 

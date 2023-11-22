@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 // Component
-import Categories from '../components/categories'
+import Categories from '../components/ui/categories'
 import MealRow from '../components/mealRow'
-import BasketIcon from '../components/basketIcon'
-import ProceedButton from '../components/proceedButton'
+import BasketIcon from '../components/ui/basketIcon'
+import ProceedButton from '../components/ui/proceedButton'
 
 // // ServerSide
 // import { getAllMeals } from '../api'
@@ -39,6 +39,7 @@ export default function MealListScreen() {
       {
         categorizedMeals?.map(meal=>{
           return (
+            
             <MealRow 
               key={meal._id}
               id={meal._id}

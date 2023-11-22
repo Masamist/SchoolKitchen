@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 // import { Create } from "react-native-feather"
 
 // Component
-import Categories from '../../components/categories'
+import Categories from '../../components/ui/categories'
 import FpMealRow from '../../components/FoodProvider/fpMealRow'
 import FpMealCard from '../../components/FoodProvider/fpMealCard'
 

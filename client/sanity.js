@@ -15,7 +15,7 @@ export const fpClient = createClient({
     dataset: 'production',
     token: SANITY_AUTH_TOKEN,
     apiVersion: '2023-10-30',
-    useCdn: false
+    useCdn: true
 })
 
 const builder = imageBuilder(client);

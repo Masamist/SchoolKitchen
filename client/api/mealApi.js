@@ -3,8 +3,9 @@ import sanityClient, { fpClient } from '../sanity'
 import uuid from 'react-native-uuid'
 import * as FileSystem from 'expo-file-system'
 import base64 from 'base-64'
-import { base64StringToBlob, blobToBase64String } from 'blob-util'
-import { getExtension, getImageDimensions } from '@sanity/asset-utils'
+import { base64StringToBlob } from 'blob-util'
+//import { getExtension, getImageDimensions } from '@sanity/asset-utils'
+//import { ReactNativeBlobUtil } from 'react-native-blob-util'
 
 //import { RNFetchBlob } from 'react-native-fetch-blob' // Cannot use for expo projects
 //import {createReadStream} from 'react-native-fs'
@@ -66,7 +67,7 @@ export const createMeal = async(formData) => {
         //   // }
         // },
         mealImage: undefined,
-        mealImage: formData.image || undefined,
+        //mealImage: formData.image || undefined,
         category: formData.category ? {
           _type: "reference",
           _ref: formData.category
@@ -84,35 +85,57 @@ export const createMeal = async(formData) => {
       // const filetype = getExtension(formData.image)
       // if (filetype !== 'jpg' && filetype !== 'png') {
       //   return 'Image must be a JPG or PNG'
-      // }
 
-
-      //Use the FileSystem module to read the image file
-      //const fileName = formData.image.split('/').pop()
-      const fileData = await FileSystem.readAsStringAsync(formData.image, {
-        encoding: FileSystem.EncodingType.Base64,
-      })
+      //////////////////////////////////////////////////////////////////////////
+      ////////////////////come back here hor image asset upload/////////////////
         // console.log("Filedata",fileData)
         // console.log("fileName",fileName)
-  
-        await fpClient.assets
-        .upload('image', fileData, {
-          filename: "testing_image.jpg"
+      //const blob = base64StringToBlob(fileData, 'image')
+      // //const fileData = await ReactNativeBlobUtil.fs.readStream(
+      //   formData.image,
+      //   'base64',
+      //   4095).then((ifstream) => {
+      //     ifsteram
+      //   })
+      // await fpClient.assets
+      // .upload('image', fileData, {
+      //   filename: "fileName"
+      // })
+
+           //Use the FileSystem module to read the image file
+      const fileName = formData.image.split('/').pop()
+      let base64 = null
+      let options = { encoding: FileSystem.EncodingType.Base64 }
+      await FileSystem.readAsStringAsync(formData.image, options).then(data => {
+          base64 = 'data:image/jpg;base64' + data;
+          //resolve(base64); // are you sure you want to resolve the data and not the base64 string?
+        }).catch(err => {
+          console.log("​getFile -> err", err);
+          reject(err) ;
         })
-        .then(imageAsset => {    
-          console.log("Passed imageAsset_id? :", imageAsset._id)
-          return fpClient
-          .patch(response._id)
-          .set({
-            mealImage: {
-              _type: 'image',
-              asset: {
-                _type: "reference",
-                _ref: imageAsset._id
-              }
+
+      // const fileData = await FileSystem.readAsStringAsync(formData.image, {
+      //   encoding: FileSystem.EncodingType.Base64,
+      // }) 
+
+      await fpClient.assets
+      .upload('image', base64, {
+        filename: "fileName"
+      })
+      .then(imageAsset => {    
+        console.log("Passed imageAsset_id? :", imageAsset._id)
+        return fpClient
+        .patch(response._id)
+        .set({
+          mealImage: {
+            _type: 'image',
+            asset: {
+              _type: "reference",
+              _ref: imageAsset._id
             }
-          })
-        .commit()
+          }
+        })
+      .commit()
       })
     }
   } catch(err) {
