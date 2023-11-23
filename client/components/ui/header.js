@@ -30,8 +30,7 @@ export default function Header() {
       <Pressable onPress={()=> navigation.navigate('Dashboard')}>
         <Text className="font-semibold text-yellow-500">  / Food Provider Page /</Text>
       </Pressable>
-
-      
+    
     </View>
   )
 }

@@ -35,7 +35,7 @@ export default function LoginScreen() {
       authenticateSanity(token)
     } catch (error) {
       console.log(error)
-      alert('Signin failed:' + error.message)
+      alert('Login failed:' + error.message)
     } finally {
       setLoading
     }
@@ -48,10 +48,10 @@ export default function LoginScreen() {
       const response = await createUserWithEmailAndPassword(auth, email, password)
       console.log(response)
       alert('Success!')
-      navigation.navigate('Home')
+      navigation.navigate('Register')
     } catch (error) {
       console.log(error)
-      alert('Registration failed:' + error.message)
+      alert('Sign Up failed:' + error.message)
     } finally {
       setLoading(false)
     }

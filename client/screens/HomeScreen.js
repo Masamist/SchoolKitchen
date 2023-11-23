@@ -6,10 +6,12 @@ import { useNavigation } from '@react-navigation/native'
 import Header from '../components/ui/header'
 import BasketIcon from '../components/ui/basketIcon'
 import Categories from '../components/ui/categories'
+import SelectDays from '../components/selectDays'
 import FeaturedRow from '../components/featuredRow'
 
 // ServerSide
 import { getAllMeals } from '../api/mealApi'
+
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -32,11 +34,17 @@ export default function HomeScreen() {
         contentContainerStyle={{
             paddingBottom: 50
         }}
+        className="pl-3"
       > 
         <Header />
+
+
         {/* Shopping Basket */}
-        
         <BasketIcon />
+
+        {/* Selecting Dates */}
+        <SelectDays />
+
         {/* categories */}
         <Categories allMeals={allMeals} />
         {/* <Categories /> */}

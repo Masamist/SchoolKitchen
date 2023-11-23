@@ -14,11 +14,12 @@ import MealListScreen from './screens/MealListScreen'
 import MealScreen from './screens/MealScreen'
 import ShoppingBasket from './screens/ShoppingBasketScreen'
 import LoginScreen from './screens/LoginScreen'
-import SignUpScreen from './screens/SignUpScreen'
+//import SignUpScreen from './screens/SignUpScreen'
 import DashboardScreen from './screens/foodProvider/DashboardScreen'
 import MenuListScreen from './screens/foodProvider/MenuListScreen'
 import MealFormScreen from './screens/foodProvider/MealFormScreen'
-import { ImageBackground } from 'react-native';
+import RegisterScreen from './screens/RegisterScreen'
+//import { ImageBackground } from 'react-native';
 
 const ParentStack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -44,7 +45,7 @@ const AuthStack = createNativeStackNavigator()
 
 export default function Navigation() {
   const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  //const [isLoading, setIsLoading] = useState(true)
   // const authContext = useMemo(() => {
   //   return {
   //     signIn: () => {
@@ -84,12 +85,13 @@ export default function Navigation() {
               <ParentStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
               <ParentStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
               <ParentStack.Screen name="MealForm" options={{ title: "Meal Form" }} component={MealFormScreen} />
+              <ParentStack.Screen name="Register" options={{ title: "Register Form" }} component={RegisterScreen} initialParams={ user } />  
+              
             </ParentStack.Navigator>
           //</FavoritesContextProvider>        
         ) : (
           <AuthStack.Navigator initialRouteName='Login'>
-            <AuthStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />    
-            <AuthStack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />   
+            <AuthStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />           
           </AuthStack.Navigator>
         )}
        

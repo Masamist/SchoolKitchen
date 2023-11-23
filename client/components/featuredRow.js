@@ -5,28 +5,24 @@ import MealCard from '../components/mealCard'
 
 export default function FeaturedRow({title, meals}) {
   return (
-    <View>
-      <View className="flex-col justify-between items-center px-4">
+    <View className="py-3">
+      <View className="flex-row justify-between w-full">
         <View>
-          <Text className="font-bold text-lg">{title}</Text>
+          <Text className="text-lg text-amber-950 pl-1">{title}</Text>
         </View>
-        
         <Pressable>
-          <Text style={{color: 'orange'}} className="font-semibold">See All</Text>
+          <Text className="text-sm text-amber-500 pr-4">See All</Text>
         </Pressable>
       </View>
 
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-            paddingHorizontal:15,
-        }}
-        className="overflow-visible py-5"
+        //contentContainerStyle={{ paddingHorizontal:15 }}
+        className="overflow-visible py-1"
        >
         {
           meals?.map(meal => {
-          // /console.log(meal)
           return (
               <MealCard    
                 id={meal._id}
