@@ -4,6 +4,8 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from "react-native-feather"
 import ProceedButton from '../components/ui/proceedButton'
 import Icon from '../assets/icon.png'
+import NoImage from '../components/ui/noImage'
+import BasketIcon from '../components/ui/basketIcon'
 //import { themeColors } from '../theme'
 
 // ServerSide
@@ -13,14 +15,14 @@ export default function MealScreen() {
   const route = useRoute()
   const navigation = useNavigation()
   const { title, description, price, mealimage } = route.params
-
+  const imageSize = { width: '100%', height: 300 }
   return (
     <>
       {/* GoBack Button */}
       <View className="relative">
         {/* Need to fix here */}
         {mealimage ? <Image className="w-full h-72" source={{ uri: urlFor(mealimage).url() }} /> 
-        : <Text>No Image</Text>}
+        : <NoImage imageStlye={ imageSize } /> }
         
         <TouchableOpacity 
           onPress={()=> navigation.goBack()} 
@@ -30,19 +32,24 @@ export default function MealScreen() {
         </TouchableOpacity>
       </View>
 
-      <View className="flex-row items-center rounded-3xl mb-3 mx-2">
+      <View className="flex-row items-center rounded-3xl mx-3 mt-4">
         <View className="flex-colum">
           <View className="pl-2">
-            <Text className="text-xl">{title} </Text>
+            <Text className="text-2xl text-amber-900">{title} </Text>
             {
-              description ? <Text className="text-gray-700">{description}</Text>
+              description ? <Text className="text-gray-700 text-lg">{description}</Text>
                 : <Text>No description</Text>
             }
-            <Text className="text-sm text-gray-700">${price}</Text>
+            
+            <Text className="text-2xl text-gray-700">${price}</Text>
+            <TouchableOpacity className="py-6">
+              <Text className="text-2xl text-gray-500 text-center">Continue Ordering</Text>
+            </TouchableOpacity>
+            
           </View>
         </View>
       </View>
-      <ProceedButton props={"Go to Shopping Basket"} />
+      <BasketIcon />
     </>
   )
 }

@@ -17,3 +17,6 @@ const pallete = [
 export const themeColors = {
   ...pallete[0]
 }
+
+// Green (#A8BC3A)
+// Orange (#F2C94C)
