@@ -24,14 +24,6 @@ import RegisterScreen from './screens/RegisterScreen'
 const ParentStack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
 
-// function AuthStack(){
-//   return(
-//     <Stack.Navigator>
-//       <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-//       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-//     </Stack.Navigator>
-//   )
-// }
 
 // const ParentStack = () => {
 //  //const authCtx = useContext(AuthContext);
@@ -80,10 +72,10 @@ export default function Navigation() {
                 }
               }} 
               component={MealListScreen} />
+              <ParentStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
               <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
               <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
               <ParentStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
-              <ParentStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
               <ParentStack.Screen name="MealForm" options={{ title: "Meal Form" }} component={MealFormScreen} />
               <ParentStack.Screen name="Register" options={{ title: "Register Form" }} component={RegisterScreen} initialParams={ user } />  
               

@@ -11,7 +11,7 @@ import { FIREBASE_AUTH } from '../../firebaseConfig'
 export default function Header() {
   const navigation = useNavigation()
   return (
-    <View className="flex-row-reverse space-x-5 rounded-3xl my-5 mx-5">
+    <View className="flex-row-reverse space-x-5 rounded-3xl mt-1 mb-5 mx-5">
       <Pressable onPress={()=> navigation.navigate('Dashboard')}>
         <Menu width={30} height={30} stroke="#777777" color="#ffffff" />
       </Pressable>

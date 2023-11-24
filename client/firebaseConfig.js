@@ -4,15 +4,21 @@ import { initializeAuth, getAuth, getReactNativePersistence } from "firebase/aut
 //import { initializeAuth, getAuth,  getReactNativePersistence } from 'firebase/auth'
 import { getFirestore } from "firebase/firestore"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { FIRE_BASE_API_KEY, 
+  FIRE_BASE_AUTH_DONAIN, 
+  FIRE_BASE_PROJECT_ID, 
+  FIRE_BASE_STORAG_EBUCKET, 
+  FIRE_BASE_MESSAGING_SENDER_ID, 
+  FIRE_BASE_API_ID } from "@env"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCnVKpNmRgrAohxfA20VcPcbYIkOF-XVo8",
-  authDomain: "shopping-app-641ad.firebaseapp.com",
-  projectId: "shopping-app-641ad",
-  storageBucket: "shopping-app-641ad.appspot.com",
-  messagingSenderId: "390261348245",
-  appId: "1:390261348245:web:950c3e91a18452dd92889c"
+  apiKey: FIRE_BASE_API_KEY,
+  authDomain: FIRE_BASE_AUTH_DONAIN,
+  projectId: FIRE_BASE_PROJECT_ID,
+  storageBucket: FIRE_BASE_STORAG_EBUCKET,
+  messagingSenderId: FIRE_BASE_MESSAGING_SENDER_ID,
+  appId: FIRE_BASE_API_ID
 }
 
 // Initialize Firebase

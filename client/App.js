@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import Navigation from './navigation'
 import { store } from './store'
 import { Provider } from 'react-redux'
@@ -9,6 +10,7 @@ export default function App() {
   // if (!global.atob) { global.atob = decode }
   return (
     <Provider store={store}>
+      <StatusBar />
       <Navigation />
     </Provider>
   );

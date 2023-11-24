@@ -1,4 +1,5 @@
-import { View, SafeAreaView, Text, Pressable, ScrollView, StatusBar } from 'react-native'
+import { View, Text, Pressable, ScrollView, StatusBar } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -27,17 +28,15 @@ export default function HomeScreen() {
   const popularMeal = allMeals.slice(0, 3)
   
   return (
-    <SafeAreaView className="bg-white" >
-      <StatusBar barStyle="dark-content" />
+    <SafeAreaView>   
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-            paddingBottom: 50
+            paddingBottom: 80
         }}
         className="pl-3"
       > 
         <Header />
-
 
         {/* Shopping Basket */}
         <BasketIcon />

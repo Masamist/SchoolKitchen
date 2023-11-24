@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
 import { selectBasketItems, selectBasketTotal } from '../../slices/basketSlice'
 import { ShoppingBag } from "react-native-feather"
+import { Shadow } from 'react-native-shadow-2'
 //import { selectMeal } from '../slices/mealSlice';
-import { themeColors } from '../../theme';
+
 
 export default function BasketIcon() {
-  const basketItems = useSelector(selectBasketItems);
-  const basketTotal = useSelector(selectBasketTotal);
-    const navigation = useNavigation();
-    if(!basketItems.length) return null;
+  const basketItems = useSelector(selectBasketItems)
+  const basketTotal = useSelector(selectBasketTotal)
+  const navigation = useNavigation()
+    
+  if(!basketItems.length) return null
+
   return (
     <View className="absolute bottom-5 w-full z-50">
         <TouchableOpacity 
