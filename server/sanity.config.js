@@ -15,4 +15,17 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+  // auth: {
+  //   redirectOnSingle: false,
+  //   mode: 'append',
+  //   providers: [
+  //     {
+  //       name: 'vandelay',
+  //       title: 'Vandelay Industries',
+  //       url: 'https://api.vandelay.industries/login',
+  //       logo: '/static/img/vandelay.svg'
+  //     }
+  //   ],
+  //   loginMethod: 'dual',
+  // }
 })

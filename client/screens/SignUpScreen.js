@@ -4,21 +4,20 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { themeColors } from '../theme'
-
-
-import { useLogin } from '../hooks/useLogin'
 import SocialLogins from '../components/ui/socialLogins'
-//import authenticateSanity from '../authenticateSanity'
 
-export default function LoginScreen() {
+// Auth
+import { useSignup } from '../hooks/useSignup'
+
+export default function SignUpScreen() {
 
   const navigation = useNavigation()
   const [email, setEmail] = useState('')
   const [password, setPassword]=useState('')
-  const { login, isPending, error } = useLogin()
+  const { signup, isPending, error } = useSignup()
 
-  const handleLogin = () => {
-    login(email, password)
+  const handleSignUp = () => {
+    signup(email, password)
   }
 
   return (
@@ -37,7 +36,7 @@ export default function LoginScreen() {
         style={{borderTopLeftRadius: 50, borderTopRightRadius: 50}} 
         className="flex-1 bg-white px-8 pt-5"
       >
-        <Text className="text-xl text-gray-700 pb-3 font-bold text-center">Login</Text>
+        <Text className="text-xl text-gray-700 pb-3 font-bold text-center">Sign Up</Text>
 
         
           <View className="form space-y-2">
@@ -58,17 +57,14 @@ export default function LoginScreen() {
               onChangeText={(text) => setPassword(text)}
               value={password.toString()} 
             />
-            <TouchableOpacity className="flex items-end">
-              <Text className="text-gray-700 mb-5">Forgot Password?</Text>
-            </TouchableOpacity>
             { isPending ? <ActivityIndicator size="large" color="#000ff" /> 
               : <>
-                <TouchableOpacity
-                  onPress={handleLogin}
-                  style={{backgroundColor: themeColors.bgColor(1)}}
-                  className="py-3 rounded-3xl"
+                <TouchableOpacity 
+                  style={{ backgroundColor:'#F2C94C'}}
+                  className="mt-9 py-3 rounded-3xl"
+                  onPress={handleSignUp}
                 >
-                  <Text className={"text-xl font-bold text-center text-white"}>Login"</Text>
+                  <Text className="text-xl text-center text-gray-500">Sign Up</Text>
                 </TouchableOpacity>   
               </>
              }
@@ -79,13 +75,12 @@ export default function LoginScreen() {
 
         <Text className="text-xl text-gray-700 font-bold text-center py-5">Or</Text>
         <SocialLogins />
-        
 
         <View className="flex-row justify-center mt-5 mb-5">
-          <Text className="text-gray-500 font-semibold">Already have an account?</Text>
+          <Text className="text-gray-500 font-semibold">Don't have an account?</Text>
           {/* <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}></TouchableOpacity> */}
-          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text className="font-semibold text-yellow-500"> Sign Up</Text>
+          <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+            <Text className="font-semibold text-yellow-500">Login</Text>
           </TouchableOpacity>
         </View> 
         

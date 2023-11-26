@@ -1,4 +1,4 @@
-import { ViewStyle, Text, TouchableOpacity, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 

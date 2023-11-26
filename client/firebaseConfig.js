@@ -1,7 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { initializeAuth, getAuth, getReactNativePersistence } from "firebase/auth"
-//import { initializeAuth, getAuth,  getReactNativePersistence } from 'firebase/auth'
 import { getFirestore } from "firebase/firestore"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FIRE_BASE_API_KEY, 
@@ -10,6 +8,7 @@ import { FIRE_BASE_API_KEY,
   FIRE_BASE_STORAG_EBUCKET, 
   FIRE_BASE_MESSAGING_SENDER_ID, 
   FIRE_BASE_API_ID } from "@env"
+//import 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,13 +24,17 @@ const firebaseConfig = {
 const FIREBASE_APP = initializeApp(firebaseConfig)
 
 // Initialize Firebase Auth with AsyncStorage persistence
-//const FIREBASE_AUTH = getAuth(FIREBASE_APP)
 const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  })
+  persistence: getReactNativePersistence(AsyncStorage),
+})
 
-const FIREBASE_DB = getFirestore(FIREBASE_APP)
-export { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB }
-//export { FIREBASE_APP, FIREBASE_AUTH, getApp, getAuth, FIREBASE_DB}
-// // timestamp
-// export const timestamp = firebase.firestore.Timestamp
+
+// timestamp
+//const timestamp = firebase.firestore.Timestamp
+
+export { FIREBASE_APP, FIREBASE_AUTH }
+
+// const FIREBASE_DB = getFirestore(FIREBASE_APP)
+// export { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB, timestamp }
+
+//export { projectFirestore, projectAuth, projectStorage, timestamp }
