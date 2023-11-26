@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToBasket, removeFromBasket, selectBasketItemsById } from '../slices/basketSlice';
 import { themeColors } from '../theme';
 
-// Components & Icon
+// Components & UI
 import NoImage from './ui/noImage'
 import MealDetailModal from './mealDetailModal'
 import { Minus, Plus } from "react-native-feather"
@@ -24,7 +24,7 @@ export default function MealCol({ id, title, description, price, mealimage }) {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-  };
+  }
   ///////Check inside the bag
   //console.log(bagItems)
   const handleIncrease = ()=>{
@@ -42,7 +42,7 @@ export default function MealCol({ id, title, description, price, mealimage }) {
       return truncatedText;
     }
     return text;
-  };
+  }
   //console.log(mealimage)
   return (
     <>

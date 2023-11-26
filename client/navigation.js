@@ -20,7 +20,8 @@ import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import DashboardScreen from './screens/foodProvider/DashboardScreen'
 import MenuListScreen from './screens/foodProvider/MenuListScreen'
-import MealFormScreen from './screens/foodProvider/MealFormScreen'
+import CreateMealScreen from './screens/foodProvider/CreateMealScreen'
+import UpdateMealScreen from './screens/foodProvider/UpdateMealScreen'
 import RegisterScreen from './screens/RegisterScreen'
 //import { ImageBackground } from 'react-native';
 
@@ -81,7 +82,8 @@ export default function Navigation() {
               <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
               <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
               <ParentStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
-              <ParentStack.Screen name="MealForm" options={{ title: "Meal Form" }} component={MealFormScreen} />
+              <ParentStack.Screen name="CreateMeal" options={{ title: "Create Meal Form" }} component={CreateMealScreen} />
+              <ParentStack.Screen name="UpdateMeal" options={{ title: "Update Meal Form" }} component={UpdateMealScreen} />
               <ParentStack.Screen name="Register" options={{ title: "Register Form" }} component={RegisterScreen} initialParams={ user } />  
               
             </ParentStack.Navigator>

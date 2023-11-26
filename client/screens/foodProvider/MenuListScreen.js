@@ -1,25 +1,26 @@
 import { StyleSheet, ScrollView, View, Pressable, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
-// Component & Icon
+// Components & UI
 import Categories from '../../components/ui/categories'
-import FpMealRow from '../../components/FoodProvider/fpMealRow'
 import FpMealCard from '../../components/FoodProvider/fpMealCard'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'
+
 
 // ServerSide
 import { getAllMeals } from '../../api/mealApi'
 
 export default function MealListScreen() {
   const navigation = useNavigation()
+
   const [allMeals, setAllMeals ] = useState([])
   useEffect(() => {
     getAllMeals().then(data => {
       setAllMeals(data)
     })
   }, [])
-  //const route = useRoute()
+
   return (
     <ScrollView >
       <View className="pl-3 mt-5">
@@ -34,7 +35,7 @@ export default function MealListScreen() {
           <View className="flex-row justify-center pr-5">
             <Text className="text-amber-950 pr-2 pt-2">Add Meal</Text>
             <TouchableOpacity 
-              onPress={() => navigation.navigate('MealForm')}
+              onPress={() => navigation.navigate('CreateMeal')}
               className="items-right"
             >
               <AntDesign name="pluscircle" size={32} color="#A8BC3A" />
@@ -50,9 +51,12 @@ export default function MealListScreen() {
                   key={meal._id}
                   id={meal._id}
                   title={meal.name}
-                  description={meal.description}
                   price={meal.price}
+                  description={meal.description}
+                  allergies={meal.allergies}
+                  limit={meal.limit}
                   mealimage={meal.mealimage}
+                  category={meal.category}
                 />    
               )
             })

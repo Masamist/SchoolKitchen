@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { View, Text, Pressable, Image, TouchableOpacity } from 'react-native'
-import { Edit } from "react-native-feather"
 import { useNavigation } from '@react-navigation/native'
+
+// Components & UI
+import { Edit } from "react-native-feather"
+import { Shadow } from 'react-native-shadow-2'
 
 // ServerSide
 import { urlFor } from '../../sanity'
@@ -9,7 +12,7 @@ import { urlFor } from '../../sanity'
 export default function FpMealRow(id, title, description, price, mealimage) {
   const navigation = useNavigation()
   return (
-    <>
+  <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
     <View className="flex-row items-center rounded-3xl mb-3 mx-2">
       <View className="flex-row">
         <TouchableOpacity
@@ -28,7 +31,7 @@ export default function FpMealRow(id, title, description, price, mealimage) {
           </View>
         </TouchableOpacity>
 
-      <View className="pl-2">
+      <View className="pl-2 bg-white">
         <Text className="text-xl">{title}</Text>
         <Text className="text-gray-700">{description}</Text>
         <Text className="text-sm text-gray-700">${price}</Text>
@@ -48,6 +51,6 @@ export default function FpMealRow(id, title, description, price, mealimage) {
         </View>
       </View>
     </View>
-  </>
+  </Shadow>
   );
 }
