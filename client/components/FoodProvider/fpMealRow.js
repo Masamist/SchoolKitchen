@@ -33,7 +33,7 @@ export default function FpMealRow(id, title, description, price, mealimage) {
 
       <View className="pl-2 bg-white">
         <Text className="text-xl">{title}</Text>
-        <Text className="text-gray-700">{description?description:""}</Text>
+        <Text className="text-gray-700">{description?description:null}</Text>
         <Text className="text-sm text-gray-700">${price}</Text>
 
         <View className="flex-row items-end">

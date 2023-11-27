@@ -14,10 +14,7 @@ import { Shadow } from 'react-native-shadow-2'
 // ServerSide
 import { urlFor } from '../sanity'
 
-export default function MealCol({ 
-    id, title, price, 
-    description, allergies, 
-    limit, mealimage, category}) {
+export default function MealCol({ id, title, price, description, allergies, limit, mealimage, category}) {
   const  dispatch = useDispatch();
   const basketItems = useSelector(state=> selectBasketItemsById(state, id));
   const [bagItems, setBagItems] = useState([])
@@ -94,6 +91,7 @@ export default function MealCol({
 
       <Modal isVisible={isModalVisible}>
         <MealDetailModal
+          key={id}
           id={id}
           title={title}
           price={price}
@@ -103,7 +101,7 @@ export default function MealCol({
           mealimage={mealimage}
           category={category}
           toggleModal={toggleModal} 
-          />
+        />
       </Modal>
     </>
   );

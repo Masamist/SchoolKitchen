@@ -19,23 +19,21 @@ export default function MealListScreen() {
     allMeals
   }} = useRoute()
   
-  const [categorizedMeals, setCategorizedMeal] = useState([])
+  const [categorizedMeals, setCategorizedMeals] = useState([])
   //const [Meals, setMeals] = useState()
   
   
   /////////////////Error!!!!!!!!!!!!!!!!!!!!!!!!!!
   useEffect(() => {
-    const categorized =  async() => {
       try{
-        await allMeals.filter(meal => meal.category._ref == selectedCategory)
-        setCategorizedMeal(categorized)
+        const result = allMeals.filter(meal => meal.category._ref == selectedCategory)
+        setCategorizedMeals(result)
       }catch(error){
         console.log(error)
       }
       
-    }
   }, [])
-  // setCategorizedMeal(categorized)
+  //setCategorizedMeal(categorized)
   //console.log("allMeals",allMeals)
   //console.log("selectedCategory", selectedCategory)
   //console.log("categorizedMeals",categorizedMeals)
@@ -60,6 +58,7 @@ export default function MealListScreen() {
                   price={meal.price}
                   description={meal.description}
                   allergis={meal.allergis}
+                  limit={meal.limit}
                   mealimage={meal.mealimage}
                   category={meal.category}
                 />
