@@ -14,7 +14,10 @@ import { Shadow } from 'react-native-shadow-2'
 // ServerSide
 import { urlFor } from '../sanity'
 
-export default function MealCol({ id, title, description, price, mealimage }) {
+export default function MealCol({ 
+    id, title, price, 
+    description, allergies, 
+    limit, mealimage, category}) {
   const  dispatch = useDispatch();
   const basketItems = useSelector(state=> selectBasketItemsById(state, id));
   const [bagItems, setBagItems] = useState([])
@@ -58,7 +61,10 @@ export default function MealCol({ id, title, description, price, mealimage }) {
         <View className="pl-5" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
-            <Text className="text-gray-700 pt-1">{truncateText(description, 12)}</Text>
+            {description? 
+              <Text className="text-gray-700 pt-1">{truncateText(description, 12)}</Text>
+              : <Text>No discription</Text>
+            }
             <Text className="text-lg text-gray-700 pt-1">$ {price}</Text>
           </Pressable>
 
@@ -91,8 +97,11 @@ export default function MealCol({ id, title, description, price, mealimage }) {
           id={id}
           title={title}
           price={price}
-          description={description} 
+          description={description}
+          allergies={allergies}
+          limit={limit}
           mealimage={mealimage}
+          category={category}
           toggleModal={toggleModal} 
           />
       </Modal>

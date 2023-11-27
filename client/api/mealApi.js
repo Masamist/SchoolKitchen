@@ -20,6 +20,8 @@ export const getAllMeals = ()=>{
   `);
 }
 
+
+
 // export const getNewMeals = ()=>{
 //     return sanityQuery(`
 //         *[_type == 'meal'] | order(_createdAt desc){
@@ -59,6 +61,7 @@ export const createMeal = async(formData) => {
         price: +formData.price,
         description: formData.description,
         allergis: formData.allergies ? formData.allergies.split("\n") : undefined,
+        limit: +formData.limit,
         // mealImage: {
         //   _type: "image"
         //   // asset: {
@@ -212,13 +215,14 @@ export const updateMeal = async(formData) => {
   //console.log(formData.image)
   console.log("Check point 1: create new doc")
   try{
-      const response = await fpClient.create({
-        _id: uuid.v4(),
+      const response = await fpClient.patch(formData.id)
+        .set({
         _type: "meal",
         name: formData.title,
         price: +formData.price,
         description: formData.description,
         allergis: formData.allergies ? formData.allergies.split("\n") : undefined,
+        limit: +formData.limit,
         // mealImage: {
         //   _type: "image"
         //   // asset: {
@@ -232,47 +236,48 @@ export const updateMeal = async(formData) => {
           _type: "reference",
           _ref: formData.category
         } : undefined,
-      })  
-    console.log('Document created:', response);
+      })
+      .commit() 
+    console.log('Document updated:', response);
     
 
 
 
-    if(formData.image){
-      console.log("check point 2: upload image file")
+    // if(formData.image){
+    //   console.log("check point 2: upload image file")
 
-           //Use the FileSystem module to read the image file
-      const fileName = formData.image.split('/').pop()
-      let base64 = null
-      let options = { encoding: FileSystem.EncodingType.Base64 }
-      await FileSystem.readAsStringAsync(formData.image, options).then(data => {
-          base64 = 'data:image/jpg;base64' + data;
-          //resolve(base64); // are you sure you want to resolve the data and not the base64 string?
-        }).catch(err => {
-          console.log("​getFile -> err", err);
-          reject(err) ;
-        })
+    //        //Use the FileSystem module to read the image file
+    //   const fileName = formData.image.split('/').pop()
+    //   let base64 = null
+    //   let options = { encoding: FileSystem.EncodingType.Base64 }
+    //   await FileSystem.readAsStringAsync(formData.image, options).then(data => {
+    //       base64 = 'data:image/jpg;base64' + data;
+    //       //resolve(base64); // are you sure you want to resolve the data and not the base64 string?
+    //     }).catch(err => {
+    //       console.log("​getFile -> err", err);
+    //       reject(err) ;
+    //     })
 
-      await fpClient.assets
-      .upload('image', base64, {
-        filename: "fileName"
-      })
-      .then(imageAsset => {    
-        console.log("Passed imageAsset_id? :", imageAsset._id)
-        return fpClient
-        .patch(response._id)
-        .set({
-          mealImage: {
-            _type: 'image',
-            asset: {
-              _type: "reference",
-              _ref: imageAsset._id
-            }
-          }
-        })
-      .commit()
-      })
-    }
+    //   await fpClient.assets
+    //   .upload('image', base64, {
+    //     filename: "fileName"
+    //   })
+    //   .then(imageAsset => {    
+    //     console.log("Passed imageAsset_id? :", imageAsset._id)
+    //     return fpClient
+    //     .patch(response._id)
+    //     .set({
+    //       mealImage: {
+    //         _type: 'image',
+    //         asset: {
+    //           _type: "reference",
+    //           _ref: imageAsset._id
+    //         }
+    //       }
+    //     })
+    //   .commit()
+    //   })
+    // }
   } catch(err) {
     console.log("Error creating doc", err)
   }

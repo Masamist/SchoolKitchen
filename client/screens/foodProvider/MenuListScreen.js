@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View, Pressable, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Pressable, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -66,5 +66,3 @@ export default function MealListScreen() {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({})

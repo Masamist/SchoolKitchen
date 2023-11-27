@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import FavoritesContextProvider from './store/context/favorites-context';
+import FavoritesContextProvider from './store/context/favorites-context';
 
 // Backend
 //import { User, onAuthStateChanged } from 'firebase/auth'
@@ -30,7 +30,6 @@ const AuthStack = createNativeStackNavigator()
 
 
 // const ParentStack = () => {
-//  //const authCtx = useContext(AuthContext);
 //   <ParentStack.Navigator>
 //     <ParentStack.Screen name="Home" component={HomeScreen} />
 //     <ParentStack.Screen name="MealList" component={MealListScreen} />

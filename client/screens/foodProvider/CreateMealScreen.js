@@ -14,6 +14,7 @@ export default function CreateMealScreen() {
     allergies: "",
     limit: "",
     mealimage: "",
+    category:""
   })
 	//FOR THE Form SUBMIT BUTTON:
   const handleFormSubmit = async (formData) => {

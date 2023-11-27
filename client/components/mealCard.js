@@ -8,7 +8,7 @@ import MealDetailModal from './mealDetailModal'
 // ServerSide
 import { urlFor } from '../sanity'
 
-export default function MealCard({ id, title, price, description, mealimage }) {
+export default function MealCard({ id, title, price, description, allergies, limit, mealimage }) {
   const imageSize = { width: 180, height: 180 }
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -41,8 +41,11 @@ export default function MealCard({ id, title, price, description, mealimage }) {
           id={id}
           title={title}
           price={price}
-          description={description} 
+          description={description}
+          allergies={allergies}
+          limit={limit}
           mealimage={mealimage}
+          category={category}
           toggleModal={toggleModal} 
           />
       </Modal>

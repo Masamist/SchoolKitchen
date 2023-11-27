@@ -4,9 +4,12 @@ const initialState = {
   meal: {
     id: null,
     title: null,
-    description: null,
-    mealimage: null,
     price:null,
+    description:null,
+    allergis:null,
+    limit:null,
+    mealimage:null,
+    category:null,
   }
 }
 

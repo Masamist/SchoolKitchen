@@ -10,16 +10,16 @@ import BasketIcon from '../components/ui/basketIcon'
 
 // // ServerSide
 // import { getAllMeals } from '../api'
-
+const { params: {
+    selectedCategory, 
+    allMeals
+  }} = useRoute()
 export default function MealListScreen() {
   const navigation = useNavigation()
   //const route = useRoute()
   const [categorizedMeals, setCategorizedMeal] = useState([])
   //const [Meals, setMeals] = useState()
-  const { params: {
-    selectedCategory, 
-    allMeals
-  }} = useRoute()
+  
   
   /////////////////Error!!!!!!!!!!!!!!!!!!!!!!!!!!
   useEffect(() => {
@@ -48,9 +48,11 @@ export default function MealListScreen() {
                   key={meal._id}
                   id={meal._id}
                   title={meal.name}
-                  description={meal.description}
                   price={meal.price}
+                  description={meal.description}
+                  allergis={meal.allergis}
                   mealimage={meal.mealimage}
+                  category={meal.category}
                 />
                 <View>
                   <Separator />

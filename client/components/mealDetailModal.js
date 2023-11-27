@@ -7,7 +7,7 @@ import BasketIcon from './ui/basketIcon'
 // ServerSide
 import { urlFor } from '../sanity';
 
-export default function mealDetailModal({id, title, price, description, mealimage, toggleModal}) {
+export default function mealDetailModal({id, title, price, description, allergies, limit, mealimage, category, toggleModal}) {
 
   const imageSize = { width: '100%', height: 300 }
 
@@ -42,7 +42,9 @@ export default function mealDetailModal({id, title, price, description, mealimag
             }
             
             <Text className="text-xl text-amber-900 pt-5">Allergy Info</Text>
-            <Text className="text-sm text-gray-700 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit </Text>
+            {allergies ? <Text className="text-sm text-gray-700 ">{allergies}</Text> 
+            :<Text className="text-sm text-gray-700 ">"None"</Text> }
+            
             <Text className="text-2xl text-gray-700 pt-5">${price}</Text>
             <TouchableOpacity className="py-4">
               <Text className="text-2xl text-gray-500 text-center">Continue Ordering</Text>

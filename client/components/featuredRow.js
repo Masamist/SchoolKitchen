@@ -30,7 +30,10 @@ export default function FeaturedRow({title, meals}) {
                 title={meal.name}
                 price={meal.price}
                 description={meal.description}
+                allergies={meal.allergies}
+                limit={meal.limit}
                 mealimage={meal.mealimage}
+                category={meal.category}
               />    
               )
           })
