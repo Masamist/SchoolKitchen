@@ -1,36 +1,54 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableWithoutFeedback, Button } from 'react-native'
+import NoImage from '../components/ui/noImage'
+import { Shadow } from 'react-native-shadow-2'
+import Modal from "react-native-modal"
+import MealDetailModal from './mealDetailModal'
 
 // ServerSide
 import { urlFor } from '../sanity'
 
-export default function MealCard({ id, title, price, description, mealimage }) {
-  const navigation = useNavigation()
+export default function MealCard({ id, title, price, description, allergies, limit, mealimage }) {
+  const imageSize = { width: 180, height: 180 }
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <>
-      <TouchableWithoutFeedback onPress={()=>{
-        navigation.navigate('Meal', { id, title, description, price, mealimage })
-      }}>
-        <View className="mr-6 bg-white rounded-3xl shadow-lg">
+      <TouchableWithoutFeedback onPress={toggleModal}>
+      
+        <View className="mr-4 bg-white rounded-3xl shadow-lg">
+        <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
         {/* <View style={{shadowColor: themeColors.bgColor(0.2), shadowRadius: 7}} className="mr-6 bg-white rounded-3xl shadow-lg"> */}
           {
-            mealimage ? <Image  className="h-40 w-40 rounded-md" source={{ uri: urlFor(mealimage).url()}} />
-              : <Text>No Images</Text>
+            mealimage ? <Image style={ imageSize }  className="rounded-md" source={{ uri: urlFor(mealimage).url()}} />
+              : <NoImage imageStlye={ imageSize } />
           }
-    
-          <View className="px-3 pb-4 space-y-2">
-          
-            <Text className="text-lg font-bold pt-2">{title}</Text>
-            <View className="flex-row items-center space-x-1">
-                <Text className="text-s">
-                    <Text className="text-gray-500">$ {price}</Text>
-                    
-                </Text>
-            </View>
+          </Shadow> 
+          <View className="pt-1 pb-4">
+            <Text className="text-lg pt-1 text-amber-950">{title}</Text>
+            <Text className="text-gray-500 font-semibold text-lg">$ {price}</Text>
           </View>
-        </View>    
+        </View>
+        
       </TouchableWithoutFeedback>
+
+      <Modal isVisible={isModalVisible}>
+        <MealDetailModal
+          id={id}
+          title={title}
+          price={price}
+          description={description}
+          allergies={allergies}
+          limit={limit}
+          mealimage={mealimage}
+          //category={category}
+          toggleModal={toggleModal} 
+          />
+      </Modal>
     </>
   );
 }

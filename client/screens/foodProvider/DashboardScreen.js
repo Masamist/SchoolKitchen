@@ -4,9 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 
 // ServerSide
 import { FIREBASE_AUTH } from '../../firebaseConfig'
+import { useLogout } from '../../hooks/useLogout'
 
 export default function DashboardScreen() {
   const navigation = useNavigation()
+  const { logout, isPending } = useLogout()
 
   return (
     <SafeAreaView className="bg-white" >

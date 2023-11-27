@@ -4,30 +4,19 @@ const pallete = [
       text: '#FFFFFF', 
       bgColor: opacity=> `rgba(168, 188, 58, ${opacity})`
   },
-  {   // dark gray
-      text: '#334155', 
-      bgColor: opacity=> `rgba(30, 41, 59, ${opacity})`,
+  {   // sub orange
+      text: '#777777', 
+      bgColor: opacity=> `rgba(242, 201, 76, ${opacity})`,
   },
   {   // purple
       text: '#7c3aed', 
       bgColor: opacity=> `rgba(167, 139, 250, ${opacity})`,
-  },
-  {   // green
-      text: '#009950', 
-      bgColor: opacity=> `rgba(0, 179, 89, ${opacity})`,
-  },
-  {
-      // teal
-      text: '#14b8a6',
-      bgColor: opacity=> `rgba(45, 212, 191, ${opacity})`
-  },
-  {
-      // red
-      text: '#dc2626',
-      bgColor: opacity=> `rgba(248, 113, 113, ${opacity})`
   }
-
 ]
+
 export const themeColors = {
   ...pallete[0]
 }
+
+// Green (#A8BC3A)
+// Orange (#F2C94C)

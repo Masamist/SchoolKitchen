@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Image, View } from 'react-native'
+import { Pressable, Image, View } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
+import { AntDesign } from '@expo/vector-icons'
 
 
 export default function FpMealImagePicker({onImageValueChange}) {
@@ -26,8 +27,14 @@ export default function FpMealImagePicker({onImageValueChange}) {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+    <View>
+      <Pressable onPress={pickImage}>
+       <AntDesign 
+        name="plussquare" 
+        size={45} 
+        color="#F2C94C"
+      />
+      </Pressable>
       {image && <Image source={{ uri: image }} style={{ width: 320, height: 200 }} />}
     </View>
   )
