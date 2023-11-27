@@ -3,8 +3,8 @@ import { useNavigation } from '@react-navigation/native'
 
 // Auth
 import { useAuthContext } from './useAuthContext'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../firebaseConfig/'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { FIREBASE_APP, FIREBASE_AUTH } from '../firebaseConfig/'
 import authenticateSanity from '../authenticateSanity'
 
 export const useSignup = () => {
@@ -12,7 +12,7 @@ export const useSignup = () => {
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch } = useAuthContext()
-  const auth = FIREBASE_AUTH
+  const auth = getAuth()
 
   const navigation = useNavigation()
 

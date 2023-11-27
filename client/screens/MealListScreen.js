@@ -10,21 +10,30 @@ import BasketIcon from '../components/ui/basketIcon'
 
 // // ServerSide
 // import { getAllMeals } from '../api'
-const { params: {
-    selectedCategory, 
-    allMeals
-  }} = useRoute()
+
 export default function MealListScreen() {
   const navigation = useNavigation()
   //const route = useRoute()
+  const { params: {
+    selectedCategory, 
+    allMeals
+  }} = useRoute()
+  
   const [categorizedMeals, setCategorizedMeal] = useState([])
   //const [Meals, setMeals] = useState()
   
   
   /////////////////Error!!!!!!!!!!!!!!!!!!!!!!!!!!
   useEffect(() => {
-    const categorized = allMeals.filter(meal => meal.category._ref == selectedCategory)
-    setCategorizedMeal(categorized)
+    const categorized =  async() => {
+      try{
+        await allMeals.filter(meal => meal.category._ref == selectedCategory)
+        setCategorizedMeal(categorized)
+      }catch(error){
+        console.log(error)
+      }
+      
+    }
   }, [])
   // setCategorizedMeal(categorized)
   //console.log("allMeals",allMeals)

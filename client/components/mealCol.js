@@ -61,7 +61,7 @@ export default function MealCol({
         <View className="pl-5" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
-            {description? 
+            { description? 
               <Text className="text-gray-700 pt-1">{truncateText(description, 12)}</Text>
               : <Text>No discription</Text>
             }

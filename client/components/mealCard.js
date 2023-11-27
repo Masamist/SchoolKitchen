@@ -45,7 +45,7 @@ export default function MealCard({ id, title, price, description, allergies, lim
           allergies={allergies}
           limit={limit}
           mealimage={mealimage}
-          category={category}
+          //category={category}
           toggleModal={toggleModal} 
           />
       </Modal>

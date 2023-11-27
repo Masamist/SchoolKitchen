@@ -2,14 +2,12 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FavoritesContextProvider from './store/context/favorites-context';
+//import FavoritesContextProvider from './store/context/favorites-context';
 
 // Backend
 //import { User, onAuthStateChanged } from 'firebase/auth'
-import { User, onAuthStateChanged } from 'firebase/auth'
 import { useAuthContext } from './hooks/useAuthContext'
-import { FIREBASE_AUTH, FIREBASE_DB } from './firebaseConfig'
-//import { FIREBASE_AUTH } from './firebaseConfig'
+//import { FIREBASE_AUTH, FIREBASE_DB } from './firebaseConfig'
 
 // Screens
 import HomeScreen from './screens/HomeScreen'
@@ -28,19 +26,9 @@ import RegisterScreen from './screens/RegisterScreen'
 const ParentStack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
 
-
-// const ParentStack = () => {
-//   <ParentStack.Navigator>
-//     <ParentStack.Screen name="Home" component={HomeScreen} />
-//     <ParentStack.Screen name="MealList" component={MealListScreen} />
-//     <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
-//     <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
-//   </ParentStack.Navigator>
-// }
-
 export default function Navigation() {
   //const [user, setUser] = useState(null)
-  const { authIsReady, user } = useAuthContext()
+  const { user, authIsReady } = useAuthContext()
   //const [isLoading, setIsLoading] = useState(true)
   // const authContext = useMemo(() => {
   //   return {
@@ -60,7 +48,7 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       {/* <Stack.Navigator initialRouteName='Login'> */}
-
+      {authIsReady && <>
         {user ? (
           //<Stack.Screen name="Parent" component={ParentLayout} options={{ headerShown: false }} />
           //<FavoritesContextProvider>
@@ -100,6 +88,8 @@ export default function Navigation() {
         <Stack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
         <Stack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} /> */}
       {/* </Stack.Navigator> */}
+
+      </>}
     </NavigationContainer>
     
   )

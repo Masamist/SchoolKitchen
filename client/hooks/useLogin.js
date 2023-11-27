@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 
 // Auth
 import { useAuthContext } from './useAuthContext'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { FIREBASE_AUTH } from '../firebaseConfig/'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { FIREBASE_APP, FIREBASE_AUTH } from '../firebaseConfig/'
 import authenticateSanity from '../authenticateSanity'
 
 
@@ -12,7 +12,7 @@ export const useLogin = () => {
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch } = useAuthContext()
-  const auth = FIREBASE_AUTH
+  const auth = getAuth()
 
   const login = async (email, password) => {
     setError(null)
@@ -21,6 +21,8 @@ export const useLogin = () => {
     try {
       // login
       const response = await signInWithEmailAndPassword(auth, email, password)
+      // dispatch login action
+      dispatch({ type: 'LOGIN', payload: response.user })
 
       // update online status
       //await FIREBASE_DB.collection('users').doc(res.user.uid).update({ online: true })
@@ -28,8 +30,7 @@ export const useLogin = () => {
       const token = await user.getIdToken()
       authenticateSanity(token)
 
-      // dispatch login action
-      dispatch({ type: 'LOGIN', payload: response.user })
+      
 
       if (!isCancelled) {
         setIsPending(false)
