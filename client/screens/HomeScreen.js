@@ -1,7 +1,6 @@
-import { View, Text, Pressable, ScrollView, StatusBar } from 'react-native'
+import { View, ScrollView, StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 
 // Component
 import Header from '../components/ui/header'
@@ -10,23 +9,47 @@ import Categories from '../components/ui/categories'
 import SelectDays from '../components/selectDays'
 import FeaturedRow from '../components/featuredRow'
 
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import setMeal from '../store/redux/mealSlice'
+
 // ServerSide
-import { getAllMeals } from '../api/mealApi'
+import { getAllMeals, getNewMeals } from '../api/mealApi'
 
 
 export default function HomeScreen() {
-  const navigation = useNavigation()
+  //Redux
+  //const dispatch = useDispatch()
   const [allMeals, setAllMeals ] = useState([])
+  const [newMeals, setNewMeals] = useState([])
 
   useEffect(() => {
-    getAllMeals().then(data => {
+    try{
+      getAllMeals()
+      .then(data => {
       setAllMeals(data)
-    })
+      // /dispatch(setMeal(data))
+      })
+      getNewMeals()
+      .then(data => {
+        setNewMeals(data)
+      })
+    }catch(err){
+      console.log(err)
+    }
   }, [])
-  //console.log("allMeals",allMeals)
-  const newMeals = allMeals.reverse().slice(0, 4)
-  const popularMeal = allMeals.slice(0, 3)
-  
+  // // set Reducer
+  // // setMeal(allMeals)
+  // if(allMeals){
+  //   dispatch(setMeal(allMeals))
+  // }
+
+  //const newMeals = allMeals.reverse().slice(0, 4)
+  const popularMeals = allMeals.slice(0, 3)
+  // const favoriteMealIds = useSelector((state) => state.favorites.ids)
+  // const favoriteMeals = allMeals.filter(meal => meal.id == favoriteMealIds)
+  //const favoriteMeals = allMeals.slice(0, 3)
+
   return (
     <SafeAreaView>   
       <ScrollView
@@ -55,12 +78,12 @@ export default function HomeScreen() {
             meals={newMeals}
           />
           <FeaturedRow
-            title="Your Favorites"
+            title="Popular Meals"
             meals={newMeals}
           />
           <FeaturedRow
-            title="Popular Meals"
-            meals={popularMeal}
+            title="Your Favorites"
+            meals={newMeals}
           />
         </View>
 

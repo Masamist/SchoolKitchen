@@ -22,14 +22,13 @@ export const getAllMeals = ()=>{
 
 
 
-// export const getNewMeals = ()=>{
-//     return sanityQuery(`
-//         *[_type == 'meal'] | order(_createdAt desc){
-//             ...,
-//         }[0...6]
-        
-//     `);
-//   }
+export const getNewMeals = ()=>{
+    return sanityQuery(`
+        *[_type == 'meal'] | order(_createdAt){
+            ...,
+        }[0...6]      
+    `);
+  }
 
 export const getCategories = ()=>{
   return sanityQuery(`

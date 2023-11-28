@@ -13,6 +13,7 @@ import { useAuthContext } from './hooks/useAuthContext'
 import HomeScreen from './screens/HomeScreen'
 import MealListScreen from './screens/MealListScreen'
 import MealScreen from './screens/MealScreen'
+import FavoriteScreen from './screens/FavoriteScreen'
 import ShoppingBasket from './screens/ShoppingBasketScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
@@ -67,6 +68,7 @@ export default function Navigation() {
               component={MealListScreen} />
               <ParentStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
               <ParentStack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
+              <ParentStack.Screen name="Favorite" options={{ title: "Favorite Meal" }} component={FavoriteScreen} />
               <ParentStack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} />
               <ParentStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
               <ParentStack.Screen name="CreateMeal" options={{ title: "Create Meal Form" }} component={CreateMealScreen} />

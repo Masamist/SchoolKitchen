@@ -1,6 +1,6 @@
 
 import { View, Text } from 'react-native'
-import { Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons'
 
 export default function NoImage({imageStlye}) {
   return (

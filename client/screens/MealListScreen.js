@@ -2,11 +2,8 @@ import { ScrollView, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-// Components
-import Header from '../components/ui/header';
-import Categories from '../components/ui/categories'
-import MealCol from '../components/mealCol'
-import BasketIcon from '../components/ui/basketIcon'
+
+import MealList from '../components/mealList';
 
 // // ServerSide
 // import { getAllMeals } from '../api'
@@ -21,9 +18,7 @@ export default function MealListScreen() {
   
   const [categorizedMeals, setCategorizedMeals] = useState([])
   //const [Meals, setMeals] = useState()
-  
-  
-  /////////////////Error!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   useEffect(() => {
       try{
         const result = allMeals.filter(meal => meal.category._ref == selectedCategory)
@@ -31,57 +26,9 @@ export default function MealListScreen() {
       }catch(error){
         console.log(error)
       }
-      
   }, [])
-  //setCategorizedMeal(categorized)
-  //console.log("allMeals",allMeals)
-  //console.log("selectedCategory", selectedCategory)
-  //console.log("categorizedMeals",categorizedMeals)
   return (
-  <ScrollView>
-    <View className="pl-3">
-      <Header />
-      <BasketIcon />
-    
-      {/* <BagIcon /> */}
-      <Categories />
-
-      <View className="pt-7">
-        {
-          categorizedMeals?.map(meal=>{
-            return (
-              <>
-                <MealCol 
-                  key={meal._id}
-                  id={meal._id}
-                  title={meal.name}
-                  price={meal.price}
-                  description={meal.description}
-                  allergis={meal.allergis}
-                  limit={meal.limit}
-                  mealimage={meal.mealimage}
-                  category={meal.category}
-                />
-                <View>
-                  <Separator />
-                </View>
-                
-              </>   
-            )
-          })
-        }
-      </View>
-    </View>
-  </ScrollView>
+    <MealList selectedMeals={categorizedMeals} />
   )
 }
 
-const seperatorStyles = {
-  height: 2,
-  width: '100%',
-  backgroundColor: '#A8BC3A',
-  marginTop: 30,
-  marginBottom: 50,
-}
-
-const Separator = () => <View style={seperatorStyles} />

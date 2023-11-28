@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-import { selectBasketItems, selectBasketTotal } from '../../slices/basketSlice'
+import { selectBasketItems, selectBasketTotal } from '../../store/redux/basketSlice'
 import { ShoppingBag } from "react-native-feather"
 import { Shadow } from 'react-native-shadow-2'
 //import { selectMeal } from '../slices/mealSlice';

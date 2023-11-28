@@ -68,7 +68,7 @@ export default function LoginScreen() {
                   style={{backgroundColor: themeColors.bgColor(1)}}
                   className="py-3 rounded-3xl"
                 >
-                  <Text className={"text-xl font-bold text-center text-white"}>Login"</Text>
+                  <Text className={"text-xl font-bold text-center text-white"}>Login</Text>
                 </TouchableOpacity>   
               </>
              }

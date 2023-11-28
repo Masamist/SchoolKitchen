@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableWithoutFeedback, Button } from 'react-native'
-import NoImage from '../components/ui/noImage'
+import NoImage from './noImage'
 import { Shadow } from 'react-native-shadow-2'
 import Modal from "react-native-modal"
-import MealDetailModal from './mealDetailModal'
+import MealDetailModal from '../mealDetailModal'
 
 // ServerSide
-import { urlFor } from '../sanity'
+import { urlFor } from '../../sanity'
 
 export default function MealCard({ id, title, price, description, allergies, limit, mealimage }) {
   const imageSize = { width: 180, height: 180 }

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import Navigation from './navigation'
-import { AuthContextProvider } from './context/authContext'
-import { store } from './store'
+import { AuthContextProvider } from './store/context/authContext'
+import { store } from './store/redux/store'
 import { Provider } from 'react-redux'
 // import {decode, encode} from 'base-64'
 

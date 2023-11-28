@@ -1,10 +1,18 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import MealCard from '../components/mealCard'
+import MealCard from './ui/mealCard'
 
 
 export default function FeaturedRow({title, meals}) {
   return (
+    <>
+    { meals&&<MealsAvailable title={title} meals={meals} />}
+    </>  
+  )
+}
+
+const MealsAvailable = ({title, meals}) => {
+  return(
     <View className="py-3">
       <View className="flex-row justify-between w-full">
         <View>
@@ -20,9 +28,9 @@ export default function FeaturedRow({title, meals}) {
         showsHorizontalScrollIndicator={false}
         //contentContainerStyle={{ paddingHorizontal:15 }}
         className="overflow-visible py-1"
-       >
+      >
         {
-          meals?.map(meal => {
+          meals.map(meal => {
           return (
               <MealCard    
                 id={meal._id}
@@ -42,5 +50,3 @@ export default function FeaturedRow({title, meals}) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({})

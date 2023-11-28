@@ -21,7 +21,7 @@ export default function Header() {
         <ShoppingBag width={30} height={30} stroke="#777777" fill="#ffffff" />
       </Pressable>
 
-      <Pressable onPress={()=> navigation.navigate('Home')}>
+      <Pressable onPress={()=> navigation.navigate('Favorite')}>
         <Heart width={30} height={30} stroke="#777777" color="#ffffff" />
       </Pressable>
 

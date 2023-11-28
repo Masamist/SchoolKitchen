@@ -27,10 +27,9 @@ export const useLogin = () => {
       // update online status
       //await FIREBASE_DB.collection('users').doc(res.user.uid).update({ online: true })
       const user = response.user;
+      console.log("Check token:" + user)
       const token = await user.getIdToken()
       authenticateSanity(token)
-
-      
 
       if (!isCancelled) {
         setIsPending(false)
