@@ -24,12 +24,16 @@ export const useLogin = () => {
       // dispatch login action
       dispatch({ type: 'LOGIN', payload: response.user })
 
+      
       // update online status
       //await FIREBASE_DB.collection('users').doc(res.user.uid).update({ online: true })
-      const user = response.user;
-      console.log("Check token:" + user)
-      const token = await user.getIdToken()
-      authenticateSanity(token)
+
+      // Error//////////////////////////////////////////////////////////
+      // const user = response.user;
+      // console.log("Check token:" + user)
+      // const token = await user.getIdToken()
+      // authenticateSanity(token)
+      //////////////////////////////////////////////////////////////////
 
       if (!isCancelled) {
         setIsPending(false)
