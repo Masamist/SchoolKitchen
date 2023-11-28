@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, Pressable } from 'reac
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getCategories } from '../../api/mealApi'
+import Modal from "react-native-modal"
+import { deleteMeal } from '../../api/mealApi'
 
 // Components & UI
 import Input from '../ui/input'
@@ -77,6 +79,11 @@ export default function mealInputGroup({ mealData, onSubmit }) {
     onSubmit(inputValue)
   }
 
+  const handleDelete = () => {
+    deleteMeal(inputValue.id)
+    navigation.navigate('MenuList')
+  }
+
   const handleImageValue = (valueFromChild) => {
     setImageValue(valueFromChild)
   }
@@ -105,8 +112,14 @@ export default function mealInputGroup({ mealData, onSubmit }) {
     )
   }
 
+  // Delete Modal
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
-    <View className="mx-0">
+    <View className="py-5">
       <Input label="Meal Name" textInputConfig={{
         autoCapitalize: 'words',
         onChangeText: inputChangeHandler.bind(this, 'title'),
@@ -189,17 +202,17 @@ export default function mealInputGroup({ mealData, onSubmit }) {
 
       {
         mealData.id? 
-          <View className="flex-row justify-between">
-            <Pressable onPress={handleSubmit} className="flex-row justify-center mx-5 mt-7">
+          <View className="flex-row justify-center">
+            <Pressable onPress={toggleModal} className="mx-2 mt-7">
               <View className="rounded-full justify-center" 
-                style={{ backgroundColor: "#a3342c", width: 160, height: 50}}>
+                style={{ backgroundColor: "#b83e35", width: 180, height: 50}}>
                 <Text className="text-center text-xl pb-1 text-white">Delete</Text>
               </View>
             </Pressable>
-            <Pressable onPress={handleSubmit} className="flex-row justify-center mx-5 mt-7">
+            <Pressable onPress={handleSubmit} className="mx-2 mt-7">
               <View 
                 className="w-40 h-11 rounded-full justify-center" 
-                style={{ backgroundColor: "#A8BC3A", width: 160, height: 50}}>
+                style={{ backgroundColor: "#A8BC3A", width: 180, height: 50}}>
                 <Text className="text-center text-xl pb-1 text-white">Save</Text>
               </View>
             </Pressable>
@@ -210,9 +223,7 @@ export default function mealInputGroup({ mealData, onSubmit }) {
                 <Text className="text-center text-xl pb-1 text-white">Save</Text>
               </View>
             </Pressable>
-          }
-      
-      
+          }      
       <Pressable 
         onPress={() => navigation.navigate('MenuList')} 
         className="flex-row justify-center mx-5 mt-7">
@@ -220,6 +231,27 @@ export default function mealInputGroup({ mealData, onSubmit }) {
             Go Back to Meal List
           </Text>
       </Pressable>
+
+      <Modal isVisible={isModalVisible}>
+        <View style={{ height: 300 }}
+          className="bg-white rounded-xl justify-center">
+          <View className="m-10 items-center">
+            <AntDesign name="closecircleo" size={50} color="#b83e35" />
+            <Text className="mt-3 text-2xl text-center text-gray-700">Are you sure?</Text>
+            <Text className="pt-5 text-sm text-center text-gray-700">Do you really want to delete this meal from menu? This process cannot be undone.</Text>
+            <View className="flex-row gap-5 pt-5">
+              <Pressable onPress={toggleModal} style={{ width:130 }} className="p-2 bg-gray-500 rounded-full">
+                <Text className="text-lg text-white text-center">Cancel</Text>
+              </Pressable>
+              <Pressable onPress={handleDelete} style={{ width:130, backgroundColor: "#b83e35"}} className="p-3 bg-gray-500 rounded-full">
+                <Text className="text-lg text-white text-center">Delete</Text>
+              </Pressable>
+            </View>
+              
+          </View>
+          
+        </View>
+      </Modal>
     </View>
   )
 }

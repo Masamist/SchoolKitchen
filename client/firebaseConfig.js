@@ -29,8 +29,8 @@ const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
 })
 
 
-// timestamp
-//const timestamp = firebase.firestore.Timestamp
+//timestamp
+// const timestamp = firebase.firestore.Timestamp
 
 export { FIREBASE_APP, FIREBASE_AUTH }
 

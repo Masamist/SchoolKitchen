@@ -1,35 +1,60 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, Pressable, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image, Button } from 'react-native'
 import Modal from "react-native-modal"
-import { useDispatch, useSelector } from 'react-redux';
-import { addToBasket, removeFromBasket, selectBasketItemsById } from '../slices/basketSlice';
-import { themeColors } from '../theme';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { addFavorite, removeFavorite } from '../store/redux/favoriteSlice'
+import { addToBasket, removeFromBasket, selectBasketItemsById } from '../store/redux/basketSlice'
+
 
 // Components & UI
 import NoImage from './ui/noImage'
 import MealDetailModal from './mealDetailModal'
 import { Minus, Plus } from "react-native-feather"
 import { Shadow } from 'react-native-shadow-2'
+import { themeColors } from '../theme'
+import { AntDesign } from '@expo/vector-icons';
 
 // ServerSide
 import { urlFor } from '../sanity'
 
-export default function MealCol({ 
-    id, title, price, 
-    description, allergies, 
-    limit, mealimage, category}) {
-  const  dispatch = useDispatch();
-  const basketItems = useSelector(state=> selectBasketItemsById(state, id));
-  const [bagItems, setBagItems] = useState([])
+
+export default function MealCol({ id, title, price, description, allergies, limit, mealimage, category}) {
+  // Image size
   const imageSize = { width: 130, height: 130 }
 
-  const [isModalVisible, setModalVisible] = useState(false);
+  // retrive data
+  // const selectedMeal = GetMeal.find((meal) => meal.id === mealId)
+  
+  //Redux
+  const dispatch = useDispatch()
 
+  const mealId = id
+  const favoriteMealIds = useSelector((state) => state.favorites.ids)
+  const mealFavorite = favoriteMealIds.includes(mealId)
+  // const [mealIsFavorite, setMealIsFavorite] = useState()
+
+  const changeFavoriteStatusHandler = () => {
+    if(mealFavorite) {
+      dispatch(removeFavorite({id: mealId}))
+    }else{
+      dispatch(addFavorite({id: mealId}))
+    }
+  }
+
+  // Meal Detail Modal
+  const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   }
+
+  // Shopping Bag
   ///////Check inside the bag
   //console.log(bagItems)
+
+  const basketItems = useSelector(state=> selectBasketItemsById(state, id));
+  const [bagItems, setBagItems] = useState([])
   const handleIncrease = ()=>{
     dispatch(addToBasket({id, title, price, mealimage}));
     //setBagItems({id, title, price, mealimage, quantity})
@@ -61,6 +86,14 @@ export default function MealCol({
         <View className="pl-5" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
+
+
+
+            <Pressable onPress={changeFavoriteStatusHandler}>
+              <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color="red" />
+            </Pressable>
+
+
             { description? 
               <Text className="text-gray-700 pt-1">{truncateText(description, 12)}</Text>
               : <Text>No discription</Text>
@@ -94,6 +127,7 @@ export default function MealCol({
 
       <Modal isVisible={isModalVisible}>
         <MealDetailModal
+          key={id}
           id={id}
           title={title}
           price={price}
@@ -103,7 +137,7 @@ export default function MealCol({
           mealimage={mealimage}
           category={category}
           toggleModal={toggleModal} 
-          />
+        />
       </Modal>
     </>
   );

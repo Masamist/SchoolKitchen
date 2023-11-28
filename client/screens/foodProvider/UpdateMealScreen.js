@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { SafeAreaView,ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import MealInputGroup from '../../components/FoodProvider/mealInputGroup'
-import { createMeal } from '../../api/mealApi'
+import { updateMeal } from '../../api/mealApi'
     
 export default function UpdateMealScreen() {
+  
   const { params: {
     id,
     title,
@@ -27,11 +28,13 @@ export default function UpdateMealScreen() {
     mealimage: mealimage,
     category: category
   })
-	//FOR THE Form SUBMIT BUTTON:
+	//Form Submit Button:
   const handleFormSubmit = async (formData) => {
-    await createMeal(formData)
+    await updateMeal(formData)
     navigation.goBack()
   }
+
+
 
   return (
     <SafeAreaView>

@@ -22,14 +22,13 @@ export const getAllMeals = ()=>{
 
 
 
-// export const getNewMeals = ()=>{
-//     return sanityQuery(`
-//         *[_type == 'meal'] | order(_createdAt desc){
-//             ...,
-//         }[0...6]
-        
-//     `);
-//   }
+export const getNewMeals = ()=>{
+    return sanityQuery(`
+        *[_type == 'meal'] | order(_createdAt){
+            ...,
+        }[0...6]      
+    `);
+  }
 
 export const getCategories = ()=>{
   return sanityQuery(`
@@ -213,7 +212,7 @@ export const createMeal = async(formData) => {
 
 export const updateMeal = async(formData) => {
   //console.log(formData.image)
-  console.log("Check point 1: create new doc")
+  console.log("Check point 1: update doc")
   try{
       const response = await fpClient.patch(formData.id)
         .set({
@@ -282,4 +281,14 @@ export const updateMeal = async(formData) => {
     console.log("Error creating doc", err)
   }
 
+}
+export const deleteMeal = async(dataId) => {
+  await fpClient
+  .delete(dataId)
+  .then(() => {
+    return console.log('Meal deleted')
+  })
+  .catch((err) => {
+    console.error('Delete failed: ', err.message)
+  })
 }

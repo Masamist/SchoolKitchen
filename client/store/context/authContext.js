@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from 'react'
-import { FIREBASE_AUTH } from '../firebaseConfig'
+import { FIREBASE_AUTH } from '../../firebaseConfig'
 
 export const AuthContext = createContext()
 
