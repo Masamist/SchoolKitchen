@@ -1,7 +1,9 @@
+//import 'react-native-gesture-handler'
 import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//import { createDrawerNavigator } from '@react-navigation/drawer'
 //import FavoritesContextProvider from './store/context/favorites-context';
 
 // Backend
@@ -26,9 +28,9 @@ import RegisterScreen from './screens/RegisterScreen'
 
 const ParentStack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
+//const Drawer = createDrawerNavigator()
 
 export default function Navigation() {
-  //const [user, setUser] = useState(null)
   const { user, authIsReady } = useAuthContext()
   //const [isLoading, setIsLoading] = useState(true)
   // const authContext = useMemo(() => {
@@ -39,13 +41,7 @@ export default function Navigation() {
   //     }
   //   }
   // })
-  
-  // useEffect(() => {
-  //   onAuthStateChanged(FIREBASE_AUTH, (user) => {
-  //     setUser(user)
-  // })
-  // }
-  // , [])
+
   return (
     <NavigationContainer>
       {/* <Stack.Navigator initialRouteName='Login'> */}
@@ -84,13 +80,6 @@ export default function Navigation() {
           </AuthStack.Navigator>
         )}
        
-        {/* <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }}  />
-        
-        <Stack.Screen name="MealList" component={MealListScreen} />
-        <Stack.Screen name="Meal" options={{ presentation: 'modal', headerShown: false }} component={MealScreen} />
-        <Stack.Screen name="ShoppingBasket" options={{ presentation: 'modal', headerShown: false }}  component={ShoppingBasket} /> */}
-      {/* </Stack.Navigator> */}
-
       </>}
     </NavigationContainer>
     

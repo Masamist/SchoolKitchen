@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler'
 import { View, ScrollView, StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
