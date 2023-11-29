@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler'
 import { View, ScrollView, StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 // Component
 import Header from '../components/ui/header'
@@ -14,13 +16,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import setMeal from '../store/redux/mealSlice'
 
 // ServerSide
-import { getAllMeals, getNewMeals } from '../api/mealApi'
+import { getNewMeals, getAllMeals } from '../api/mealApi'
 
 
 export default function HomeScreen() {
+  const navigation = useNavigation()
+  const [allMeals, setAllMeals ] = useState([])
   //Redux
   //const dispatch = useDispatch()
-  const [allMeals, setAllMeals ] = useState([])
   const [newMeals, setNewMeals] = useState([])
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export default function HomeScreen() {
       getAllMeals()
       .then(data => {
       setAllMeals(data)
-      // /dispatch(setMeal(data))
+      // // /dispatch(setMeal(data))
       })
       getNewMeals()
       .then(data => {
@@ -45,10 +48,18 @@ export default function HomeScreen() {
   // }
 
   //const newMeals = allMeals.reverse().slice(0, 4)
-  const popularMeals = allMeals.slice(0, 3)
+  //const popularMeals = allMeals.slice(0, 3)
   // const favoriteMealIds = useSelector((state) => state.favorites.ids)
   // const favoriteMeals = allMeals.filter(meal => meal.id == favoriteMealIds)
   //const favoriteMeals = allMeals.slice(0, 3)
+
+  const handleCategoryChange = (id, catName) => {
+    navigation.navigate('MealList', {
+      selectedCategoryId: id,
+      selectedCategoryName: catName,
+      allMeals: allMeals
+    })  
+  }
 
   return (
     <SafeAreaView>   
@@ -67,11 +78,10 @@ export default function HomeScreen() {
         {/* Selecting Dates */}
         <SelectDays />
 
-        {/* categories */}
-        <Categories allMeals={allMeals} />
-        {/* <Categories /> */}
+        <Categories
+          handleCategoryChange={handleCategoryChange} />
 
-        {/* featured */}
+        {/* featured Meal List*/}
         <View className="mt-5">
           <FeaturedRow
             title="New Meals"

@@ -33,6 +33,7 @@ export const useLogin = () => {
       // console.log("Check token:" + user)
       // const token = await user.getIdToken()
       // authenticateSanity(token)
+      // I have added hard code token in the sanity file, cannot pass the token 
       //////////////////////////////////////////////////////////////////
 
       if (!isCancelled) {

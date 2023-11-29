@@ -1,26 +1,18 @@
-import { ScrollView, View } from 'react-native'
+import { View, FlatList } from 'react-native'
 
 // Components
-import Header from '../components/ui/header';
-import Categories from '../components/ui/categories'
 import MealCol from '../components/mealCol'
-import BasketIcon from '../components/ui/basketIcon'
 
-// // ServerSide
-// import { getAllMeals } from '../api'
+
+function renderMealColumn(itemData){
+  return <MealCol title={itemData.item.title} />
+}
 
 export default function MealList({selectedMeals}) {
   
   return (
-  <ScrollView>
-    <View className="pl-3">
-      <Header />
-      <BasketIcon />
-    
-      {/* <BagIcon /> */}
-      <Categories />
-
       <View className="pt-7">
+        {/* <FlatList data={selectedMeals} keyExtractor={(item) => item.id} renderItem={renderMealColumn} /> */}
         {
           selectedMeals?.map(meal=>{
             return (
@@ -39,14 +31,11 @@ export default function MealList({selectedMeals}) {
                 <View>
                   <Separator />
                 </View>
-                
-              </>   
+              </>             
             )
           })
         }
       </View>
-    </View>
-  </ScrollView>
   )
 }
 
