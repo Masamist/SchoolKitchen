@@ -75,7 +75,10 @@ export default function MealCol({ id, title, price, description, allergies, limi
   return (
     <>
       <View className="flex-row mb-3 mr-3">             
-        <Pressable onPress={toggleModal}>  
+        <Pressable
+          onPress={toggleModal} 
+        
+        >  
           <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
             { mealimage
               ?<Image source={{ uri: urlFor(mealimage).url() }} style={ imageSize } className="rounded-md" />

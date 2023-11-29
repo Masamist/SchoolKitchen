@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Pressable, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState, useContext } from 'react'
+import { View, Text, ScrollView, Pressable, Image } from 'react-native'
+import CategoryContext from '../../store/context/categoryContext'
 import { Shadow } from 'react-native-shadow-2'
-//import { categories } from '../constants';
 
 // Sanity & Redux
 import { getCategories } from '../../api/mealApi'
 import { urlFor } from '../../sanity'
 
-export default function Categories({allMeals}) {
-  const [activeCategory, setActiveCategory] = useState(null);
+export default function Categories({handleCategoryChange}) {
+  const { activeCategory, selectCategory } = useContext(CategoryContext)
   const [categories, setCategories] = useState([])
-  const navigation = useNavigation()
 
   useEffect(() => {
     getCategories().then(data => {
       setCategories(data)
     })
+    //setMeals(allMeals)
   }, [])
-  
+
+  const handleOnPress = (id, catName) => {
+    handleCategoryChange(id, catName)
+    selectCategory({catId: id})
+  }
+
   return (
     <View className="mt-4 mb-5">
       <Text className="text-lg pb-2 text-amber-950">Meal Categories</Text>
@@ -26,9 +30,6 @@ export default function Categories({allMeals}) {
         horizontal
         showsHorizontalScrollIndicator={false}
         className="overflow-visible"
-        // contentContainerStyle={{
-        //   paddingHorizontal: 15
-        // }}
       >
         {
           categories?.map(category => {
@@ -37,16 +38,7 @@ export default function Categories({allMeals}) {
             let textClass = isActive? ' font-semibold text-gray-700': ' text-gray-500'
             return(
               <View key={category._id} className="flex justify-center items-center mr-7 pl-1">
-                <Pressable
-                  onPress={()=> {
-                    setActiveCategory(category._id),
-                    navigation.navigate('MealList', {
-                      selectedCategory: category._id,
-                      selectedCategoryName: category.name,
-                      allMeals: allMeals
-                    })
-                  }}
-                >
+                <Pressable onPress={() => handleOnPress(category._id, category.name)}>
                 <Shadow distance={5} startColor={'#ebebeb'} offset={[2, 5]}>
                   <View className={"p-3 shadow-md"+ btnClass} style={{borderRadius: 50}} >
                       <Image 

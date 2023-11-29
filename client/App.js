@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import Navigation from './navigation'
 import { AuthContextProvider } from './store/context/authContext'
+import { CategoryProvider } from './store/context/categoryContext';
 import { store } from './store/redux/store'
 import { Provider } from 'react-redux'
 // import {decode, encode} from 'base-64'
@@ -11,10 +12,12 @@ export default function App() {
   // if (!global.atob) { global.atob = decode }
   return (
     <AuthContextProvider>
-      <Provider store={store}>
-        <StatusBar />
-        <Navigation />
-      </Provider>
+      <CategoryProvider>
+        <Provider store={store}>
+          <StatusBar />
+          <Navigation />
+        </Provider>
+      </CategoryProvider>
     </AuthContextProvider>
   );
 }
