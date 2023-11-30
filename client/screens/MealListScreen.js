@@ -1,5 +1,5 @@
 import { View, FlatList } from 'react-native'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useLayoutEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import CategoryContext from '../store/context/categoryContext'
 import { useMeals } from '../store/context/mealContext'
@@ -17,6 +17,14 @@ export default function MealListScreen() {
   const { meals } = useMeals()
 
   const { params: { selectedCategoryId }} = useRoute()
+
+  useLayoutEffect(() => {
+    navigation.setOptions(Header({ 
+      navigation, 
+      onPressShopping: () => navigation.navigate('Home'),
+      onPressFavorite: () => navigation.navigate('Favorite')
+    }))
+  }, [navigation])
 
   const selectMealsByCategory = async() => {
     const result = await meals.filter(meal => meal.category._ref == selectedCategoryId)
@@ -40,7 +48,7 @@ export default function MealListScreen() {
 
   return (
     <View className="pl-3">
-      <Header />
+      {/* <Header /> */}
       <BasketIcon />
       {/* <BagIcon /> */}
       <Categories handleCategoryChange={handleCategoryChange} />

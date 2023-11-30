@@ -26,17 +26,49 @@ import UpdateMealScreen from './screens/foodProvider/UpdateMealScreen'
 import RegisterScreen from './screens/RegisterScreen'
 //import { ImageBackground } from 'react-native';
 
+//Icon
+import { Entypo } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
+import { ShoppingBag } from "react-native-feather"
+
 const Drawer = createDrawerNavigator()
 const AuthStack = createNativeStackNavigator()
 const ParentStack = createNativeStackNavigator()
 const FpStack = createNativeStackNavigator()
 
+
 function ParentRoot() {
+
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Favorite" options={{ title: "Favorite Meal" }} component={FavoriteScreen} />
-      <Drawer.Screen name="Shopping Basket" options={{ presentation: 'modal'}}  component={ShoppingBasket} />       
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#A8BC3A',
+          width: '90%',
+          overlayColor: 'transparent',
+          paddingTop: 10,
+          paddingHorizontal: 10,
+        },
+        headerTintColor: '#777777',
+        drawerActiveBackgroundColor: 'white',
+        drawerActiveTintColor: '#A8BC3A',
+        drawerInactiveTintColor: 'white'
+      }}
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} options={{
+        drawerIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />
+      }} />
+      <Drawer.Screen name="Favorite" component={FavoriteScreen} 
+        options={{ 
+          title: "Favorite Meal",
+          drawerIcon: ({color, size}) => <MaterialIcons name="favorite" size={size} color={color} />
+         }}
+        />
+      <Drawer.Screen name="Shopping Basket" component={ShoppingBasket}
+        options={{ 
+          drawerIcon: ({color, size}) =>  <ShoppingBag size={size} color={color}  />
+        }}
+      />       
       {/* <Drawer.Screen name="Register" options={{ title: "Register Form" }} component={RegisterScreen} initialParams={ user } />   */}
       <Drawer.Screen name="Food Provider" component={FoodProviderRoot} options={{headerShown:false}} />
     </Drawer.Navigator>

@@ -1,6 +1,6 @@
-import { View, ScrollView, StatusBar } from 'react-native'
+import { View, ScrollView } from 'react-native'
 //import { SafeAreaView } from 'react-native-safe-area-context'
-import React, { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useLayoutEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CategoryContext from '../store/context/categoryContext'
 
@@ -19,10 +19,19 @@ export default function HomeScreen() {
   const { selectCategory } = useContext(CategoryContext)
   const [newMeals, setNewMeals] = useState([])
 
+  useLayoutEffect(() => {
+    navigation.setOptions(Header({ 
+      navigation, 
+      title: 'Home' , 
+      onPressShopping: () => navigation.navigate('Home'),
+      onPressFavorite: () => navigation.navigate('Favorite')
+    }))
+  }, [navigation])
+
   useEffect(() => {
     try{
       // Reset category context in redux
-      selectCategory(null)
+      selectCategory(null) 
 
       getNewMeals()
       .then(data => {
@@ -48,7 +57,7 @@ export default function HomeScreen() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} className="pl-3"> 
-      <Header />
+      {/* <Header /> */}
 
       {/* Shopping Basket */}
       <BasketIcon />
