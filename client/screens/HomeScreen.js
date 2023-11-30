@@ -1,8 +1,8 @@
-import 'react-native-gesture-handler'
 import { View, ScrollView, StatusBar } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import React, { useEffect, useState } from 'react'
+//import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import CategoryContext from '../store/context/categoryContext'
 
 // Component
 import Header from '../components/ui/header'
@@ -11,28 +11,19 @@ import Categories from '../components/ui/categories'
 import SelectDays from '../components/selectDays'
 import FeaturedRow from '../components/featuredRow'
 
-// Redux
-import { useDispatch, useSelector } from 'react-redux'
-import setMeal from '../store/redux/mealSlice'
-
 // ServerSide
-import { getNewMeals, getAllMeals } from '../api/mealApi'
-
+import { getNewMeals } from '../api/mealApi'
 
 export default function HomeScreen() {
   const navigation = useNavigation()
-  const [allMeals, setAllMeals ] = useState([])
-  //Redux
-  //const dispatch = useDispatch()
+  const { selectCategory } = useContext(CategoryContext)
   const [newMeals, setNewMeals] = useState([])
 
   useEffect(() => {
     try{
-      getAllMeals()
-      .then(data => {
-      setAllMeals(data)
-      // // /dispatch(setMeal(data))
-      })
+      // Reset category context in redux
+      selectCategory(null)
+
       getNewMeals()
       .then(data => {
         setNewMeals(data)
@@ -41,11 +32,6 @@ export default function HomeScreen() {
       console.log(err)
     }
   }, [])
-  // // set Reducer
-  // // setMeal(allMeals)
-  // if(allMeals){
-  //   dispatch(setMeal(allMeals))
-  // }
 
   //const newMeals = allMeals.reverse().slice(0, 4)
   //const popularMeals = allMeals.slice(0, 3)
@@ -57,47 +43,36 @@ export default function HomeScreen() {
     navigation.navigate('MealList', {
       selectedCategoryId: id,
       selectedCategoryName: catName,
-      allMeals: allMeals
     })  
   }
 
   return (
-    <SafeAreaView>   
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-            paddingBottom: 80
-        }}
-        className="pl-3"
-      > 
-        <Header />
+    <ScrollView showsVerticalScrollIndicator={false} className="pl-3"> 
+      <Header />
 
-        {/* Shopping Basket */}
-        <BasketIcon />
+      {/* Shopping Basket */}
+      <BasketIcon />
 
-        {/* Selecting Dates */}
-        <SelectDays />
+      {/* Selecting Dates */}
+      <SelectDays />
 
-        <Categories
-          handleCategoryChange={handleCategoryChange} />
+      <Categories handleCategoryChange={handleCategoryChange} />
 
-        {/* featured Meal List*/}
-        <View className="mt-5">
-          <FeaturedRow
-            title="New Meals"
-            meals={newMeals}
-          />
-          <FeaturedRow
-            title="Popular Meals"
-            meals={newMeals}
-          />
-          <FeaturedRow
-            title="Your Favorites"
-            meals={newMeals}
-          />
-        </View>
-
-      </ScrollView>  
-    </SafeAreaView>
+      {/* featured Meal List*/}
+      <View className="mt-5">
+        <FeaturedRow
+          title="New Meals"
+          meals={newMeals}
+        />
+        <FeaturedRow
+          title="Popular Meals"
+          meals={newMeals}
+        />
+        <FeaturedRow
+          title="Your Favorites"
+          meals={newMeals}
+        />
+      </View>
+    </ScrollView>  
   )
 }

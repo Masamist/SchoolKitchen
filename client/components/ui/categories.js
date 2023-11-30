@@ -16,11 +16,11 @@ export default function Categories({handleCategoryChange}) {
       setCategories(data)
     })
     //setMeals(allMeals)
-  }, [])
+  }, [activeCategory])
 
   const handleOnPress = (id, catName) => {
     handleCategoryChange(id, catName)
-    selectCategory({catId: id})
+    selectCategory(id)
   }
 
   return (

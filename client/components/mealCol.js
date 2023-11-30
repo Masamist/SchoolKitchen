@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite, removeFavorite } from '../store/redux/favoriteSlice'
 import { addToBasket, removeFromBasket, selectBasketItemsById } from '../store/redux/basketSlice'
 
-
 // Components & UI
 import NoImage from './ui/noImage'
 import MealDetailModal from './mealDetailModal'
@@ -24,9 +23,6 @@ export default function MealCol({ id, title, price, description, allergies, limi
   // Image size
   const imageSize = { width: 130, height: 130 }
 
-  // retrive data
-  // const selectedMeal = GetMeal.find((meal) => meal.id === mealId)
-  
   //Redux
   const dispatch = useDispatch()
 
@@ -73,36 +69,39 @@ export default function MealCol({ id, title, price, description, allergies, limi
   }
   //console.log(mealimage)
   return (
-    <>
-      <View className="flex-row mb-3 mr-3">             
-        <Pressable
-          onPress={toggleModal} 
-        
-        >  
-          <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
-            { mealimage
-              ?<Image source={{ uri: urlFor(mealimage).url() }} style={ imageSize } className="rounded-md" />
-              :<NoImage imageStlye={ imageSize } /> }
-          </Shadow>
-        </Pressable>
+    <View>
+      <View className="flex-row mb-3 mr-3">
+        <View>
+          <Pressable onPress={toggleModal} >  
+            <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
+              { mealimage
+                ?<Image source={{ uri: urlFor(mealimage).url() }} style={ imageSize } className="rounded-md" />
+                :<NoImage imageStlye={ imageSize } /> }
+            </Shadow>
+          </Pressable>
+        </View>        
+
   
         <View className="pl-5" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
 
-
-
-            <Pressable onPress={changeFavoriteStatusHandler}>
-              <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color="red" />
-            </Pressable>
-
-
             { description? 
-              <Text className="text-gray-700 pt-1">{truncateText(description, 12)}</Text>
+              <Text className="text-gray-700 pt-1">{truncateText(description, 8)}</Text>
               : <Text>No discription</Text>
             }
-            <Text className="text-lg text-gray-700 pt-1">$ {price}</Text>
           </Pressable>
+
+          <View className="flex-row items-end">
+            <View className="pr-3 pt-1">
+              <Text className="text-lg text-gray-700 pt-1">$ {price}</Text>
+            </View>        
+            <Pressable onPress={changeFavoriteStatusHandler}>
+              <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color="orange" />
+            </Pressable>
+          </View>
+
+          
 
           <View className="flex-row justify-end" style={{ width: '100%'}}>
             <TouchableOpacity 
@@ -127,6 +126,9 @@ export default function MealCol({ id, title, price, description, allergies, limi
           </View>
         </View>
       </View>
+      <View className="mr-3">
+        <Separator />
+      </View>
 
       <Modal isVisible={isModalVisible}>
         <MealDetailModal
@@ -142,6 +144,16 @@ export default function MealCol({ id, title, price, description, allergies, limi
           toggleModal={toggleModal} 
         />
       </Modal>
-    </>
+    </View>
   );
 }
+
+const seperatorStyles = {
+  height: 1.5,
+  width: '100%',
+  backgroundColor: '#A8BC3A',
+  marginTop: 30,
+  marginBottom: 50,
+}
+
+const Separator = () => <View style={seperatorStyles} />

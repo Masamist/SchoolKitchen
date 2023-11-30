@@ -11,11 +11,11 @@ import { FIREBASE_AUTH } from '../../firebaseConfig'
 export default function Header() {
   const navigation = useNavigation()
   return (
-    <View className="flex-row-reverse space-x-5 rounded-3xl mt-1 mb-5 mx-5">
-      <Pressable onPress={()=> navigation.navigate('Dashboard')}>
-        <Menu width={30} height={30} stroke="#777777" color="#ffffff" />
-      </Pressable>
-      <LogoutIcon />
+    <View className="flex-row-reverse mt-1 mb-5 mx-5">
+
+      <View>
+        <LogoutIcon />
+      </View>
       
       <Pressable onPress={()=> navigation.navigate('Home')}>
         <ShoppingBag width={30} height={30} stroke="#777777" fill="#ffffff" />
@@ -23,12 +23,7 @@ export default function Header() {
 
       <Pressable onPress={()=> navigation.navigate('Favorite')}>
         <Heart width={30} height={30} stroke="#777777" color="#ffffff" />
-      </Pressable>
-
-      <Pressable onPress={()=> navigation.navigate('Dashboard')}>
-        <Text className="font-semibold text-yellow-500">  / Food Provider Page /</Text>
-      </Pressable>
-    
+      </Pressable>    
     </View>
   )
 }

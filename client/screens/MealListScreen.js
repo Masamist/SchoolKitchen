@@ -1,29 +1,31 @@
-import { ScrollView, View } from 'react-native'
-import React, { useEffect, useState, useContext } from 'react'
+import { View, FlatList } from 'react-native'
+import { useEffect, useState, useContext } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import CategoryContext from '../store/context/categoryContext'
-
+import { useMeals } from '../store/context/mealContext'
 // Components
 import Header from '../components/ui/header'
 import Categories from '../components/ui/categories'
-import MealList from '../components/mealList'
 import BasketIcon from '../components/ui/basketIcon'
+import MealCol from '../components/mealCol'
 
 
 export default function MealListScreen() {
   const navigation = useNavigation()
   const [selectedMeals, setSelectedMeals] = useState([])
   const { activeCategory } = useContext(CategoryContext)
+  const { meals } = useMeals()
 
-  const { params: {
-    selectedCategoryId, 
-    allMeals
-  }} = useRoute()
+  const { params: { selectedCategoryId }} = useRoute()
+
+  const selectMealsByCategory = async() => {
+    const result = await meals.filter(meal => meal.category._ref == selectedCategoryId)
+    setSelectedMeals(result)
+  }
+
   useEffect(() => {
     try{
-      const result = allMeals.filter(meal => meal.category._ref == selectedCategoryId)
-      setSelectedMeals(result)
-
+      selectMealsByCategory()
     }catch(err){
       console.log(err)
     }
@@ -33,22 +35,32 @@ export default function MealListScreen() {
     navigation.navigate('MealList', {
       selectedCategoryId: id,
       selectedCategoryName: catName,
-      allMeals: allMeals
-    })  
+    })
   }
 
   return (
-    <ScrollView>
-      <View className="pl-3">
-        <Header />
-        <BasketIcon />
-      
-        {/* <BagIcon /> */}
-        <Categories handleCategoryChange={handleCategoryChange} />
-        <MealList selectedMeals={selectedMeals} />
-        {/* <MealList selectedMeals={selectedCategoryMeal} onpress={handleCategoryChange} /> */}
-      </View>
-    </ScrollView>
+    <View className="pl-3">
+      <Header />
+      <BasketIcon />
+      {/* <BagIcon /> */}
+      <Categories handleCategoryChange={handleCategoryChange} />
+      <FlatList 
+        data={selectedMeals}
+        keyExtractor={(item) => item._id} 
+        renderItem={( {item} ) => (
+          <MealCol
+            id={item._id}
+            title={item.name}
+            price={item.price}
+            description={item.description}
+            allergis={item.allergis}
+            limit={item.limit}
+            mealimage={item.mealimage}
+            category={item.category}
+          />
+      )} />
+    </View>
   )
 }
+
 
