@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Text } from 'react-native'
 import { useEffect, useState, useContext, useLayoutEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import CategoryContext from '../store/context/categoryContext'
@@ -20,9 +20,7 @@ export default function MealListScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions(Header({ 
-      navigation, 
-      onPressShopping: () => navigation.navigate('Home'),
-      onPressFavorite: () => navigation.navigate('Favorite')
+      navigation: navigation, 
     }))
   }, [navigation])
 
@@ -51,21 +49,25 @@ export default function MealListScreen() {
       <BasketIcon />
       {/* <BagIcon /> */}
       <Categories handleCategoryChange={handleCategoryChange} />
-      <FlatList 
-        data={selectedMeals}
-        keyExtractor={(item) => item._id} 
-        renderItem={( {item} ) => (
-          <MealCol
-            id={item._id}
-            title={item.name}
-            price={item.price}
-            description={item.description}
-            allergis={item.allergis}
-            limit={item.limit}
-            mealimage={item.mealimage}
-            category={item.category}
-          />
-      )} />
+
+        { selectedMeals.length? 
+          <FlatList 
+          data={selectedMeals}
+          keyExtractor={(item) => item._id} 
+          renderItem={( {item} ) => (
+            <MealCol
+              id={item._id}
+              title={item.name}
+              price={item.price}
+              description={item.description}
+              allergis={item.allergis}
+              limit={item.limit}
+              mealimage={item.mealimage}
+              category={item.category}
+            />
+          )} />
+          : <Text className="text-lg"> There is no meal in this category.</Text>
+        }
     </View>
   )
 }

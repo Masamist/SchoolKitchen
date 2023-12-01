@@ -38,7 +38,6 @@ export default function MealCol({ id, title, price, description, allergies, limi
       dispatch(addFavorite({id: mealId}))
     }
   }
-
   // Meal Detail Modal
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -117,8 +116,6 @@ export default function MealCol({ id, title, price, description, allergies, limi
               <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color="orange" />
             </Pressable>
           </View>
-
-          
 
           <View className="flex-row justify-end" style={{ width: '100%'}}>
             <TouchableOpacity 

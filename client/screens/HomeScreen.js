@@ -19,20 +19,18 @@ export default function HomeScreen() {
   const { selectCategory } = useContext(CategoryContext)
   const [newMeals, setNewMeals] = useState([])
 
+  // Reset category context in redux
+  selectCategory(null)
+
   useLayoutEffect(() => {
     navigation.setOptions(Header({ 
-      navigation, 
-      title: 'Home' , 
-      onPressShopping: () => navigation.navigate('Home'),
-      onPressFavorite: () => navigation.navigate('Favorite')
+      navigation: navigation, 
+      title: 'Home'
     }))
   }, [navigation])
 
   useEffect(() => {
     try{
-      // Reset category context in redux
-      selectCategory(null) 
-
       getNewMeals()
       .then(data => {
         setNewMeals(data)

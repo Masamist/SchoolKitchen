@@ -20,13 +20,18 @@ export default function BasketIcon() {
         <TouchableOpacity 
           style={{backgroundColor: "#A8BC3A"}}
           // style={{backgroundColor: themeColors.bgColor(1)}}
-          onPress={()=> navigation.navigate('ShoppingBag')} 
+          onPress={()=> navigation.navigate('ShoppingBasket')} 
           className="flex-row justify-between items-center ml-2 rounded-full p-1 shadow-lg border-4 border-white">
-            <View className="px-2 rounded-full">
-              <Text className="font-extrabold text-white text-lg">{basketItems.length}</Text>
+            <View className="relative">
+            <ShoppingBag width={35} height={35} stroke="#FFFFFF" className="ml-3" />
+            <View className="bg-orange-300 rounded-full w-7 h-7 top-4 left-8 absolute">
+              <Text className="font-extrabold text-yellow-800 text-base text-center justify-center">{basketItems.length}</Text>
             </View>
-            <ShoppingBag width={35} height={35} stroke="#FFFFFF" />
-            <Text className="flex-1 text-center font-semibold text-white text-xl">Go to Shopping Bag</Text>
+              
+            </View>
+            
+            
+            <Text className="flex-1 text-center font-semibold text-white text-xl pl-3">Go to Shopping Bag</Text>
             
             <View className="m-1 p-2 rounded-full bg-orange-200">
               <Text className="font-semibold text-yellow-800 text-base">$ {basketTotal}</Text>

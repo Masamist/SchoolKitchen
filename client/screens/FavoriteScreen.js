@@ -55,9 +55,7 @@ export default function FavoriteScreen() {
   //////////////////////////////////////////Error///////////////////////////////
   return (
     <View className="pl-3">
-      { !favoriteMeals ? (
-        <Text>No Favourite Meal are saved</Text>
-        ) : (
+      { favoriteMeals.length ? (
           <FlatList 
             data={favoriteMeals}
             keyExtractor={(item) => item._id} 
@@ -74,6 +72,8 @@ export default function FavoriteScreen() {
               />
             )} 
           />
+        ) : (
+          <Text className="text-lg">No Favourite Meal are saved</Text>
         )
       }
     </View>   

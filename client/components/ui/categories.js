@@ -24,7 +24,7 @@ export default function Categories({handleCategoryChange}) {
   }
 
   return (
-    <View className="mt-4 mb-5">
+    <View className="mt-3 mb-5">
       <Text className="text-lg pb-2 text-amber-950">Meal Categories</Text>
       <ScrollView
         horizontal

@@ -1,6 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import SelectDayBtn from './ui/selectDayBtn'
+import SelectDayBtn from './ui/buttons/selectDayBtn'
 
 export default function SelectDays() {
   return (
