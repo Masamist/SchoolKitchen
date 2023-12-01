@@ -47,10 +47,10 @@ export default function MealCol({ id, title, price, description, allergies, limi
 
   // Shopping Bag
   ///////Check inside the bag
-  //console.log(bagItems)
+ // console.log(bagItems)
 
   const basketItems = useSelector(state=> selectBasketItemsById(state, id));
-  const [bagItems, setBagItems] = useState([])
+  //const [bagItems, setBagItems] = useState([])
   const handleIncrease = ()=>{
     dispatch(addToBasket({id, title, price, mealimage}));
     //setBagItems({id, title, price, mealimage, quantity})
@@ -70,6 +70,23 @@ export default function MealCol({ id, title, price, description, allergies, limi
   //console.log(mealimage)
   return (
     <View>
+      {/* Meal Detail Modal */}
+      <Modal isVisible={isModalVisible}>
+        <MealDetailModal
+          key={id}
+          id={id}
+          title={title}
+          price={price}
+          description={description}
+          allergies={allergies}
+          limit={limit}
+          mealimage={mealimage}
+          category={category}
+          toggleModal={toggleModal} 
+        />
+      </Modal>
+
+      {/* Meal List */}
       <View className="flex-row mb-3 mr-3">
         <View>
           <Pressable onPress={toggleModal} >  
@@ -129,21 +146,6 @@ export default function MealCol({ id, title, price, description, allergies, limi
       <View className="mr-3">
         <Separator />
       </View>
-
-      <Modal isVisible={isModalVisible}>
-        <MealDetailModal
-          key={id}
-          id={id}
-          title={title}
-          price={price}
-          description={description}
-          allergies={allergies}
-          limit={limit}
-          mealimage={mealimage}
-          category={category}
-          toggleModal={toggleModal} 
-        />
-      </Modal>
     </View>
   );
 }

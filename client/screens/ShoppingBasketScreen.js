@@ -10,16 +10,16 @@ export default function ShoppingBasket() {
 
     {/* top button */}
     <View className="relative py-4 shadow-sm">
-      <TouchableOpacity 
-          style={{backgroundColor: themeColors.bgColor(1)}} 
-          onPress={navigation.goBack} 
-          className="absolute z-10 rounded-full p-1 shadow top-5 left-2">
-          <Icon.ArrowLeft strokeWidth={3} stroke="white" />
-      </TouchableOpacity>
-      <View>
-          <Text className="text-center font-bold text-xl">Your cart</Text>
-          <Text className="text-center text-gray-500">Kids Name</Text>
-      </View>
+    <TouchableOpacity 
+        style={{backgroundColor: themeColors.bgColor(1)}} 
+        onPress={navigation.goBack} 
+        className="absolute z-10 rounded-full p-1 shadow top-5 left-2">
+    <Icon.ArrowLeft strokeWidth={3} stroke="white" />
+    </TouchableOpacity>
+    <View>
+        <Text className="text-center font-bold text-xl">Your cart</Text>
+        <Text className="text-center text-gray-500">Kids Name</Text>
+    </View>
       
     </View>
 

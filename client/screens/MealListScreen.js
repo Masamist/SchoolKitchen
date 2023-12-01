@@ -47,8 +47,7 @@ export default function MealListScreen() {
   }
 
   return (
-    <View className="pl-3">
-      {/* <Header /> */}
+    <View style={{ flex: 1 }} className="pl-3">
       <BasketIcon />
       {/* <BagIcon /> */}
       <Categories handleCategoryChange={handleCategoryChange} />
