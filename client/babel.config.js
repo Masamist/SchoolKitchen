@@ -7,6 +7,10 @@ module.exports = function(api) {
       ["module:react-native-dotenv"],
       ["react-native-reanimated/plugin"]
     ],
-    
+    env: {
+      production: {
+        plugins: ['react-native-paper/babel'],
+      }
+    } 
   };
 };
