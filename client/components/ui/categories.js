@@ -16,15 +16,15 @@ export default function Categories({handleCategoryChange}) {
       setCategories(data)
     })
     //setMeals(allMeals)
-  }, [])
+  }, [activeCategory])
 
   const handleOnPress = (id, catName) => {
     handleCategoryChange(id, catName)
-    selectCategory({catId: id})
+    selectCategory(id)
   }
 
   return (
-    <View className="mt-4 mb-5">
+    <View className="mt-3 mb-5">
       <Text className="text-lg pb-2 text-amber-950">Meal Categories</Text>
       <ScrollView
         horizontal

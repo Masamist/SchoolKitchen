@@ -3,7 +3,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { themeColors } from '../theme'
+import { useTheme } from 'react-native-paper'
 
 
 import { useLogin } from '../hooks/useLogin'
@@ -11,8 +11,8 @@ import SocialLogins from '../components/ui/socialLogins'
 //import authenticateSanity from '../authenticateSanity'
 
 export default function LoginScreen() {
-
   const navigation = useNavigation()
+  const theme = useTheme()
   const [email, setEmail] = useState('')
   const [password, setPassword]=useState('')
   const { login, isPending, error } = useLogin()
@@ -65,7 +65,7 @@ export default function LoginScreen() {
               : <>
                 <TouchableOpacity
                   onPress={handleLogin}
-                  style={{backgroundColor: themeColors.bgColor(1)}}
+                  style={{backgroundColor: theme.colors.primary}}
                   className="py-3 rounded-3xl"
                 >
                   <Text className={"text-xl font-bold text-center text-white"}>Login</Text>

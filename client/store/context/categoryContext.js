@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { createContext } from 'react';
+import { createContext, useState, useContext } from 'react'
 
 const CategoryContext = createContext();
 
@@ -19,3 +18,12 @@ export const CategoryProvider = ({ children }) => {
     </CategoryContext.Provider>
   )
 }
+
+export const useCategotyIds = () => {
+  const context = useContext(CategoryContext);
+  if (!context) {
+    throw new Error('useCategory must be used within a MealsProvider')
+  }
+  return context;
+}
+

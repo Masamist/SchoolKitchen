@@ -1,23 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import Navigation from './navigation'
 import { AuthContextProvider } from './store/context/authContext'
-import { CategoryProvider } from './store/context/categoryContext';
+import { MealsContextProvider } from './store/context/mealContext'
+import { CategoryProvider } from './store/context/categoryContext'
+// Redux
 import { store } from './store/redux/store'
-import { Provider } from 'react-redux'
-// import {decode, encode} from 'base-64'
+import { Provider as StoreProvider } from 'react-redux'
+//UI
+import { enGB, registerTranslation } from 'react-native-paper-dates'
+import { theme } from './theme/paperTheme'
+
 
 export default function App() {
-  // This for upload images as assets to sanity
-  // if (!global.btoa) { global.btoa = encode }
-  // if (!global.atob) { global.atob = decode }
+  registerTranslation('en-GB', enGB)
+  
   return (
     <AuthContextProvider>
-      <CategoryProvider>
-        <Provider store={store}>
-          <StatusBar />
-          <Navigation />
-        </Provider>
-      </CategoryProvider>
+      <MealsContextProvider>
+        <CategoryProvider>
+          <StoreProvider store={store}>
+            <PaperProvider theme={theme}>
+              <StatusBar />
+              <Navigation />
+            </PaperProvider>
+          </StoreProvider>
+        </CategoryProvider>
+      </MealsContextProvider>
     </AuthContextProvider>
   );
 }

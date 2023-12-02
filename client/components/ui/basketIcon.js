@@ -16,20 +16,25 @@ export default function BasketIcon() {
   if(!basketItems.length) return null
 
   return (
-    <View className="absolute bottom-5 w-full z-50">
+    <View className="absolute bottom-2 w-full z-50">
         <TouchableOpacity 
           style={{backgroundColor: "#A8BC3A"}}
           // style={{backgroundColor: themeColors.bgColor(1)}}
-          onPress={()=> navigation.navigate('ShoppingBag')} 
-          className="flex-row justify-between items-center mx-5 rounded-full p-2 py-2 shadow-lg">
-            <View className="px-2 rounded-full">
-              <Text className="font-extrabold text-white text-lg">{basketItems.length}</Text>
+          onPress={()=> navigation.navigate('ShoppingBasket')} 
+          className="flex-row justify-between items-center ml-2 rounded-full p-1 shadow-lg border-4 border-white">
+            <View className="relative">
+            <ShoppingBag width={35} height={35} stroke="#FFFFFF" className="ml-3" />
+            <View className="bg-orange-300 rounded-full w-7 h-7 top-4 left-8 absolute">
+              <Text className="font-extrabold text-yellow-800 text-base text-center justify-center">{basketItems.length}</Text>
             </View>
-            <ShoppingBag width={35} height={35} stroke="#FFFFFF" />
-            <Text className="flex-1 text-center font-semibold text-white text-xl">Go to Shopping Bag</Text>
+              
+            </View>
             
-            <View className="p-3 rounded-full bg-orange-200">
-              <Text className="font-bold text-yellow-800 text-lg">{basketTotal}</Text>
+            
+            <Text className="flex-1 text-center font-semibold text-white text-xl pl-3">Go to Shopping Bag</Text>
+            
+            <View className="m-1 p-2 rounded-full bg-orange-200">
+              <Text className="font-semibold text-yellow-800 text-base">$ {basketTotal}</Text>
             </View>
         
         </TouchableOpacity>

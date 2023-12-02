@@ -1,34 +1,37 @@
-import { View, Text, Pressable } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { View, Button, Pressable } from 'react-native'
+
+// Icons
 import { ShoppingBag } from "react-native-feather"
 import { Heart } from "react-native-feather"
 import { Menu } from "react-native-feather"
-import LogoutIcon from "./logoutIcon"
+import LogoutIcon from "./icons/logoutIcon"
 
-// ServerSide
-import { FIREBASE_AUTH } from '../../firebaseConfig'
+export default function Header({navigation, title, onPressShopping, onPressFavorite}) {
+  const iconSize = 27
+  const stroke='#777777'
+  const iconFill = '#ffffff'
+  return {
+    headerTitle: title,
+    headerRight: () => {
+      return (
+        <View className="flex-row mr-4">
+          {/* <View>
+            <LogoutIcon />
+          </View> */}
 
-export default function Header() {
-  const navigation = useNavigation()
-  return (
-    <View className="flex-row-reverse space-x-5 rounded-3xl mt-1 mb-5 mx-5">
-      <Pressable onPress={()=> navigation.navigate('Dashboard')}>
-        <Menu width={30} height={30} stroke="#777777" color="#ffffff" />
-      </Pressable>
-      <LogoutIcon />
-      
-      <Pressable onPress={()=> navigation.navigate('Home')}>
-        <ShoppingBag width={30} height={30} stroke="#777777" fill="#ffffff" />
-      </Pressable>
+          <Pressable onPress={()=> navigation.navigate('Favorite')} className="px-6">
+            <Heart width={iconSize} height={iconSize} stroke={stroke} color={iconFill} />
+          </Pressable>
 
-      <Pressable onPress={()=> navigation.navigate('Favorite')}>
-        <Heart width={30} height={30} stroke="#777777" color="#ffffff" />
-      </Pressable>
+          <Pressable onPress={()=> navigation.navigate('ShoppingBasket')}>
+            <ShoppingBag width={iconSize} height={iconSize} stroke={stroke} fill={iconFill} />
+          </Pressable>
 
-      <Pressable onPress={()=> navigation.navigate('Dashboard')}>
-        <Text className="font-semibold text-yellow-500">  / Food Provider Page /</Text>
-      </Pressable>
-    
-    </View>
-  )
+          {/* <Pressable onPress={()=> navigation.openDrawer()}>
+            <Menu width={iconSize} height={iconSize} stroke={stroke} fill={iconFill} />
+          </Pressable>    */}
+        </View>
+      )
+    }
+  }
 }

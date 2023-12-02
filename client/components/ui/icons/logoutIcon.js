@@ -1,5 +1,5 @@
 import { Pressable } from 'react-native'
-import { useLogout } from '../../hooks/useLogout'
+import { useLogout } from '../../../hooks/useLogout'
 import { MaterialIcons } from '@expo/vector-icons'
 
 export default function logoutIcon() {
