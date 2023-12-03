@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
-import NoImage from './ui/noImage'
+import { Text, View, Image, TouchableOpacity } from 'react-native'
+// Component
 import BasketIcon from './ui/basketIcon'
-
+import { AntDesign } from '@expo/vector-icons'
+import NoImage from './ui/noImage'
+import { useTheme } from 'react-native-paper'
 // ServerSide
 import { urlFor } from '../sanity';
 
 export default function mealDetailModal({id, title, price, description, allergies, limit, mealimage, category, toggleModal}) {
-
+  const theme = useTheme()
   const imageSize = { width: '100%', height: 300 }
 
   return (
@@ -28,7 +29,7 @@ export default function mealDetailModal({id, title, price, description, allergie
             onPress={toggleModal}
             className="absolute top-6 right-1 p-1 bg-white rounded-full">
               {/* <Icon.ArrowLeft strokeWidth={3} stroke={themeColors.bgColor(1)} /> */}
-            <AntDesign name="close" size={24} color="#715533" />
+            <AntDesign name="close" size={24} color={theme.colors.secondary} />
           </TouchableOpacity>
         </View>
 

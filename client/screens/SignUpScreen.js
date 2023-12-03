@@ -3,15 +3,17 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { themeColors } from '../theme'
+
+// Component
+import { useTheme } from 'react-native-paper'
 import SocialLogins from '../components/ui/socialLogins'
 
 // Auth
 import { useSignup } from '../hooks/useSignup'
 
 export default function SignUpScreen() {
-
   const navigation = useNavigation()
+  const theme = useTheme()
   const [email, setEmail] = useState('')
   const [password, setPassword]=useState('')
   const { signup, isPending, error } = useSignup()
@@ -37,8 +39,6 @@ export default function SignUpScreen() {
         className="flex-1 bg-white px-8 pt-5"
       >
         <Text className="text-xl text-gray-700 pb-3 font-bold text-center">Sign Up</Text>
-
-        
           <View className="form space-y-2">
             <Text className="text-gray-700 ml-4">Email Address</Text>
             <TextInput 
@@ -60,27 +60,25 @@ export default function SignUpScreen() {
             { isPending ? <ActivityIndicator size="large" color="#000ff" /> 
               : <>
                 <TouchableOpacity 
-                  style={{ backgroundColor:'#F2C94C'}}
+                  style={{ backgroundColor: theme.colors.secondary}}
                   className="mt-9 py-3 rounded-3xl"
                   onPress={handleSignUp}
                 >
-                  <Text className="text-xl text-center text-gray-500">Sign Up</Text>
+                  <Text className="text-xl text-center text-gray-800">Sign Up</Text>
                 </TouchableOpacity>   
               </>
              }
             {error && <Text className="text-red">{error}</Text>}
                      
           </View>
-        
-
         <Text className="text-xl text-gray-700 font-bold text-center py-5">Or</Text>
         <SocialLogins />
 
         <View className="flex-row justify-center mt-5 mb-5">
-          <Text className="text-gray-500 font-semibold">Don't have an account?</Text>
+          <Text className="text-gray-500 font-semibold">Already have an account?</Text>
           {/* <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}></TouchableOpacity> */}
           <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
-            <Text className="font-semibold text-yellow-500">Login</Text>
+            <Text className="font-semibold" style={{ color: theme.colors.secondary }}>Login</Text>
           </TouchableOpacity>
         </View> 
         

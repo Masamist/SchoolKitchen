@@ -7,21 +7,21 @@ import { useDispatch, useSelector } from 'react-redux'
 // Components & UI
 import Header from '../components/ui/header'
 import * as Icon from "react-native-feather";
-import { themeColors } from '../theme'
+import { useTheme } from 'react-native-paper'
 import NoImage from '../components/ui/noImage'
 
 // ServerSide
 import { urlFor } from '../sanity'
 
 export default function ShoppingBasket() {
-    const [groupedItems, setGroupedItems] = useState([])
-    const basketItems = useSelector(selectBasketItems)
-    const basketTotal = useSelector(selectBasketTotal)
-    const imageSize = 10
+  const theme = useTheme()
+  const navigation = useNavigation()
+  const [groupedItems, setGroupedItems] = useState([])
+  const basketItems = useSelector(selectBasketItems)
+  const basketTotal = useSelector(selectBasketTotal)
+  const imageSize = 10
 
-    const dispatch = useDispatch()
-    const navigation = useNavigation()
-
+  const dispatch = useDispatch()
     useLayoutEffect(() => {
       navigation.setOptions(Header({ 
         navigation: navigation, 
@@ -49,7 +49,7 @@ export default function ShoppingBasket() {
     {/* top button */}
     <View className="relative py-4 shadow-sm">
       <TouchableOpacity 
-          style={{backgroundColor: themeColors.bgColor(1)}} 
+          style={{backgroundColor: theme.colors.primary}} 
           onPress={navigation.goBack} 
           className="absolute z-10 rounded-full p-1 shadow top-5 left-2">
       <Icon.ArrowLeft strokeWidth={3} stroke="white" />
@@ -72,17 +72,18 @@ export default function ShoppingBasket() {
           Object.entries(groupedItems).map(([key, items])=>{
             return (
               <View key={key} 
-              className="flex-row items-center space-x-3 py-2 bg-white rounded-3xl mb-3 shadow-md">
-                <Text style={{color: themeColors.text}} className="font-bold">{items.length} x </Text>
+                className="flex-row items-center space-x-3 py-2 bg-white rounded-3xl ml-4 mb-3 shadow-md">
+                
                 { items[0]?.mealimage
                 ?<Image source={{ uri: urlFor(items[0]?.mealimage).url() }} style={ imageSize } className="h-14 w-14 rounded-full" />
                 :<NoImage imageStlye={ imageSize } /> }
                 {/* { console.log(items[0]?.mealimage)} */}
                 <Text className="flex-1 font-bold text-gray-700">{items[0]?.title}</Text>
+                <Text style={{color: theme.colors.tertiary}} className="font-bold">{items.length} x </Text>
                 <Text className="font-semibold text-base">${items[0]?.price}</Text>
                 <TouchableOpacity 
                   className="p-1 rounded-full" 
-                  style={{backgroundColor: themeColors.bgColor(1)}} 
+                  style={{backgroundColor: theme.colors.primary}} 
                   onPress={()=> dispatch(removeFromBasket({id: items[0]?.id}))}>
                   <Icon.Minus strokeWidth={2} height={20} width={20} stroke="white" />
                 </TouchableOpacity>
@@ -92,13 +93,14 @@ export default function ShoppingBasket() {
         }
       </ScrollView>
    {/* totals */}
-    <View style={{backgroundColor: themeColors.bgColor(0.2)}} className=" p-6 px-8 rounded-t-3xl space-y-4">
+    <View style={{backgroundColor: theme.colors.primaryContainer}} className=" p-6 px-8 rounded-t-3xl space-y-4">
           <View className="flex-row justify-between">
               <Text className="text-gray-700">Subtotal</Text>
-              <Text className="text-gray-700">${basketTotal}</Text>
+              <Text className="text-gray-700">${(basketTotal/1.15).toFixed(2)}</Text>
           </View>
           <View className="flex-row justify-between">
-              <Text className="text-gray-700">Tax</Text>
+              <Text className="text-gray-700">GST</Text>
+              <Text className="text-gray-700">${(basketTotal-(basketTotal/1.15)).toFixed(2)}</Text>
               {/* <Text className="text-gray-700">${deliveryFee}</Text> */}
           </View>
           <View className="flex-row justify-between">
@@ -107,7 +109,7 @@ export default function ShoppingBasket() {
           </View>
           <View>
               <TouchableOpacity 
-              style={{backgroundColor: themeColors.bgColor(1)}} 
+              style={{backgroundColor: theme.colors.primary}} 
               onPress={()=> navigation.navigate('PreparingOrder')} 
               className="p-3 rounded-full">
                   <Text className="text-white text-center font-bold text-lg">Place Order</Text>

@@ -3,12 +3,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+// Component & UI
 import { useTheme } from 'react-native-paper'
-
-
-import { useLogin } from '../hooks/useLogin'
 import SocialLogins from '../components/ui/socialLogins'
-//import authenticateSanity from '../authenticateSanity'
+// Auth
+import { useLogin } from '../hooks/useLogin'
 
 export default function LoginScreen() {
   const navigation = useNavigation()
@@ -38,8 +37,6 @@ export default function LoginScreen() {
         className="flex-1 bg-white px-8 pt-5"
       >
         <Text className="text-xl text-gray-700 pb-3 font-bold text-center">Login</Text>
-
-        
           <View className="form space-y-2">
             <Text className="text-gray-700 ml-4">Email Address</Text>
             <TextInput 
@@ -82,10 +79,10 @@ export default function LoginScreen() {
         
 
         <View className="flex-row justify-center mt-5 mb-5">
-          <Text className="text-gray-500 font-semibold">Already have an account?</Text>
+          <Text className="text-gray-500 font-semibold">Don't have an account?</Text>
           {/* <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}></TouchableOpacity> */}
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text className="font-semibold text-yellow-500"> Sign Up</Text>
+            <Text className="font-semibold"style={{ color: theme.colors.secondary }}> Sign Up</Text>
           </TouchableOpacity>
         </View> 
         

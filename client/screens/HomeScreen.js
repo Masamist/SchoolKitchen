@@ -54,7 +54,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} className="pl-3"> 
+    <ScrollView showsVerticalScrollIndicator={false} className="px-3"> 
       {/* <Header /> */}
 
       {/* Shopping Basket */}

@@ -1,11 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 
-export default function SelectDayBtn({ link, title, color }) {
+export default function SelectDayBtn({ link, title, color, onPress }) {
   
   return (
     <View className="flex-row justify-between pt-2 pr-3 pb-7">
-      <TouchableOpacity onPress={null}>
+      <TouchableOpacity onPress={onPress}>
         <Shadow distance={5} startColor={'#ebebeb'} offset={[2, 5]}>
           <View className="flex items-center py-4" style={[{ width: 120, borderRadius: 10}, color]} >
             <Image source={link} 

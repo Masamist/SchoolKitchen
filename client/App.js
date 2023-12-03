@@ -7,11 +7,12 @@ import { CategoryProvider } from './store/context/categoryContext'
 import { store } from './store/redux/store'
 import { Provider as StoreProvider } from 'react-redux'
 //UI
+import { PaperProvider } from 'react-native-paper'
 import { enGB, registerTranslation } from 'react-native-paper-dates'
 import { theme } from './theme/paperTheme'
 
 
-export default function App() {
+export default function App() {  
   registerTranslation('en-GB', enGB)
   
   return (
