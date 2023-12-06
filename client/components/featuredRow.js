@@ -13,13 +13,13 @@ export default function FeaturedRow({title, meals}) {
 
 const MealsAvailable = ({title, meals}) => {
   return(
-    <View className="py-3">
+    <View className="pl-3">
       <View className="flex-row justify-between w-full">
         <View>
           <Text className="text-lg text-amber-950 pl-1">{title}</Text>
         </View>
         <Pressable>
-          <Text className="text-sm text-amber-500 pr-4">See All</Text>
+          <Text className="text-sm text-amber-500 pr-3">See All</Text>
         </Pressable>
       </View>
 

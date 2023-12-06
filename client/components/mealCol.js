@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, Pressable, Image, Button } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable, Image } from 'react-native'
 import Modal from "react-native-modal"
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavorite, removeFavorite } from '../store/redux/favoriteSlice'
-import { addToBasket, removeFromBasket, selectBasketItemsById } from '../store/redux/basketSlice'
-
 // Components & UI
 import NoImage from './ui/noImage'
 import MealDetailModal from './mealDetailModal'
 import { Minus, Plus } from "react-native-feather"
 import { Shadow } from 'react-native-shadow-2'
 import { themeColors } from '../theme'
-import { AntDesign } from '@expo/vector-icons';
-
+import { AntDesign } from '@expo/vector-icons'
+import { useTheme } from 'react-native-paper'
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { addFavorite, removeFavorite } from '../store/redux/favoriteSlice'
+import { addToBasket, removeFromBasket, selectBasketItemsById } from '../store/redux/basketSlice'
 // ServerSide
 import { urlFor } from '../sanity'
 
@@ -25,11 +23,10 @@ export default function MealCol({ id, title, price, description, allergies, limi
 
   //Redux
   const dispatch = useDispatch()
-
+  const theme = useTheme()
   const mealId = id
   const favoriteMealIds = useSelector((state) => state.favorites.ids)
   const mealFavorite = favoriteMealIds.includes(mealId)
-  // const [mealIsFavorite, setMealIsFavorite] = useState()
 
   const changeFavoriteStatusHandler = () => {
     if(mealFavorite) {
@@ -43,10 +40,6 @@ export default function MealCol({ id, title, price, description, allergies, limi
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   }
-
-  // Shopping Bag
-  ///////Check inside the bag
- // console.log(bagItems)
 
   const basketItems = useSelector(state=> selectBasketItemsById(state, id));
   //const [bagItems, setBagItems] = useState([])
@@ -98,7 +91,7 @@ export default function MealCol({ id, title, price, description, allergies, limi
         </View>        
 
   
-        <View className="pl-5" style={{ flexShrink: 1 }}>
+        <View className="pl-4" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
 
@@ -113,7 +106,7 @@ export default function MealCol({ id, title, price, description, allergies, limi
               <Text className="text-lg text-gray-700 pt-1">$ {price}</Text>
             </View>        
             <Pressable onPress={changeFavoriteStatusHandler}>
-              <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color="orange" />
+              <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color={theme.colors.secondary} />
             </Pressable>
           </View>
 
@@ -121,7 +114,8 @@ export default function MealCol({ id, title, price, description, allergies, limi
             <TouchableOpacity 
               onPress={handleDecrease} 
               disabled={!basketItems.length} 
-              className="p-1 rounded-full bg-orange-300" 
+              className="p-1 rounded-full" 
+              style={{ backgroundColor: theme.colors.secondary}}
               //style={{backgroundColor: themeColors.bgColor(1)}}
               >
               <Minus strokeWidth={2} height={20} width={20} stroke="white" />
@@ -132,7 +126,7 @@ export default function MealCol({ id, title, price, description, allergies, limi
             <TouchableOpacity 
               onPress={handleIncrease} 
               className="p-1 rounded-full" 
-              style={{backgroundColor: themeColors.bgColor(1)}}
+              style={{backgroundColor:theme.colors.primary}}
               >
               <Plus strokeWidth={2} height={20} width={20} stroke="white" />
             </TouchableOpacity>
@@ -152,7 +146,7 @@ const seperatorStyles = {
   width: '100%',
   backgroundColor: '#A8BC3A',
   marginTop: 30,
-  marginBottom: 50,
+  marginBottom: 45,
 }
 
 const Separator = () => <View style={seperatorStyles} />

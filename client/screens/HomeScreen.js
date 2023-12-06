@@ -8,7 +8,7 @@ import CategoryContext from '../store/context/categoryContext'
 import Header from '../components/ui/header'
 import BasketIcon from '../components/ui/basketIcon'
 import Categories from '../components/ui/categories'
-import SelectDays from '../components/selectDays'
+import SelectDaysBtnRow from '../components/selectDaysBtnRow'
 import FeaturedRow from '../components/featuredRow'
 
 // ServerSide
@@ -54,32 +54,32 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} className="pl-3"> 
-      {/* <Header /> */}
-
+    <View style={{ flex: 1 }}>
       {/* Shopping Basket */}
       <BasketIcon />
 
-      {/* Selecting Dates */}
-      <SelectDays />
+      <ScrollView showsVerticalScrollIndicator={false}> 
+        {/* Selecting Dates */}
+        <SelectDaysBtnRow />
 
-      <Categories handleCategoryChange={handleCategoryChange} />
+        <Categories handleCategoryChange={handleCategoryChange} />
 
-      {/* featured Meal List*/}
-      <View className="mt-5">
-        <FeaturedRow
-          title="New Meals"
-          meals={newMeals}
-        />
-        <FeaturedRow
-          title="Popular Meals"
-          meals={newMeals}
-        />
-        <FeaturedRow
-          title="Your Favorites"
-          meals={newMeals}
-        />
-      </View>
-    </ScrollView>  
+        {/* featured Meal List*/}
+        <View className="mt-5">
+          <FeaturedRow
+            title="New Meals"
+            meals={newMeals}
+          />
+          <FeaturedRow
+            title="Popular Meals"
+            meals={newMeals}
+          />
+          <FeaturedRow
+            title="Your Favorites"
+            meals={newMeals}
+          />
+        </View>
+      </ScrollView>
+    </View>
   )
 }

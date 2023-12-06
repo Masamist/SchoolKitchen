@@ -9,7 +9,7 @@ import MealDetailModal from '../mealDetailModal'
 import { urlFor } from '../../sanity'
 
 export default function MealCard({ id, title, price, description, allergies, limit, mealimage }) {
-  const imageSize = { width: 180, height: 180 }
+  const imageSize = { width: 150, height: 150 }
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -24,13 +24,16 @@ export default function MealCard({ id, title, price, description, allergies, lim
         <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
         {/* <View style={{shadowColor: themeColors.bgColor(0.2), shadowRadius: 7}} className="mr-6 bg-white rounded-3xl shadow-lg"> */}
           {
-            mealimage ? <Image style={ imageSize }  className="rounded-md" source={{ uri: urlFor(mealimage).url()}} />
+            mealimage? 
+              <Image style={ imageSize }  
+                className="rounded-md" 
+                source={{ uri: urlFor(mealimage).url()}} />
               : <NoImage imageStlye={ imageSize } />
           }
           </Shadow> 
           <View className="pt-1 pb-4">
-            <Text className="text-lg pt-1 text-amber-950">{title}</Text>
-            <Text className="text-gray-500 font-semibold text-lg">$ {price}</Text>
+            <Text className="text-base text-amber-950">{title}</Text>
+            <Text className="text-gray-500 font-semibold text-base">$ {price}</Text>
           </View>
         </View>
         

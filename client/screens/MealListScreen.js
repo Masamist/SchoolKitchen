@@ -37,9 +37,9 @@ export default function MealListScreen() {
     }
   }, [activeCategory])
 
-  const handleCategoryChange = (id, catName) => {
+  const handleCategoryChange = (catId, catName) => {
     navigation.navigate('MealList', {
-      selectedCategoryId: id,
+      selectedCategoryId: catId,
       selectedCategoryName: catName,
     })
   }
