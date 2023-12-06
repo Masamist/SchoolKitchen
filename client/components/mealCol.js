@@ -91,7 +91,7 @@ export default function MealCol({ id, title, price, description, allergies, limi
         </View>        
 
   
-        <View className="pl-5" style={{ flexShrink: 1 }}>
+        <View className="pl-4" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
 
@@ -146,7 +146,7 @@ const seperatorStyles = {
   width: '100%',
   backgroundColor: '#A8BC3A',
   marginTop: 30,
-  marginBottom: 50,
+  marginBottom: 45,
 }
 
 const Separator = () => <View style={seperatorStyles} />

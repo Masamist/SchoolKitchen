@@ -15,9 +15,9 @@ export default function DateSelected({date}, onPress) {
       style={{ borderColor: theme.colors.tertiary }}>
       <Image 
         source={require('../../assets/images/singleDayIcon.png')} 
-        style={{width: 53, height: 53, resizeMode: 'stretch'}} />
+        style={{width: 50, height: 50, resizeMode: 'stretch'}} />
         <View className="border-b mr-3">
-          <Text className="text-lg text-amber-950">Date: {selectedDate}</Text>
+          <Text className="text-base text-amber-950">Date: {selectedDate}</Text>
         </View>
         <View className="absolute top-1 right-1">
           <Pressable onPress={onPress}>

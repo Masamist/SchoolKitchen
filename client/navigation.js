@@ -94,9 +94,9 @@ function ParentRoot() {
         }}
       />       
       {/* <Drawer.Screen name="Register" options={{ title: "Register Form" }} component={RegisterScreen} initialParams={ user } />   */}
-      <Drawer.Screen name="Food Provider Dashboard" component={FoodProviderRoot} 
+      <Drawer.Screen name="Food Provider" component={FoodProviderRoot} 
         options={{
-          title: "Food Provider",
+          title: "Dashboard",
           drawerIcon: ({color, size}) =>  <AntDesign name="setting" size={size} color={color} />
         }}
        />
@@ -126,7 +126,7 @@ function ParentNavigator(){
 function FoodProviderRoot(){
   return (
     <FpStack.Navigator>
-      <FpStack.Screen name="Dashboard" options={{ title: "Dashboard" }} component={DashboardScreen} />
+      <FpStack.Screen name="Dashboard" options={{ title: "Dashboard", headerShown:false }} component={DashboardScreen} />
       <FpStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
       <FpStack.Screen name="CreateMeal" options={{ title: "Create Meal Form" }} component={CreateMealScreen} />
       <FpStack.Screen name="UpdateMeal" options={{ title: "Update Meal Form" }} component={UpdateMealScreen} />

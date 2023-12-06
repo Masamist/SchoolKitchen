@@ -14,9 +14,6 @@ export default function DashboardScreen() {
     <SafeAreaView className="bg-white" >
       <StatusBar barStyle="dark-content" />
       <View>
-      <Pressable onPress={()=> FIREBASE_AUTH.signOut()}>
-        <Text className="font-semibold text-yellow-500"> Sign Out</Text>
-      </Pressable>
       <Text>Schedule Here</Text>
 
       <Pressable onPress={() => navigation.navigate('MenuList')}>
