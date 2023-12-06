@@ -1,6 +1,7 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 // Component
 import BasketIcon from './ui/basketIcon'
+import ItemAddSubBtns from './ui/buttons/itemAddSubBtns'
 import { AntDesign } from '@expo/vector-icons'
 import NoImage from './ui/noImage'
 import { useTheme } from 'react-native-paper'
@@ -47,10 +48,14 @@ export default function mealDetailModal({id, title, price, description, allergie
               :<Text className="text-sm text-gray-700 ">"None"</Text> }
               
               <Text className="text-2xl text-gray-700 pt-5">${price}</Text>
-              <TouchableOpacity className="py-4">
-                <Text className="text-xl text-gray-500 text-center">Continue Ordering</Text>
-              </TouchableOpacity>
+
+              <ItemAddSubBtns id={id} title={title} price={price} mealimage={mealimage} />
             </View>
+
+            <TouchableOpacity className="pt-5" onPress={toggleModal}>
+              <Text className="text-lg text-gray-500 text-center">Continue Ordering</Text>
+            </TouchableOpacity>
+
           </View>
         </View>
       </View>

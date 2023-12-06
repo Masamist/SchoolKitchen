@@ -13,21 +13,22 @@ import MealCol from '../components/mealCol'
 export default function MealListScreen() {
   const navigation = useNavigation()
   const [selectedMeals, setSelectedMeals] = useState([])
-  const { activeCategory } = useContext(CategoryContext)
+  const { activeCategory, setActiveCategory } = useContext(CategoryContext)
   const { meals } = useMeals()
 
-  const { params: { selectedCategoryId }} = useRoute()
+  //const { params: { selectedCategoryId }} = useRoute()
 
+
+  const selectMealsByCategory = async() => {
+    const result = await meals.filter(meal => meal.category._ref == activeCategory)
+    setSelectedMeals(result)
+  }
+  
   useLayoutEffect(() => {
     navigation.setOptions(Header({ 
       navigation: navigation, 
     }))
-  }, [navigation])
-
-  const selectMealsByCategory = async() => {
-    const result = await meals.filter(meal => meal.category._ref == selectedCategoryId)
-    setSelectedMeals(result)
-  }
+  }, [])
 
   useEffect(() => {
     try{
@@ -37,9 +38,9 @@ export default function MealListScreen() {
     }
   }, [activeCategory])
 
-  const handleCategoryChange = (catId, catName) => {
+  const handleCategoryChange = async(catId, catName) => {
+    await setActiveCategory(catId)
     navigation.navigate('MealList', {
-      selectedCategoryId: catId,
       selectedCategoryName: catName,
     })
   }

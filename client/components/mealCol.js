@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Pressable, Image } from 'react-native'
 import Modal from "react-native-modal"
 // Components & UI
 import NoImage from './ui/noImage'
+import ItemAddSubBtns from './ui/buttons/itemAddSubBtns'
 import MealDetailModal from './mealDetailModal'
 import { Minus, Plus } from "react-native-feather"
 import { Shadow } from 'react-native-shadow-2'
@@ -74,28 +75,28 @@ export default function MealCol({ id, title, price, description, allergies, limi
           limit={limit}
           mealimage={mealimage}
           category={category}
-          toggleModal={toggleModal} 
+          toggleModal={toggleModal}
         />
       </Modal>
 
       {/* Meal List */}
       <View className="flex-row mb-3 mr-3">
         <View>
-          <Pressable onPress={toggleModal} >  
+          <Pressable onPress={toggleModal} >
             <Shadow distance={6} startColor={'#ebebeb'} offset={[0, 3]}>
               { mealimage
                 ?<Image source={{ uri: urlFor(mealimage).url() }} style={ imageSize } className="rounded-md" />
                 :<NoImage imageStlye={ imageSize } /> }
             </Shadow>
           </Pressable>
-        </View>        
+        </View>
 
-  
+
         <View className="pl-4" style={{ flexShrink: 1 }}>
           <Pressable onPress={toggleModal}>
             <Text className="text-lg text-amber-950">{title}</Text>
 
-            { description? 
+            { description?
               <Text className="text-gray-700 pt-1">{truncateText(description, 8)}</Text>
               : <Text>No discription</Text>
             }
@@ -104,17 +105,19 @@ export default function MealCol({ id, title, price, description, allergies, limi
           <View className="flex-row items-end">
             <View className="pr-3 pt-1">
               <Text className="text-lg text-gray-700 pt-1">$ {price}</Text>
-            </View>        
+            </View>
             <Pressable onPress={changeFavoriteStatusHandler}>
               <AntDesign name={ mealFavorite? "heart": "hearto"} size={24} color={theme.colors.secondary} />
             </Pressable>
           </View>
 
-          <View className="flex-row justify-end" style={{ width: '100%'}}>
-            <TouchableOpacity 
-              onPress={handleDecrease} 
-              disabled={!basketItems.length} 
-              className="p-1 rounded-full" 
+          <ItemAddSubBtns id={id} title={title} price={price} mealimage={mealimage} />
+
+          {/* <View className="flex-row justify-end" style={{ width: '100%'}}>
+            <TouchableOpacity
+              onPress={handleDecrease}
+              disabled={!basketItems.length}
+              className="p-1 rounded-full"
               style={{ backgroundColor: theme.colors.secondary}}
               //style={{backgroundColor: themeColors.bgColor(1)}}
               >
@@ -123,15 +126,15 @@ export default function MealCol({ id, title, price, description, allergies, limi
             <Text className="px-3 text-lg">
               {basketItems.length}
             </Text>
-            <TouchableOpacity 
-              onPress={handleIncrease} 
-              className="p-1 rounded-full" 
+            <TouchableOpacity
+              onPress={handleIncrease}
+              className="p-1 rounded-full"
               style={{backgroundColor:theme.colors.primary}}
               >
               <Plus strokeWidth={2} height={20} width={20} stroke="white" />
             </TouchableOpacity>
-            
-          </View>
+          </View> */}
+
         </View>
       </View>
       <View className="mr-3">
