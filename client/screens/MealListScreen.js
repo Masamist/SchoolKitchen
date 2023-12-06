@@ -1,6 +1,6 @@
 import { View, FlatList, Text } from 'react-native'
 import { useEffect, useState, useContext, useLayoutEffect } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import CategoryContext from '../store/context/categoryContext'
 import { useMeals } from '../store/context/mealContext'
 // Components
@@ -15,9 +15,6 @@ export default function MealListScreen() {
   const [selectedMeals, setSelectedMeals] = useState([])
   const { activeCategory, setActiveCategory } = useContext(CategoryContext)
   const { meals } = useMeals()
-
-  //const { params: { selectedCategoryId }} = useRoute()
-
 
   const selectMealsByCategory = async() => {
     const result = await meals.filter(meal => meal.category._ref == activeCategory)
@@ -46,7 +43,7 @@ export default function MealListScreen() {
   }
 
   return (
-    <View style={{ flex: 1 }} className="pl-3">
+    <View style={{ flex: 1 }} className="pt-3 pl-1">
       <BasketIcon />
       {/* <BagIcon /> */}
       <Categories handleCategoryChange={handleCategoryChange} />

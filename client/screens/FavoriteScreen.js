@@ -6,55 +6,55 @@ import { useMeals } from '../store/context/mealContext'
 import MealCol from '../components/mealCol'
 // Redux
 import { useSelector } from 'react-redux'
+import { selectFavoriteIds } from '../store/redux/favoriteSlice'
 
 export default function FavoriteScreen() {
   const navigation = useNavigation()
   const { meals } = useMeals()
   const [favoriteMeals, setFavoriteMeals] = useState([])
+  const favoriteMealIds = useSelector(selectFavoriteIds)
 
-  const favoriteMealIds = useSelector((state) => state.favorites.ids)
+  //const favIds = useSelector((state) => state.favorites.ids)
 
-
-  // const fetchFavoriteId = async() => {
-  //   const favMealIds = await useSelector((state) => state.favorites.ids)
-  //   return favMealIds
-  // }
-
-  const selectMealsByFavorite = async(favoriteMealIds) => {
-    const result = await meals.filter(meal => meal._id == favoriteMealIds)
+  const selectMealsByFavorite = () => {
+    //const favoriteMealIds = useSelector((state) => state.favorites.ids)
+    //GetFavIds()
+    const result = meals.filter(obj => favoriteMealIds.includes(obj._id))
     setFavoriteMeals(result)
   }
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('openDrawer', (e) => {
-      // Prevent default behavior
-      e.preventDefault();
+  useEffect(()=> {
+    try{
+      selectMealsByFavorite()
+      // const result = meals.filter(obj => favIds.includes(obj.id))
+      // console.log("result",result)
+      // setFavoriteMeals(result)
+    }catch(err){
+      console.log(err)
+    }
+  }, [favoriteMealIds])
   
-      try{
-        const favoriteMealIds = useSelector((state) => state.favorites.ids)
-        selectMealsByFavorite(favoriteMealIds)
-      }catch(error){
-        console.log(error)
-      }
-      // ...
-    });
+
   
-    return unsubscribe;
-  }, [navigation, selectMealsByFavorite]);
 
   // useEffect(() => {
-  //   try{
-  //     selectMealsByFavorite(favoriteMealIds)
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }, [favoriteMealIds])
-
-  console.log(favoriteMeals)
+  //   const unsubscribe = navigation.addListener('state', () => {
+  //     // Prevent default behavior
+  
+  //     try{
+  //       selectMealsByFavorite()
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //     // ...
+  //   });
+  
+  //   return unsubscribe;
+  // }, [navigation, selectMealsByFavorite]);
 
   //////////////////////////////////////////Error///////////////////////////////
   return (
-    <View className="pl-3">
+    <View className="pl-1 pt-5">
       { favoriteMeals.length ? (
           <FlatList 
             data={favoriteMeals}
