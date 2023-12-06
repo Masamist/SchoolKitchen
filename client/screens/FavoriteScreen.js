@@ -11,8 +11,10 @@ import { selectFavoriteIds } from '../store/redux/favoriteSlice'
 export default function FavoriteScreen() {
   const navigation = useNavigation()
   const { meals } = useMeals()
+  //const [favoriteMeals, setFavoriteMeals] = useState([])
   const [favoriteMeals, setFavoriteMeals] = useState([])
   const favoriteMealIds = useSelector(selectFavoriteIds)
+  
 
   //const favIds = useSelector((state) => state.favorites.ids)
 
