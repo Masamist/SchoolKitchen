@@ -16,18 +16,17 @@ import { getNewMeals } from '../api/mealApi'
 
 export default function HomeScreen() {
   const navigation = useNavigation()
-  const { selectCategory } = useContext(CategoryContext)
+  const { setActiveCategory } = useContext(CategoryContext)
   const [newMeals, setNewMeals] = useState([])
-
-  // Reset category context in redux
-  selectCategory(null)
 
   useLayoutEffect(() => {
     navigation.setOptions(Header({ 
       navigation: navigation, 
       title: 'Home'
     }))
-  }, [navigation])
+    // Reset category context in redux
+    setActiveCategory(null)
+  }, [])
 
   useEffect(() => {
     try{
@@ -46,10 +45,10 @@ export default function HomeScreen() {
   // const favoriteMeals = allMeals.filter(meal => meal.id == favoriteMealIds)
   //const favoriteMeals = allMeals.slice(0, 3)
 
-  const handleCategoryChange = (id, catName) => {
+  const handleCategoryChange = (catId, catName) => {
+    setActiveCategory(catId)
     navigation.navigate('MealList', {
-      selectedCategoryId: id,
-      selectedCategoryName: catName,
+      selectedCategoryName: catName
     })  
   }
 

@@ -8,23 +8,24 @@ import { getCategories } from '../../api/mealApi'
 import { urlFor } from '../../sanity'
 
 export default function Categories({handleCategoryChange}) {
-  const { activeCategory, selectCategory } = useContext(CategoryContext)
+  const { activeCategory } = useContext(CategoryContext)
   const [categories, setCategories] = useState([])
+  console.log("______________")
+  console.log("activeCategory", activeCategory)
 
   useEffect(() => {
     getCategories().then(data => {
       setCategories(data)
     })
-    //setMeals(allMeals)
-  }, [activeCategory])
+  }, [])
 
-  const handleOnPress = (id, catName) => {
-    handleCategoryChange(id, catName)
-    selectCategory(id)
+  const handleOnPress = (catId, catName) => {
+    //setActiveCategory(catId)
+    handleCategoryChange(catId, catName)
   }
 
   return (
-    <View className="mb-4 ml-3">
+    <View className="mb-11 ml-3">
       <Text className="text-lg pb-1 text-amber-950">Meal Categories</Text>
       <ScrollView
         horizontal
@@ -49,7 +50,6 @@ export default function Categories({handleCategoryChange}) {
                 </Shadow>
                   <Text className={"pt-2 text-center text-xs"+ textClass}>{category.name}</Text>
                 </Pressable>
-                
               </View> 
             )
           })
