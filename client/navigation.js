@@ -50,9 +50,8 @@ function CustomDrawerContent(props) {
       <DrawerItem 
         label="Logout" 
         onPress={logout} 
-
-        icon={({size, color}) => (
-        <MaterialIcons name="logout" size={size} color={color} />
+        icon={({color,size}) => (
+        <MaterialIcons name="logout" color={color} size={size} />
         )}
          />
     </DrawerContentScrollView>
@@ -78,8 +77,9 @@ function ParentRoot() {
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} options={{
-        drawerIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />
+      <Drawer.Screen name="Home" component={HomeScreen} 
+        options={{
+          drawerIcon: ({color, size}) => <Entypo name="home" size={size} color={color} />
       }} />
       <Drawer.Screen name="Favorite" component={FavoriteScreen} 
         options={{ 
@@ -127,7 +127,14 @@ function FoodProviderRoot(){
   return (
     <FpStack.Navigator>
       <FpStack.Screen name="Dashboard" options={{ title: "Dashboard", headerShown:false }} component={DashboardScreen} />
-      <FpStack.Screen name="MenuList" options={{ title: "Categorized Menu" }}  component={MenuListScreen} />
+      <FpStack.Screen 
+        name="MenuList"
+        options={[{ headerShown:false }, ({ route }) => {
+          const catName = route.params.selectedCategoryName? route.params.selectedCategoryName : "All Meal"
+            return { title: catName + " List" }
+         
+          }]} 
+        component={MenuListScreen} />
       <FpStack.Screen name="CreateMeal" options={{ title: "Create Meal Form" }} component={CreateMealScreen} />
       <FpStack.Screen name="UpdateMeal" options={{ title: "Update Meal Form" }} component={UpdateMealScreen} />
    </FpStack.Navigator>

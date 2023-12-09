@@ -1,38 +1,63 @@
 import { ScrollView, View, Pressable, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import CategoryContext from '../../store/context/categoryContext'
+import { useMeals } from '../../store/context/mealContext'
 
 // Components & UI
+import Header from '../../components/ui/header'
 import Categories from '../../components/ui/categories'
 import FpMealCard from '../../components/FoodProvider/fpMealCard'
 import { AntDesign } from '@expo/vector-icons'
 
-
-// ServerSide
-import { getAllMeals } from '../../api/mealApi'
+// // ServerSide
+// import { getAllMeals } from '../../api/mealApi'
 
 export default function MealListScreen() {
   const navigation = useNavigation()
+  const { activeCategory, setActiveCategory } = useContext(CategoryContext)
+  const { meals } = useMeals()
+  const [selectedMeals, setSelectedMeals] = useState([])
 
-  const [allMeals, setAllMeals ] = useState([])
+  // const [allMeals, setAllMeals ] = useState([])
+
   useEffect(() => {
-    getAllMeals().then(data => {
-      setAllMeals(data)
-    })
+    setSelectedMeals(meals)
   }, [])
 
-  return (
-    <ScrollView >
-      <View className="pl-3 mt-5">
-        {/* categories */}
-        <Categories allMeals={allMeals} />
+  ////////////////////////////////////////////////Error////////////////
+  // useMemo(() => {
+  //   const result = meals.filter(meal => meal.category._ref == activeCategory)
+  //   setSelectedMeals(result)
+  // }, [activeCategory])
 
-        <View className="flex-row justify-between w-full mt-8">
+  useLayoutEffect(() => {
+    navigation.setOptions(Header({ 
+      navigation: navigation, 
+      title: 'All Meal List'
+    }))
+    // Reset category context in redux
+    setActiveCategory(null)
+  }, [])
+
+  const handleCategoryChange = (catId, catName) => {
+    setActiveCategory(catId)
+   navigation.navigate('MenuList', {
+     selectedCategoryName: catName,
+   })
+ }
+
+  return (
+    <View style={{ flex: 1 }} className="pt-1">
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Categories handleCategoryChange={handleCategoryChange} />
+
+        <View className="flex-row justify-between w-full mt-4 pl-3">
           <View>
-            <Text className="text-lg text-amber-950 pl-1">All Meals</Text>
+            <Text className="text-lg text-amber-950">All Meals</Text>
           </View>
 
-          <View className="flex-row justify-center pr-5">
+          <View className="flex-row justify-center pr-3">
             <Text className="text-amber-950 pr-2 pt-2">Add Meal</Text>
             <TouchableOpacity 
               onPress={() => navigation.navigate('CreateMeal')}
@@ -43,9 +68,9 @@ export default function MealListScreen() {
           </View>
         </View>
 
-        <View className="pt-3">
+        <View className="pt-3 pl-3">
           {
-            allMeals?.map(meal=>{
+            selectedMeals?.map(meal=>{
               return (
                 <FpMealCard 
                   key={meal._id}
@@ -62,7 +87,7 @@ export default function MealListScreen() {
             })
           }
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   )
 }

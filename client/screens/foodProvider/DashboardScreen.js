@@ -1,25 +1,38 @@
 import { View, Text, Pressable, SafeAreaView, StatusBar } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import CategoryContext from '../../store/context/categoryContext'
+import { useTheme } from 'react-native-paper'
 
-// ServerSide
-import { FIREBASE_AUTH } from '../../firebaseConfig'
-import { useLogout } from '../../hooks/useLogout'
 
 export default function DashboardScreen() {
   const navigation = useNavigation()
-  const { logout, isPending } = useLogout()
+  const theme = useTheme()
+  const { setActiveCategory } = useContext(CategoryContext)
+
+  const handleScreenChange = () => {
+    navigation.navigate('MenuList', {
+      selectedCategoryName: "All Meal List"
+    })  
+  }
+
+  useEffect(() => {
+    setActiveCategory(undefined)
+  })
+
 
   return (
-    <SafeAreaView className="bg-white" >
-      <StatusBar barStyle="dark-content" />
-      <View>
-      <Text>Schedule Here</Text>
+    <SafeAreaView>
+      <View className="flex items-center justify-center">
+        <Text className="text-lg pb-5">Order List with Calender Here</Text>
 
-      <Pressable onPress={() => navigation.navigate('MenuList')}>
-        <Text className="font-semibold text-yellow-400">Meal Data</Text>
-      </Pressable>
-    </View>
-  </SafeAreaView>
+        <Pressable
+          style={{ backgroundColor: theme.colors.secondary}}
+          className="px-5 py-2 rounded-full"
+          onPress={() => handleScreenChange()}>
+          <Text className="font-semibold text-white">Meal List</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   )
 }

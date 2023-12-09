@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useLayoutEffect } from 'react'
 import { View, FlatList, Text } from 'react-native'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useMeals } from '../store/context/mealContext'
 // Component
+import Header from '../components/ui/header'
 import MealCol from '../components/mealCol'
 // Redux
 import { useSelector } from 'react-redux'
@@ -11,52 +12,22 @@ import { selectFavoriteIds } from '../store/redux/favoriteSlice'
 export default function FavoriteScreen() {
   const navigation = useNavigation()
   const { meals } = useMeals()
-  //const [favoriteMeals, setFavoriteMeals] = useState([])
-  const [favoriteMeals, setFavoriteMeals] = useState([])
   const favoriteMealIds = useSelector(selectFavoriteIds)
-  
+  const [favoriteMeals, setFavoriteMeals] = useState([])
 
-  //const favIds = useSelector((state) => state.favorites.ids)
-
-  const selectMealsByFavorite = () => {
-    //const favoriteMealIds = useSelector((state) => state.favorites.ids)
-    //GetFavIds()
+  useEffect(() => {
     const result = meals.filter(obj => favoriteMealIds.includes(obj._id))
     setFavoriteMeals(result)
-  }
-
-  useEffect(()=> {
-    try{
-      selectMealsByFavorite()
-      // const result = meals.filter(obj => favIds.includes(obj.id))
-      // console.log("result",result)
-      // setFavoriteMeals(result)
-    }catch(err){
-      console.log(err)
-    }
   }, [favoriteMealIds])
-  
 
-  
+  useLayoutEffect(() => {
+    navigation.setOptions(Header({ 
+      navigation: navigation, 
+    }))
+  }, [])
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('state', () => {
-  //     // Prevent default behavior
-  
-  //     try{
-  //       selectMealsByFavorite()
-  //     }catch(error){
-  //       console.log(error)
-  //     }
-  //     // ...
-  //   });
-  
-  //   return unsubscribe;
-  // }, [navigation, selectMealsByFavorite]);
-
-  //////////////////////////////////////////Error///////////////////////////////
   return (
-    <View className="pl-1 pt-5">
+    <View className="pl-3 pt-5">
       { favoriteMeals.length ? (
           <FlatList 
             data={favoriteMeals}

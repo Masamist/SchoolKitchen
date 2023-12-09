@@ -3,6 +3,7 @@ import Navigation from './navigation'
 import { AuthContextProvider } from './store/context/authContext'
 import { MealsContextProvider } from './store/context/mealContext'
 import { CategoryProvider } from './store/context/categoryContext'
+import { DateProvider } from './store/context/dateContext'
 // Redux
 import { store } from './store/redux/store'
 import { Provider as StoreProvider } from 'react-redux'
@@ -19,12 +20,14 @@ export default function App() {
     <AuthContextProvider>
       <MealsContextProvider>
         <CategoryProvider>
-          <StoreProvider store={store}>
-            <PaperProvider theme={theme}>
-              <StatusBar />
-              <Navigation />
-            </PaperProvider>
-          </StoreProvider>
+          <DateProvider>
+            <StoreProvider store={store}>
+              <PaperProvider theme={theme}>
+                <StatusBar />
+                <Navigation />
+              </PaperProvider>
+            </StoreProvider>
+          </DateProvider>
         </CategoryProvider>
       </MealsContextProvider>
     </AuthContextProvider>

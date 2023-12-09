@@ -11,6 +11,7 @@ import { Shadow } from 'react-native-shadow-2'
 export default function BasketIcon() {
   const basketItems = useSelector(selectBasketItems)
   const basketTotal = useSelector(selectBasketTotal)
+  
   const navigation = useNavigation()
     
   if(!basketItems.length) return null

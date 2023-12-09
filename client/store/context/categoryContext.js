@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState } from 'react'
 
 const CategoryContext = createContext();
 export default CategoryContext 
@@ -7,22 +7,9 @@ export default CategoryContext
 export const CategoryProvider = ({ children }) => {
   const [activeCategory, setActiveCategory] = useState(null);
 
-  // const selectCategory = (catId) => {
-  //   setActiveCategory(catId);
-  // }
-
   return (
     <CategoryContext.Provider value={{ activeCategory, setActiveCategory }}>
       {children}
     </CategoryContext.Provider>
   )
 }
-
-// export const useCategotyIds = () => {
-//   const context = useContext(CategoryContext);
-//   if (!context) {
-//     throw new Error('useCategory must be used within a MealsProvider')
-//   }
-//   return context;
-// }
-
