@@ -11,12 +11,10 @@ import { addToBasket, removeFromBasket, selectBasketItemsById } from '../../../s
 export default function ItemAddSubBtns({id, title, price, mealimage}) {
   const dispatch = useDispatch()
   const theme = useTheme()
-
-  const basketItems = useSelector(state=> selectBasketItemsById(state, id));
-  //const [bagItems, setBagItems] = useState([])
+  const basketItems = useSelector(state=> selectBasketItemsById(state, id))
+  
   const handleIncrease = ()=>{
-    dispatch(addToBasket({id, title, price, mealimage}));
-    //setBagItems({id, title, price, mealimage, quantity})
+    dispatch(addToBasket({id, title, price, mealimage}))
   }
   const handleDecrease = ()=>{
     dispatch(removeFromBasket({id}))
@@ -29,7 +27,6 @@ export default function ItemAddSubBtns({id, title, price, mealimage}) {
         disabled={!basketItems.length} 
         className="p-1 rounded-full" 
         style={{ backgroundColor: theme.colors.secondary}}
-        //style={{backgroundColor: themeColors.bgColor(1)}}
         >
         <Minus strokeWidth={2} height={20} width={20} stroke="white" />
       </TouchableOpacity>

@@ -10,8 +10,6 @@ import { urlFor } from '../../sanity'
 export default function Categories({handleCategoryChange}) {
   const { activeCategory } = useContext(CategoryContext)
   const [categories, setCategories] = useState([])
-  console.log("______________")
-  console.log("activeCategory", activeCategory)
 
   useEffect(() => {
     getCategories().then(data => {

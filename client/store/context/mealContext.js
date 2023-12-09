@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect, } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 // ServerSide
 import { getNewMeals, getAllMeals } from '../../api/mealApi'
 

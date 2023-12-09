@@ -1,4 +1,4 @@
-import { View, Button, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 
 // Icons
 import { ShoppingBag } from "react-native-feather"
@@ -6,7 +6,7 @@ import { Heart } from "react-native-feather"
 import { Menu } from "react-native-feather"
 import LogoutIcon from "./icons/logoutIcon"
 
-export default function Header({navigation, title, onPressShopping, onPressFavorite}) {
+export default function Header({navigation, title}) {
   const iconSize = 27
   const stroke='#777777'
   const iconFill ='#ffffff'

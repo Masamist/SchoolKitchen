@@ -40,10 +40,8 @@ export default function HomeScreen() {
   }, [])
 
   //const newMeals = allMeals.reverse().slice(0, 4)
-  //const popularMeals = allMeals.slice(0, 3)
-  // const favoriteMealIds = useSelector((state) => state.favorites.ids)
-  // const favoriteMeals = allMeals.filter(meal => meal.id == favoriteMealIds)
-  //const favoriteMeals = allMeals.slice(0, 3)
+  //const popularMeals = newMeals.sort().reverse()
+  //const favoriteMeals = allMeals.reverse()
 
   const handleCategoryChange = (catId, catName) => {
     setActiveCategory(catId)
